@@ -1,0 +1,19 @@
+#root {
+  flex-direction: column;
+  align-items: center;
+  margin:0;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  position:relative;
+  display:flex;
+  padding:0;
+  display:flex;
+
+
+}
+
+*{
+  box-sizing: border-box; /* Makes sure padding and borders are included in the element's width and height */
+}
+

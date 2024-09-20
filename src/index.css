@@ -1,0 +1,33 @@
+:root {
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --DarkSurface: #111418;
+  --DarkElevation:#15191E;
+  --Light: #DFDAD8;
+  --Gray-3: #828282;
+  --Gray-4: #BDBDBD;
+
+}
+
+html, body {
+  margin:0;
+  background: var(--Dark-Surface, #111418); /*Global background color*/
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif, IBM Plex Sans, IBM Plex Mono;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  align-items: center;
+  padding:0;
+  margin: 0;
+
+}
+
+*{
+  box-sizing: border-box; 
+  /* Makes sure padding and borders are included in the element's width and height */
+}
+
+.div{
+  display:flex;
+}
