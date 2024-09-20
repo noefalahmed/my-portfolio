@@ -1,5 +1,5 @@
 // src/components/Navbar.tsx
-import React, {useState} from 'react';
+import React from 'react';
 import styles from './Navbar.module.css'; // Importing the styles
 import Button from './Button.tsx';
 import { Link, useLocation } from 'react-router-dom'; 
@@ -7,11 +7,11 @@ import { Link, useLocation } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // const toggleMenu = () => {
+  //   setIsMenuOpen(!isMenuOpen);
+  // };
 
   return (
     <div className={styles.navbar}>

@@ -10,6 +10,7 @@ import IconPack from './Views/Projects/IconPack.tsx';
 import DesignThinking from './Views/Projects/DesignThinking.tsx';
 import Guide from './Views/Projects/Guide.tsx';
 import Arine from './Views/Projects/Arine.tsx';
+// import About from './Views/About.tsx';
 
 
 const App: React.FC = () => {
