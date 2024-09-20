@@ -3,7 +3,7 @@ import React from 'react';
 import './Button.module.css'; // CSS for card styling
 import styles from  './Button.module.css';
 import { useState,useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom'; 
+// import { useLocation } from 'react-router-dom'; 
 
 
 
@@ -18,7 +18,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({ label, variant, icon, onClick, style, isActive = false, onlight}) => {
-  const location = useLocation(); // Optionally use this to track route changes if needed
+  // const location = useLocation(); // Optionally use this to track route changes if needed
   const [active, setActive] = useState(isActive);  // Use active instead of isActive to avoid conflicts
 
   const handleClick = () => {
