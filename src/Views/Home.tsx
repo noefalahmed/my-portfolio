@@ -3,7 +3,6 @@
 import React from 'react';
 import styles from './Home.module.css';
 import Card from '../components/Card';
-import images from '/assets/designsystems.png';
 import {Link} from 'react-router-dom';
 import styles2 from '../components/Card.module.css'
 
