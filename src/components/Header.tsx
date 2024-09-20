@@ -18,7 +18,7 @@ interface HeaderProps {
 
 }
 
-const Header: React.FC<HeaderProps> = ({imageUrl, title, subtitle,style, isDark}) => {
+const Header: React.FC<HeaderProps> = ({imageUrl, title, subtitle,style}) => {
 
 
     const navigate = useNavigate();
