@@ -1,0 +1,102 @@
+.contentContainer{
+    display: flex;
+    padding: 0px 182px;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+    min-height: 100vh;
+    justify-content: space-between;
+    height:100%;
+    padding-bottom:680px;
+    max-width:1440px;
+    place-content:center;
+    place-self: center;
+
+  }
+  
+.heroSection{
+    display: flex;
+    width: 100%;
+    padding-top: 110px;
+    padding-bottom: 140px;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+  
+.workSection{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 180px;
+    justify-content:left;
+}
+  
+.subsection{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 56px;
+}
+
+.cardarrangement{
+
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width:100%;
+    gap:24px;
+    row-gap: 64px;
+    justify-content: space-between;
+}
+  
+.preheading{
+    color: #BDBDBD;
+    font-family: "IBM Plex Sans", monospace;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 210%; /* 50.4px */
+    letter-spacing: 1.92px;
+    text-transform: uppercase;
+}
+  
+h1{
+    color: #DFDAD8;
+    text-align: center;
+    font-family: "IBM Plex Sans";
+    font-size: 81.011px;
+    font-style: normal;
+    font-weight: 400;
+}
+  
+.p1{
+    color: --Light;
+    text-align: center;
+    font-family: Inter;
+    font-size: 35.644px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 210%; /* 74.852px */ 
+    opacity:0.75;
+    width: 100%;
+    margin:0;
+    padding:0;
+    max-width:1300px;
+}
+
+@media(max-width: 1200px){
+
+    .contentContainer{
+
+        padding: 0px 64px;
+        padding-bottom:680px;
+
+
+
+    }
+
+}

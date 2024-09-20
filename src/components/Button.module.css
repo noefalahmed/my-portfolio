@@ -1,0 +1,78 @@
+/* src/components/Button.module.css */
+.button{
+    justify-content: center;
+    border: none;
+    padding: 16px 24px;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.2s;
+    border-radius: 100px;
+    display:flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.text-only{
+    background-color: transparent;
+    color: var(--Gray-3);
+}
+
+.icon-only{
+    background-color: transparent;
+    padding:16px;
+    place-content: center;
+}
+
+.icon-and-text{
+    background-color: transparent;
+    gap:16px;
+    align-items: center;
+    place-content: center;
+    color: var(--Gray-3);
+
+}
+  
+.button:hover {
+    color: var(--Gray-4);
+    background-color: #BDBDBD08;
+}
+  
+.button:active{
+    background-color: #BDBDBD10; /* Active color state */
+    color: #ffffff;
+}
+
+.active{
+    background-color: #BDBDBD10; /* Active color state */
+    color: #ffffff;
+    border-radius: 100px;
+}
+
+.text{
+    font-family: 'IBM Plex Sans Condensed';
+    font-size: 20px;
+    font-style:normal;
+    font-weight: 400;
+    line-height: 210%; /* 42px */
+    word-spacing: 4px;
+    letter-spacing: 3.1px;
+    text-transform: uppercase;
+}
+
+
+.icon{
+
+    padding:0px;
+    place-items: center;
+}
+
+.onlight{
+   
+    background-color: var(--DarkSurface);
+    color: var(--Gray-3);
+}
+
+.onlight:hover{
+
+    background-color: black;
+    color: var(--Gray-4);
+}
