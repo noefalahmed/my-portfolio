@@ -47,8 +47,19 @@
     display:none;  
 }
 
+@media (max-width:1200px){
+    .navbar{
+
+        padding: 24px 16px;
+    }
+}
+
+
+
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
+
+
     .rightSection {
       display: none; /* Hide the right section's links */
     }
@@ -85,10 +96,6 @@
         top: 5%; /* Adjust this to your navbar height */
         right:5%;
 
-    }
-    .navbar{
-
-        padding: 48px 16px;
     }
 
 }

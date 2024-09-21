@@ -17,7 +17,10 @@ const Home: React.FC = () => {
   return(
     <div className={styles.contentContainer}>
         <div className={styles.heroSection}>
-            <h1 className={styles.h1}>Product Designer (SaaS/B2B/B2C)</h1>
+            <div className={styles.typewriter}>
+            <h1 className={styles.h1}><span>Product Designer </span>
+            <span>(SaaS/B2B/B2C)</span></h1>
+            </div>
             <p className={styles.p1}>
                 Obsessed with curating experiences that impact people’s lives. Currently spearheading Slewmotion and building Precisely.
             </p>
