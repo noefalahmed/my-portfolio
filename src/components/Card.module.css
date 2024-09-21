@@ -10,8 +10,7 @@
     text-decoration: none;
     opacity:0.98;
     transition: transform 0.2s ease-in-out; /* Add transition for hover effect */
-
-
+    max-width:1440px;
   }
   
   .card-large {
@@ -59,11 +58,8 @@
   .card {
     flex: 1 1 100%;  /* Cards will stack vertically */
   }
-}
-
-/* Media query for small screens */
-@media (min-width: 995px) {
-  .card {
-    flex: 1 1 calc(49% - 24px);  /* Cards take up 50% of the container width */
+  .card-title{
+    padding:16px 0px;
   }
+
 }
