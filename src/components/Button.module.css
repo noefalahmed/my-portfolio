@@ -17,9 +17,13 @@
 }
 
 .icon-only{
-    background-color: transparent;
-    padding:16px;
+    background-color: transparent;  
     place-content: center;
+    height:100%;
+    border-radius: 100%;
+    color: var(--Gray-3);
+
+
 }
 
 .icon-and-text{
@@ -61,8 +65,12 @@
 
 .icon{
 
-    padding:0px;
-    place-items: center;
+ 
+    place-self: center;
+    font-size: 24px;    
+    align-items: center;
+    height:24px;
+    
 }
 
 .onlight{
