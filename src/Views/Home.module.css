@@ -63,6 +63,7 @@
     line-height: 210%; /* 50.4px */
     letter-spacing: 1.2px;
     text-transform: uppercase;
+    opacity:0.75;
 }
   
 /* h1{
