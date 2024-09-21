@@ -16,7 +16,7 @@ const DesignThinking: React.FC = () => {
                 <div className={styles.subsection}>
                     <h1 className={styles.sh1}>The Problem</h1>
                     <p className={styles.p1}>Users use Accounts in Cimpl to manage, track, and dispute bills. These Accounts carry vital information used throughout Cimpl.</p>
-                    <img src="/assets/cimple-1.png" className={`${styles.image} ${styles['image-dynamic']} `} style={{padding:'128px'}}></img>
+                    <img src="/assets/cimple-1.png" className={`${styles.image} ${styles['image-dynamic']} `}></img>
                     <img src="/assets/cimple-2.png" className={`${styles.image} ${styles['image-large']}`}></img>
 
                     <div className={styles.sub1section} style={{alignItems: 'flex-start'}}>

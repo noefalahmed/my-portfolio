@@ -19,7 +19,7 @@
 .icon-only{
     background-color: transparent;  
     place-content: center;
-    height:100%;
+    height:72px;
     border-radius: 100%;
     color: var(--Gray-3);
 

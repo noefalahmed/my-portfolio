@@ -83,10 +83,9 @@
     align-items: flex-start;
     padding: 16px 16px;
     border-radius: 16px;
+    z-index: 1;
 }
-
   /* Add styles for individual dropdown links */
-
 }
 
 @media(max-width: 480px){

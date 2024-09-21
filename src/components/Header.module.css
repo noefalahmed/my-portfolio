@@ -32,8 +32,7 @@
     position:absolute;
     z-index:1;
     top: 45%;
-    /*left: 25%;
-    transform: translate(-25%, -50%); Adjust for true centering */
+    text-align: center;    
     margin:0;
 
     color: #fff;
@@ -97,5 +96,3 @@
     z-index:1;
     position:absolute;
 }
-
-
