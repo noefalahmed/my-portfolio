@@ -82,9 +82,13 @@
 
     .dropdown.show{
 
-        top: 4.5%; /* Adjust this to your navbar height */
-        right:10.5%;
+        top: 5%; /* Adjust this to your navbar height */
+        right:5%;
 
+    }
+    .navbar{
+
+        padding: 48px 16px;
     }
 
 }
