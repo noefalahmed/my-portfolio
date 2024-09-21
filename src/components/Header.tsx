@@ -2,9 +2,9 @@
 import React from 'react';
 import './Header.module.css'; // CSS for Header styling
 import styles from  './Header.module.css';
-import Button from './Button'
-import { MdArrowBackIos } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+// import Button from './Button'
+// import { MdArrowBackIos } from "react-icons/md";
+// import { useNavigate } from 'react-router-dom';
 
 
 interface HeaderProps {
@@ -21,16 +21,16 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({imageUrl, title, subtitle,style}) => {
 
 
-    const navigate = useNavigate();
-    const handleBack = () => {
-        navigate(-1); // Navigate back in the history stack
-    };
+    // const navigate = useNavigate();
+    // const handleBack = () => {
+    //     navigate(-1); // Navigate back in the history stack
+    // };
 
   return (
     <div className={styles.header}>
-        <div className={styles.iconbutton}>
+        {/* <div className={styles.iconbutton}>
             <Button onlight={true} variant="icon-and-text" icon={<MdArrowBackIos />} label='Back' onClick={handleBack} ></Button>
-        </div>
+        </div> */}
         <img src={imageUrl} className={styles.image} />
         <h2 className={styles.subtitle} style={style}>{subtitle} </h2>
         <h1 className={styles.title} style={style}>{title}</h1>

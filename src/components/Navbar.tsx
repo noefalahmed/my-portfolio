@@ -5,6 +5,8 @@ import Button from './Button.tsx';
 import { Link, useLocation } from 'react-router-dom'; 
 // import { ReactComponent as Logo } from '/assets/Logo.svg';
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowLeft } from "react-icons/md";
+
 
 const Navbar: React.FC = () => {
   const location = useLocation();
@@ -18,11 +20,11 @@ const Navbar: React.FC = () => {
     <div className={styles.navbar}>
       <div className={styles.leftSection}>
         <Link to="/" className={styles.navButton}>
-            <Button variant="icon-and-text" 
+            <Button variant={location.pathname==='/' ? "text-only" :"icon-only"}
                 label="Noefal Ahmed" 
                 isActive={location.pathname === '/'} 
-                
-            />
+                icon={location.pathname === '/' ? null : <MdKeyboardArrowLeft />}
+                />
         </Link>
       </div>
       <div className={styles.rightSection}>

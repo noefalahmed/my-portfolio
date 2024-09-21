@@ -45,11 +45,12 @@
 .sub2section{
     display: flex;
     flex-direction: column;
-    width: 100%;
+ 
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
     place-content: center;
+
 }
 .sub3section{
     display: flex;
@@ -76,7 +77,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     width:100%;
-    gap:24px;
     row-gap: 64px;
     justify-content: space-between;
 }
@@ -97,8 +97,8 @@
 
 .image-small{
 
-    height: 460px;
-    width:100%;
+    height: auto;
+    width:49%;
 }
 
 .image-dynamic{
@@ -106,7 +106,8 @@
     background:none;
     height: auto;
     width:100%;
-    opacity:1;
+
+
 }
 
 .sh1{
@@ -154,16 +155,44 @@
     .rowcontent{
 
         flex-direction: column;
+        align-items: flex-start;
+
     }
     .contentcontainer{
 
-        padding: 0px 64px;
-        padding-top:214px;
-
+        padding: 0px 32px;
+        padding-top:72px;
+        gap:72px;
     }
     .image-small{
         height:auto;
-        padding:64px;
-
+        width:100%;
     }
+}
+
+
+@media (max-width:768px){
+
+    .cardarrangement{
+
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    .sub3section{
+
+        width: 100%;
+    }
+}
+
+@media (max-width:480px){
+
+    .p1{
+        font-size:16px;
+    }
+    
+    .image-small{
+        height:auto;
+        padding:0px;
+    }
+
 }

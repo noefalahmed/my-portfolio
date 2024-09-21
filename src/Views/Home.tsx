@@ -37,27 +37,28 @@ const Home: React.FC = () => {
                     </Link>
                     <Link to="arine" className={styles2.card} onClick={scrollToTop}>
                         <Card
-                            title="Usability & Accessibility Study"
+                            title="Design Leadership at Arine"
                             imageUrl="assets/arine.png"
+                            isLarge={true}
+                        />
+                    </Link>
+                      <Link to="design-systems" className={styles2.card} onClick={scrollToTop}>
+
+                        <Card
+                            title="How I Created a Component Library"
+                            imageUrl="assets/designsystems.png"
                             isLarge={true}
                         />
                     </Link>
                     <Link to="icon-pack" className={styles2.card} onClick={scrollToTop}>
 
                         <Card
-                            title="Visual Design at Arine"
+                            title="Designing Icons"
                             imageUrl="assets/iconpackpng.png"
                             isLarge={true}
                         />
                     </Link>
-                    <Link to="design-systems" className={styles2.card} onClick={scrollToTop}>
-
-                        <Card
-                            title="How I Created a Design System"
-                            imageUrl="assets/designsystems.png"
-                            isLarge={true}
-                        />
-                    </Link>
+                  
             </div>
             {/* <div className={styles.subsection}>
                 <h2 className={styles.preheading}>Projects</h2>
