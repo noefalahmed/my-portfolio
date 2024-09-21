@@ -104,22 +104,24 @@ h1{
 
         padding: 0px 24px;
         padding-bottom:550px;
+        gap:24px;
     }
     .h1{
 
         font-size:10vw;
+        text-align: start;
     }
     .p1{
-        font-size: 24px;
-    }
-
-    .preheading{
-
-        place-self: center ;
+        font-size: 18px;
+        text-align: start;
     }
 
     .heroSection{
         padding-top:64px;
+        padding-bottom: 64px;
+    }
+    .subsection{
+        gap:24px;
     }
 
 }
