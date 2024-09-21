@@ -9,7 +9,6 @@
     align-content: center;
     align-self: stretch;
     flex-direction:row;
-    margin:0 0 0 0; 
   }
 
   .leftSection {
@@ -26,6 +25,12 @@
     gap: 16px;
     flex-direction: row;
   }
+
+/* Dropdown menu for the right section, initially hidden */
+ .dropdown {
+    display: none;
+    flex-direction: column;
+  }
   
   .avatar {
     width: 48px;
@@ -39,8 +44,49 @@
   }
 
   .menuButton{
-    text-decoration: none;
+    display:none;  
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .rightSection {
+      display: none; /* Hide the right section's links */
+    }
+
+      /* Display the menu button */
+  .menuButton {
+    display: block;
+    cursor: pointer;
+    height:72px;
   }
 
+   /* When the menu is expanded, show the dropdown */
+   .dropdown.show {
+    display: flex;
+    position: absolute;
+    top: 3.5%; /* Adjust this to your navbar height */
+    right:8%;
+    background-color: var(--DarkElevation); /* Or match the navbar color */
+    width: fit-content; /* Adjust as necessary */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional styling */
+    align-items: flex-start;
+    padding: 16px 16px;
+    border-radius: 16px;
+}
 
+  /* Add styles for individual dropdown links */
+
+}
+
+@media(max-width: 480px){
+
+    .dropdown.show{
+
+        top: 4.5%; /* Adjust this to your navbar height */
+        right:10.5%;
+
+    }
+
+}
+    
  

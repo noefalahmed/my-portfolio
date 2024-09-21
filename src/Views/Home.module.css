@@ -94,9 +94,32 @@ h1{
 
         padding: 0px 64px;
         padding-bottom:680px;
+    }
 
+}
 
+@media(max-width: 480px){
 
+    .contentContainer{
+
+        padding: 0px 24px;
+        padding-bottom:550px;
+    }
+    .h1{
+
+        font-size:10vw;
+    }
+    .p1{
+        font-size: 24px;
+    }
+
+    .preheading{
+
+        place-self: center ;
+    }
+
+    .heroSection{
+        padding-top:64px;
     }
 
 }
