@@ -17,7 +17,7 @@ const DesignSystems: React.FC = () => {
                 <div className={styles.subsection}>
                     <h1 className={styles.sh1}>Why We Needed a Rulebook</h1>
                     <p className={styles.p1}>Business challenges such as inconsistent designs, new brand identity, and design to development friction led to the formation of a foundational design system.</p>
-                    <img src="./assets/ds2.png" className={`${styles.image} ${styles['image-dynamic']}`} ></img>
+                    <img src="./assets/ds2.png" className={`${styles.image} ${styles['image-large']}`} ></img>
 
                 </div>
                 <div className={styles.subsection}>
