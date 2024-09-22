@@ -136,20 +136,19 @@
         text-align: start;
         display: inline-block; /* Make it wrap nicely */
         font-weight: 500;
-
-
     }
 
 
     .p1{
-        font-size: 16px;
+        font-size: 24px;
         text-align: start;
     }
 
     .heroSection{
         padding-top:64px;
         padding-bottom: 64px;
-        align-items:start;       
+        align-items:start; 
+        gap:16px;      
     }
 
 
@@ -157,4 +156,11 @@
         gap:24px;
     }
 
+}
+
+@media (max-width:768px){
+    .p1{
+        font-size: 16px;
+        text-align: start;
+    }
 }
