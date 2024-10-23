@@ -72,9 +72,7 @@ const Arine: React.FC = () => {
                             </div> 
                             <img src="/assets/arine13.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>  
                             <img src="/assets/arine14.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>                        
-
                             <img src="/assets/arine15.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>                        
-
                     </div>
                 </div>
             </div>

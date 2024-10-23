@@ -7,12 +7,22 @@ import Button from './Button.tsx';
 const Footer: React.FC = () => {
   return (
     <div className={styles.footer}>
-      <div className={styles.avatar}>
-      </div>
       <div className={styles.linksection}>
-        <Button label="LinkedIn" variant="text-only" isActive={false}/>
-        <Button label="Github" variant="text-only" isActive={false}/>
-        <Button label="Resume" variant="text-only" isActive={false}/>
+        <a className={styles.navButton} href="https://linkedin.com/in/noefalahmed" target="_blank" rel="noopener noreferrer">
+            <Button variant="text-only" 
+                label="LinkedIn" 
+                isActive={false}/>
+          </a>
+          <a className={styles.navButton} href="https://calendly.com/noefalahmed" target="_blank" rel="noopener noreferrer">
+            <Button variant="text-only" 
+                label="Resume" 
+                isActive={false}/>
+          </a>
+          <a className={styles.navButton} href="https://github.com/noefalahmed" target="_blank" rel="noopener noreferrer">
+            <Button variant="text-only" 
+                label="Github" 
+                isActive={false}/>
+          </a>
       </div>
     </div>
   );
