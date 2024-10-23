@@ -10,7 +10,7 @@ import IconPack from './Views/Projects/IconPack.tsx';
 import DesignThinking from './Views/Projects/DesignThinking.tsx';
 import Guide from './Views/Projects/Guide.tsx';
 import Arine from './Views/Projects/Arine.tsx';
-// import About from './Views/About.tsx';
+import About from './Views/About.tsx';
 
 
 const App: React.FC = () => {
@@ -26,7 +26,7 @@ const App: React.FC = () => {
           <Route path="/guide" element={<Guide />} /> 
           <Route path="/design-thinking" element={<DesignThinking />} /> 
           <Route path="/arine" element={<Arine />} /> 
-
+          <Route path="/about" element={<About />} /> 
         </Routes>
         <Footer/>
 

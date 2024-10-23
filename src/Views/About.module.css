@@ -1,0 +1,9 @@
+.navButton{
+    text-decoration: none;
+    background-color:rgba(255, 166, 0, 0.84);
+    border-radius: 64px;
+  }
+
+.navButton:hover{
+    background-color:#ffa600;
+}
