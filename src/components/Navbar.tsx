@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
         </Link>
       </div>
       <div className={styles.rightSection}>
-        <Link to="" className={styles.navButton}>
+        <Link to="about" className={styles.navButton}>
             <Button variant="text-only" 
                 label="About" 
                 isActive={location.pathname === '/about'} 
@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
 
       {/* Dropdown menu that shows when menuOpen is true */}
       <div className={`${styles.dropdown} ${MenuOpen ? styles.show : ''}`}>
-        <Link to="" className={styles.navButton}>
+        <Link to="about" className={styles.navButton}>
             <Button variant="text-only" 
                 label="About" 
                 isActive={location.pathname === '/about'} 

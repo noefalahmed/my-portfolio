@@ -22,8 +22,7 @@ const Home: React.FC = () => {
             <span>(SaaS/B2B/B2C)</span></h1>
             </div>
             <p className={styles.p1}>
-                Obsessed with curating experiences that impact people’s lives. Currently spearheading Slewmotion and building Precisely.
-            </p>
+            on a mission to create products and experiences that impact people's lives.</p>
         </div>
         <div className={styles.workSection}>
             <div className={styles.subsection}>
