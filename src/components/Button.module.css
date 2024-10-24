@@ -75,12 +75,10 @@
 
 .onlight{
    
-    background-color: var(--DarkSurface);
-    color: var(--Gray-3);
+    color: rgba(0, 0, 0, 0.769);
 }
 
 .onlight:hover{
 
-    background-color: black;
-    color: var(--Gray-4);
+    color:black;
 }

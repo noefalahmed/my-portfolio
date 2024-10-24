@@ -28,6 +28,4 @@ html, body {
   /* Makes sure padding and borders are included in the element's width and height */
 }
 
-.div{
-  display:flex;
-}
+
