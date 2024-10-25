@@ -31,11 +31,12 @@ const About: React.FC = () => {
                 onlight={true}/>
       </a>
 
-      <div className={styles2.sub2section}>
+      {/* <div className={styles2.sub2section}>
       <h2 className={styles.preheading}>Career Progression</h2>
       <img src="/assets/cp1.png" className={`${styles2.image} ${styles2['image-dynamic']}`}></img>
 
-      </div>
+
+      </div> */}
 
     </div>
   );
