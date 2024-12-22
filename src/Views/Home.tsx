@@ -17,16 +17,19 @@ const Home: React.FC = () => {
   return(
     <div className={styles.contentContainer}>
         <div className={styles.heroSection}>
-            <div className={styles.typewriter}>
-            <h1 className={styles.h1}><span>Product Designer </span>
-            <span>(SaaS/B2B/B2C)</span></h1>
-            </div>
-            <p className={styles.p1}>
-            on a mission to create products and experiences that impact people's lives.</p>
+            <p className={styles.p2} style={{textAlign: 'left'}}>BASED IN LAHORE / REMOTE-FIRST</p>
+            <h1 className={styles.h2} >NOEFAL AHMED</h1>
+           <div className={styles.heroline}>
+           <p className={styles.p2}>PRODUCT DESIGN</p>
+           <p className={styles.p2}>UX STRATEGY</p>
+           <p className={styles.p2}>BRANDING</p>
+           <p className={styles.p2}>DESIGN TO CODE</p>
+           </div>
+
         </div>
         <div className={styles.workSection}>
             <div className={styles.subsection}>
-                <h2 className={styles.preheading}>Featured Work</h2>
+                <p className={styles.p2}>FEATURED WORK</p>
                     <Link to="design-thinking" className={styles2.card} onClick={scrollToTop}>
                         <Card
                             title="Applied Design Thinking"

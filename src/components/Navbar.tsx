@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
       <div className={styles.leftSection}>
         <Link to="/" className={styles.navButton}>
             <Button variant={location.pathname==='/' ? "text-only" :"icon-only"}
-                label="Noefal Ahmed" 
+                label="Home" 
                 isActive={location.pathname === '/'} 
                 icon={location.pathname === '/' ? null : <MdKeyboardArrowLeft />}
                 />

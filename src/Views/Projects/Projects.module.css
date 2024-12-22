@@ -1,4 +1,8 @@
+body{
 
+    background: var(--DarkSurface);
+
+}
 .page{
     width:100%;
     display: flex;

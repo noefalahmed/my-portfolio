@@ -17,3 +17,7 @@
   box-sizing: border-box; /* Makes sure padding and borders are included in the element's width and height */
 }
 
+@font-face {
+  font-family: 'Wosker';
+  src: url('/Fonts/Wosker Demo.otf') format('opentype');
+}
