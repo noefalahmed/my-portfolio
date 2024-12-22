@@ -53,13 +53,14 @@
 
 .text{
     font-family: 'IBM Plex Sans Condensed';
-    font-size: 20px;
+    font-size: 16px;
     font-style:normal;
     font-weight: 400;
     line-height: 210%; /* 42px */
     word-spacing: 4px;
     letter-spacing: 3.1px;
     text-transform: uppercase;
+    text-wrap: nowrap;
 }
 
 

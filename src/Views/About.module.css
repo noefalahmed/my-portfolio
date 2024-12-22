@@ -7,3 +7,86 @@
 .navButton:hover{
     background-color:#ffa600;
 }
+
+.heroSection{
+  padding-top:64px;
+  padding-bottom: 64px;
+  align-items:start; 
+  gap:56px;      
+}
+
+.h1{
+  color: #DFDAD8;
+  text-align: start;
+  font-family: "Wosker";
+  font-size: 200px;
+  line-height: 78%;
+  font-style: normal;
+  font-weight: 400;
+  padding:0px;
+  margin-top: 56px;
+  margin-bottom: 16px;
+  height:80%;
+  text-wrap: wrap;
+}
+
+.workSection{
+
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+  gap: 144px;
+}
+
+.workItem{
+  display: flex;
+  flex-direction: row;
+  gap: 56px;
+}
+
+.icon{
+
+  display: block;
+  width:200px;
+  height:200px;
+}
+
+.contactSection{
+
+  display: flex;
+  flex-direction: row;
+  align-items:flex-start;
+  place-items: center;
+  margin-top:180px;
+  gap: 88px;
+  background-color: var(--DarkElevation);
+  padding:44px;
+  border-radius: 4px;
+}
+
+@media(max-width: 1200px){
+
+  .h1{
+    font-size:120px;
+  }
+}
+
+@media(max-width: 768px){
+  .h1{
+    font-size:72px;
+  }
+  .workItem{
+  flex-direction: column;  
+  align-items: center;
+  }
+  .contactSection{
+    margin-top: 64px;
+    flex-direction: column;
+  }
+}
+
+@media(max-width: 480px){
+  .contactSection{
+    gap: 32px;
+  }
+}

@@ -1,3 +1,5 @@
+
+
 .contentContainer{
     display: flex;
     padding: 0px 182px;
@@ -11,19 +13,17 @@
 
     place-content:center;
     place-self: center;
-
   }
   
 .heroSection{
     display: flex;
     width: 100%;
-    padding-top: 110px;
     padding-bottom: 140px;
     flex-direction: column;
     text-align: center;
     align-items: center;
     justify-content: center;
-    gap:24px;
+    gap:0px;
 }
   
 .workSection{
@@ -41,6 +41,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 56px;
+    align-items: center;
 }
 
 .cardarrangement{
@@ -74,10 +75,25 @@
     font-style: normal;
     font-weight: 400;
 } */
-  
+
+.h2{
+    color: #DFDAD8;
+    text-align: center;
+    font-family: "Wosker";
+    font-size: 420px;
+    line-height: 78%;
+    font-style: normal;
+    font-weight: 400;
+    padding:0px;
+    margin-top: 56px;
+    margin-bottom: -12px;
+    height:100%;
+}
+
+
 .p1{
     color: --Light;
-    text-align: center;
+    text-align: start;
     font-family: "IBM Plex Sans";
     font-size: 35.644px;
     font-style: normal;
@@ -88,18 +104,41 @@
     margin:0;
     padding:0;
     max-width:1300px;
+
+}
+
+.p2{
+    color: --Light;
+    text-align:center;
+    font-family: "IBM Plex Mono";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 210%; /* 74.852px */ 
+    opacity:0.75;
+    margin:0;
+    padding:0;
+    justify-content: space-between;
+}
+
+.heroline{
+    display: flex;
+    width:100%;
+    max-width:  1300px;
+    justify-content: space-between;
 }
 
 .typewriter h1 {
     color: #DFDAD8;
     text-align: center;
-    font-family: "IBM Plex Sans";
-    font-size: 81.011px;
+    font-family: "Wosker";
+    font-size: 486px;
+    line-height: 80%;
     font-style: normal;
     font-weight: 400;
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     border-right: .15em solid orange; /* The typwriter cursor */
-    white-space:nowrap; /* Keeps the content on a single line */
+    white-space:wrap; /* Keeps the content on a single line */
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
     animation: 
       typing 1.5s steps(40, end),
@@ -121,7 +160,7 @@
 
 
 
-@media(max-width: 1200px){
+@media(max-width: 1328px){
 
     .contentContainer{
 
@@ -144,6 +183,14 @@
         text-align: start;
     }
 
+    .h2{
+        font-size: 130px;
+        text-wrap: nowrap;
+        text-align: left;
+        margin-top:12px;
+    }
+
+
     .heroSection{
         padding-top:64px;
         padding-bottom: 64px;
@@ -162,5 +209,15 @@
     .p1{
         font-size: 16px;
         text-align: start;
+    }
+    .h2{
+        font-size: 112px;
+        text-align: start;
+        text-wrap: wrap;
+        margin-top:12px;
+    }
+    .heroline{
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
