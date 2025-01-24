@@ -18,10 +18,11 @@
 .heroSection{
     display: flex;
     width: 100%;
-    padding-bottom: 140px;
+    padding-top: 64px;
+    padding-bottom: 128px;
     flex-direction: column;
-    text-align: center;
-    align-items: center;
+    text-align: left;
+    align-items: left;
     justify-content: center;
     gap:0px;
 }
@@ -78,15 +79,15 @@
 
 .h2{
     color: #DFDAD8;
-    text-align: center;
+    text-align:left;
     font-family: "Wosker";
-    font-size: 420px;
+    font-size: 144px;
     line-height: 78%;
     font-style: normal;
     font-weight: 400;
     padding:0px;
-    margin-top: 56px;
-    margin-bottom: -12px;
+    margin-top: 32px;
+    margin-bottom: 12px;
     height:100%;
 }
 
