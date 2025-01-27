@@ -1,0 +1,112 @@
+.logo-container {
+  width: 18px;
+  height: 18px;
+  position: relative;
+}
+
+.logo-rect {
+  width: 8px;
+  height: 8px;
+  background-color: #60D7FF;
+  position: absolute;
+  border-radius: 2px;
+  top: 0;
+  left: 0;
+}
+
+.rect1 {
+  /* Rectangle 1 stays stationary */
+}
+
+.rect2 {
+  animation: rect2Animation 6s infinite;
+}
+
+.rect3 {
+  animation: rect3Animation 6s infinite;
+}
+
+.rect4 {
+  animation: rect4Animation 6s infinite;
+}
+
+@keyframes rect2Animation {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(10px, 0);
+  }
+  10.1%,
+  50% {
+    transform: translate(10px, 0);
+  }
+  60% {
+    transform: translate(10px, 10px);
+  }
+  70%,
+  80% {
+    transform: translate(0, 10px);
+  }
+  90% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes rect3Animation {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(10px, 0);
+  }
+  20%,
+  60% {
+    transform: translate(10px, 10px);
+  }
+  70%,
+  80% {
+    transform: translate(0, 10px);
+  }
+  90% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes rect4Animation {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(10px, 0);
+  }
+  20%,
+  30% {
+    transform: translate(10px, 10px);
+  }
+  40%,
+  80% {
+    transform: translate(0, 10px);
+  }
+  90% {
+    transform: translate(0, 0);
+  }
+}
+
+.rect2,
+.rect3,
+.rect4 {
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rect2,
+  .rect3,
+  .rect4 {
+    animation: none;
+  }
+}
+

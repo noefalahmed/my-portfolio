@@ -1,0 +1,532 @@
+{
+  "Rectangle 1477": {
+    "version": "2.10.2",
+    "anchorPoint": "MIDDLECENTER",
+    "keyframes": {
+      "x": [
+        {
+          "id": "HyTme7p0CzZI",
+          "ms": 0,
+          "property": "x",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "EM1Pwo6tSobO",
+          "ms": 207,
+          "property": "x",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "t3OGoAY54MZJ",
+          "ms": 406,
+          "property": "x",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "VkIRmOZ415P8",
+          "ms": 606,
+          "property": "x",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "o1O3kZIOQQVK",
+          "ms": 1400,
+          "property": "x",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "isExpression": false
+        },
+        {
+          "id": "0DReZtgi5zrL",
+          "ms": 1800,
+          "property": "x",
+          "value": 4,
+          "easing": "easeInCirc",
+          "easingCurve": [
+            0.55,
+            0,
+            1,
+            0.45
+          ]
+        }
+      ],
+      "y": [
+        {
+          "id": "UfS97U3gzmKJ",
+          "ms": 0,
+          "property": "y",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "ctfYmqewdQTI",
+          "ms": 207,
+          "property": "y",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "sj0O2tTbv7vG",
+          "ms": 406,
+          "property": "y",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "TbpPfNuxwWXK",
+          "ms": 606,
+          "property": "y",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "44DCse4k96lL",
+          "ms": 1400,
+          "property": "y",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "e0tI02DGaP6b",
+          "ms": 1600,
+          "property": "y",
+          "value": 14,
+          "easing": "easeInCirc",
+          "easingCurve": [
+            0.55,
+            0,
+            1,
+            0.45
+          ]
+        },
+        {
+          "id": "ZcI7zNgsdTyV",
+          "ms": 1800,
+          "property": "y",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "NagM0E500gRQ",
+          "ms": 2000,
+          "property": "y",
+          "value": 4,
+          "easing": "easeInCirc",
+          "easingCurve": [
+            0.55,
+            0,
+            1,
+            0.45
+          ]
+        }
+      ]
+    }
+  },
+  "Rectangle 1476": {
+    "version": "2.10.2",
+    "anchorPoint": "MIDDLECENTER",
+    "keyframes": {
+      "x": [
+        {
+          "id": "GCuhy0FM4UR3",
+          "ms": 0,
+          "property": "x",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "nhoDYBDiKrxC",
+          "ms": 207,
+          "property": "x",
+          "value": 14,
+          "easing": "easeOutCirc",
+          "easingCurve": [
+            0,
+            0.55,
+            0.45,
+            1
+          ],
+          "isExpression": false
+        },
+        {
+          "id": "b8mZlYNq6PLb",
+          "ms": 1400,
+          "property": "x",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "0dBLn8KfdDsn",
+          "ms": 1600,
+          "property": "x",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "isExpression": false
+        },
+        {
+          "id": "IZHPsXAA10Yz",
+          "ms": 1800,
+          "property": "x",
+          "value": 4,
+          "easing": "easeInCirc",
+          "easingCurve": [
+            0.55,
+            0,
+            1,
+            0.45
+          ]
+        }
+      ],
+      "y": [
+        {
+          "id": "OKjm3v9LVY4w",
+          "ms": 0,
+          "property": "y",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "bHDsFnNCpiwt",
+          "ms": 207,
+          "property": "y",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "QMkpbZh3YlCE",
+          "ms": 406,
+          "property": "y",
+          "value": 14,
+          "easing": "easeOutCirc",
+          "easingCurve": [
+            0,
+            0.55,
+            0.45,
+            1
+          ],
+          "isExpression": false
+        },
+        {
+          "id": "pkmXhnrB7HoO",
+          "ms": 1400,
+          "property": "y",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "isExpression": false
+        },
+        {
+          "id": "ywgrOXlqJuLm",
+          "ms": 1600,
+          "property": "y",
+          "value": 14,
+          "easing": "easeInCirc",
+          "easingCurve": [
+            0.55,
+            0,
+            1,
+            0.45
+          ]
+        },
+        {
+          "id": "afNI5qJ4nGNH",
+          "ms": 1800,
+          "property": "y",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "9IJViyLnRjQR",
+          "ms": 2000,
+          "property": "y",
+          "value": 4,
+          "easing": "easeInCirc",
+          "easingCurve": [
+            0.55,
+            0,
+            1,
+            0.45
+          ]
+        }
+      ]
+    }
+  },
+  "Rectangle 1475": {
+    "version": "2.10.2",
+    "anchorPoint": "MIDDLECENTER",
+    "keyframes": {
+      "x": [
+        {
+          "id": "VZz9kPNjHqFd",
+          "ms": 0,
+          "property": "x",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "qviy9VPGRjPI",
+          "ms": 207,
+          "property": "x",
+          "value": 14,
+          "easing": "easeOutCirc",
+          "easingCurve": [
+            0,
+            0.55,
+            0.45,
+            1
+          ],
+          "isExpression": false
+        },
+        {
+          "id": "6AiwudAykuhZ",
+          "ms": 1400,
+          "property": "x",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "gM3vWSsvzn70",
+          "ms": 1600,
+          "property": "x",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "isExpression": false
+        },
+        {
+          "id": "vqppmxT6URLK",
+          "ms": 1800,
+          "property": "x",
+          "value": 4,
+          "easing": "easeInCirc",
+          "easingCurve": [
+            0.55,
+            0,
+            1,
+            0.45
+          ],
+          "isExpression": false
+        },
+        {
+          "id": "uDpz2LJY3igw",
+          "ms": 2000,
+          "property": "x",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      ],
+      "y": [
+        {
+          "id": "1K9Se4EHC5Ui",
+          "ms": 0,
+          "property": "y",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "oEdO2uauBjPN",
+          "ms": 1400,
+          "property": "y",
+          "value": 4,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "w58vENCh7a0k",
+          "ms": 1600,
+          "property": "y",
+          "value": 14,
+          "easing": "easeInCirc",
+          "easingCurve": [
+            0.55,
+            0,
+            1,
+            0.45
+          ],
+          "isExpression": false
+        },
+        {
+          "id": "IZaT3Xn5u1Eg",
+          "ms": 1800,
+          "property": "y",
+          "value": 14,
+          "easing": "linear",
+          "easingCurve": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "isExpression": false
+        },
+        {
+          "id": "poyJv0WxQkSi",
+          "ms": 2000,
+          "property": "y",
+          "value": 4,
+          "easing": "easeInCirc",
+          "easingCurve": [
+            0.55,
+            0,
+            1,
+            0.45
+          ],
+          "isExpression": false
+        }
+      ]
+    }
+  },
+  "Rectangle 1474": {
+    "version": "0.2.0",
+    "anchorPoint": "MIDDLECENTER",
+    "keyframes": {
+      "x": [],
+      "y": []
+    }
+  }
+}
