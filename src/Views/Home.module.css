@@ -1,21 +1,21 @@
-
-
-.contentContainer{
+.contentContainer {
     display: flex;
     padding: 0px 182px;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 35px;
     min-height: 100vh;
     justify-content: space-between;
-    height:100%;
-    padding-bottom:680px;
-
-    place-content:center;
+    height: 100%;
+    padding-bottom: 680px;
+    place-content: start;
     place-self: center;
+    width:100%;
+    max-width: 1440px;
+
   }
   
-.heroSection{
+  .heroSection {
     display: flex;
     width: 100%;
     padding-top: 64px;
@@ -24,201 +24,191 @@
     text-align: left;
     align-items: left;
     justify-content: center;
-    gap:0px;
-}
+    gap: 0px;
+  }
   
-.workSection{
+  .workSection {
     display: flex;
     width: 100%;
     flex-direction: column;
     gap: 180px;
-    justify-content:left;
-}
+    justify-content: left;
+  }
   
-.subsection{
+  .subsection {
     display: flex;
     flex-direction: column;
     width: 100%;
-    flex-direction: column;
     align-items: flex-start;
     gap: 56px;
-    align-items: center;
-}
-
-.cardarrangement{
-
-    display:flex;
+  }
+  
+  .cardarrangement {
+    display: flex;
+    width: 100%;
+    gap: 24px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .cardarrangement.large {
+    flex-direction: column;
+    gap:88px;
+  }
+  
+  .cardarrangement.tiles {
     flex-direction: row;
     flex-wrap: wrap;
-    width:100%;
-    gap:24px;
-    row-gap: 64px;
     justify-content: space-between;
-}
+  }
   
-.preheading{
-    color: #BDBDBD;
-    font-family: "IBM Plex Sans", monospace;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 210%; /* 50.4px */
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    opacity:0.75;
-}
+  .cardarrangement.list {
+    flex-direction: column;
+  }
   
-/* h1{
-    color: #DFDAD8;
-    text-align: center;
-    font-family: "IBM Plex Sans";
-    font-size: 81.011px;
-    font-style: normal;
-    font-weight: 400;
-} */
-
-.h2{
-    color: #DFDAD8;
-    text-align:left;
-    font-family: "Wosker";
+  .h2 {
+    color: #dfdad8;
+    text-align: left;
+    font-family: "Wosker", sans-serif;
     font-size: 144px;
     line-height: 78%;
-    font-style: normal;
     font-weight: 400;
-    padding:0px;
+    padding: 0px;
     margin-top: 32px;
     margin-bottom: 12px;
-    height:100%;
-}
-
-
-.p1{
-    color: --Light;
-    text-align: start;
-    font-family: "IBM Plex Sans";
-    font-size: 35.644px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 210%; /* 74.852px */ 
-    opacity:0.75;
-    width: 100%;
-    margin:0;
-    padding:0;
-    max-width:1300px;
-
-}
-
-.p2{
-    color: --Light;
-    text-align:center;
-    font-family: "IBM Plex Mono";
+    height: 100%;
+  }
+  
+  .p2 {
+    color: #bdbdbd;
+    text-align: left;
+    font-family: "IBM Plex Mono", monospace;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 210%; /* 74.852px */ 
-    opacity:0.75;
-    margin:0;
-    padding:0;
-    justify-content: space-between;
-}
-
-.heroline{
+    line-height: 210%;
+    opacity: 0.88;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .heroline {
     display: flex;
-    width:100%;
-    max-width:  1300px;
+    width: 100%;
+    max-width: 1300px;
     justify-content: space-between;
-}
-
-.typewriter h1 {
-    color: #DFDAD8;
-    text-align: center;
-    font-family: "Wosker";
-    font-size: 486px;
-    line-height: 80%;
-    font-style: normal;
+  }
+  
+  .heroLink {
+    color: #bdbdbd;
+    opacity: 1;
+    transition: opacity 0.3s, color 0.3s;
+    text-decoration: none;
+    position: relative;
+    text-align: left;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
     font-weight: 400;
-    overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .15em solid orange; /* The typwriter cursor */
-    white-space:wrap; /* Keeps the content on a single line */
-    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-    animation: 
-      typing 1.5s steps(40, end),
-      blink-caret .75s step-end infinite;
+    line-height: 210%;
   }
   
-  /* The typing effect */
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+  .heroLink:hover {
+    opacity: 1;
   }
   
-  /* The typewriter cursor effect */
-  @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: orange; }
+  .heroLink::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #dfdad8;
+    transition: width 0.3s ease-in-out;
+    pointer-events: none;
   }
 
+  
+  .featuredWorkHeader {
+    display: flex;
+    justify-content: space-between;
+    
 
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .viewModeButtons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .viewModeButtons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    padding: 5px;
+  }
+  
+  .viewModeButtons button:hover,
+  .viewModeButtons button.activeViewMode {
+    opacity: 1;
+  }
+  
+  .cardLink {
+    text-decoration: none;
+    color: inherit;
+      display: contents;
 
-
-@media(max-width: 1328px){
-
-    .contentContainer{
-
-        padding: 0px 32px;
-        padding-bottom:550px;
-        gap:24px;
+  }
+  
+  @media (max-width: 1328px) {
+    .contentContainer {
+      padding: 0px 32px;
+      padding-bottom: 550px;
+      gap: 24px;
     }
-
-    .typewriter h1{
-
-        font-size:5vw;
-        text-align: start;
-        display: inline-block; /* Make it wrap nicely */
-        font-weight: 500;
+  
+    .h2 {
+      font-size: 130px;
+      text-wrap: nowrap;
+      margin-top: 12px;
     }
-
-
-    .p1{
-        font-size: 24px;
-        text-align: start;
+  
+    .heroSection {
+      padding-top: 64px;
+      padding-bottom: 64px;
+      align-items: start;
+      gap: 16px;
     }
-
-    .h2{
-        font-size: 130px;
-        text-wrap: nowrap;
-        text-align: left;
-        margin-top:12px;
+  
+    .subsection {
+      gap: 24px;
     }
-
-
-    .heroSection{
-        padding-top:64px;
-        padding-bottom: 64px;
-        align-items:start; 
-        gap:16px;      
+  }
+  
+  @media (max-width: 768px) {
+    .h2 {
+      font-size: 112px;
+      text-wrap: wrap;
     }
-
-
-    .subsection{
-        gap:24px;
+  
+    .heroline {
+      flex-direction: column;
+      align-items: flex-start;
     }
-
-}
-
-@media (max-width:768px){
-    .p1{
-        font-size: 16px;
-        text-align: start;
+  
+    .cardarrangement.tiles {
+      flex-direction: column;
     }
-    .h2{
-        font-size: 112px;
-        text-align: start;
-        text-wrap: wrap;
-        margin-top:12px;
+  
+    .featuredWorkHeader {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 16px;
+      justify-content: space-between ;
     }
-    .heroline{
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
+  }
+  
+  

@@ -1,0 +1,65 @@
+.logo-animation-3-container {
+    width: 18px;
+    height: 18px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logo-animation-3-circle {
+    width: 18px;
+    height: 18px;
+    background-color: #7B61FF;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .logo-animation-3-eye-shape {
+    width: 14px;
+    height: 6px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .logo-animation-3-eyeball {
+    width: 4px;
+    height: 4px;
+    background-color: #121212;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: eyeballMove 3s infinite ease-in-out;
+  }
+  
+  @keyframes eyeballMove {
+    0%,
+    100% {
+      transform: translate(-50%, -50%);
+    }
+    25% {
+      transform: translate(-25%, -50%);
+    }
+    50% {
+      transform: translate(-75%, -50%);
+    }
+    75% {
+      transform: translate(0%, -50%);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .logo-animation-3-eyeball {
+      animation: none;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  

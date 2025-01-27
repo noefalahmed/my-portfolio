@@ -1,0 +1,64 @@
+.logo-animation-4-container {
+    width: 18px;
+    height: 18px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4px 0;
+    gap:2px;
+  }
+  
+  .logo-animation-4-line {
+    height: 3px;
+    background-color: #7CD972;
+    transform-origin: left;
+    opacity: 0;
+  }
+  
+  .logo-animation-4-line:nth-child(1) {
+    width: 100%;
+    animation: lineAppear 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .logo-animation-4-line:nth-child(2) {
+    width: 75%;
+    animation: lineAppear 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    animation-delay: 0.5s;
+  }
+  
+  .logo-animation-4-line:nth-child(3) {
+    width: 50%;
+    animation: lineAppear 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    animation-delay: 1s;
+  }
+  
+  @keyframes lineAppear {
+    0%,
+    100% {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    16.67% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+    66.67% {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .logo-animation-4-line {
+      animation: none;
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+  
+  
