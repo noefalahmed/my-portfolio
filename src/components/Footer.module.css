@@ -33,6 +33,19 @@
     .footer{
 
         flex-direction: column;
+        align-items: center;
+        place-content: center;
+
+
+    }
+    .linksection{
+
+        flex-direction: column;
+        gap:24px;
+        align-items: center;
+        place-content: center;
+
+
     }
 }
 @media(max-width: 480px){

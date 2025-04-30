@@ -75,8 +75,8 @@
    .dropdown.show {
     display: flex;
     position: absolute;
-    top: 3.5%; /* Adjust this to your navbar height */
-    right:8%;
+    top:3.5%; /* Adjust this to your navbar height */
+    right:3%;
     background-color: var(--DarkElevation); /* Or match the navbar color */
     width: fit-content; /* Adjust as necessary */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional styling */
@@ -86,17 +86,5 @@
     z-index: 1;
 }
   /* Add styles for individual dropdown links */
-}
-
-@media(max-width: 480px){
-
-    .dropdown.show{
-
-        top: 5%; /* Adjust this to your navbar height */
-        right:5%;
-
-    }
-
-}
-    
+} 
  

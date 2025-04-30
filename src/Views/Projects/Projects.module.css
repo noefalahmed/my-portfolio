@@ -129,15 +129,15 @@ body{
 .sh2{
     color: --Light;
     /* Pre-Heading 1 */
-    font-family: "IBM Plex Sans Condensed";
-    font-size: 24.92px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 160%; /* 39.871px */
-    letter-spacing: 2px;
     text-transform: uppercase;
-    padding:0px;
-    margin:0px;
+    text-align: left;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 210%;
+    opacity: 0.8;
+    margin: 0;
+    padding: 0;
 }
 
 .p1{
@@ -146,12 +146,12 @@ body{
     font-family: "Inter";
     font-size: 20px;
     font-style: normal;
-    font-weight: 300;
-    line-height: 210%; /* 58.8px */
-    opacity: 0.8;
+    font-weight: 400;
+    line-height: 164%; /* 58.8px */
     padding:0px;
     margin:0px;
     place-content: center;
+    opacity: 0.95;
 }
 
 @media(max-width: 1200px){

@@ -8,10 +8,6 @@ import "../styles/logo-animation-2.css"
 import "../styles/logo-animation-3.css"
 import "../styles/logo-animation-4.css"
 
-
-
-
-
 const Home: React.FC = () => {
   const [viewMode, setViewMode] = React.useState<"large" | "tiles" | "list">("large")
 
@@ -19,14 +15,19 @@ const Home: React.FC = () => {
     window.scrollTo(0, 0)
   }
 
+  const featuredProject = {
+    title: "Precisely",
+    imageUrl: "assets/precisely.png", // Replace with the actual path
+    link: "Precisely",
+  }
+
   const projects = [
+    { title: "Precisely", imageUrl: "assets/precisely.png", link: "Precisely" },
     { title: "Applied Design Thinking", imageUrl: "assets/designthinking.png", link: "design-thinking" },
     { title: "Design Leadership at Arine", imageUrl: "assets/arine.png", link: "arine" },
     { title: "How I Created a Component Library", imageUrl: "assets/designsystems.png", link: "design-systems" },
     { title: "Designing Icons", imageUrl: "assets/iconpackpng.png", link: "icon-pack" },
   ]
-
-
 
   const LogoAnimation = () => (
     <div className="logo-container">
@@ -63,38 +64,51 @@ const Home: React.FC = () => {
     </div>
   )
 
-
-
   return (
     <div className={styles.contentContainer}>
       <div className={styles.heroSection}>
-        <p className={styles.p2}>SENIOR PRODUCT DESIGNER BASED IN LAHORE</p>
+        <p className={styles.p2}>SENIOR PRODUCT/UX DESGINER</p>
         <h1 className={styles.h2}>NOEFAL AHMED</h1>
         <div className={styles.heroline}>
-        
-          <Link to="/" className={styles.heroLink} style={{display:"flex",flexDirection:"row", alignItems:"center",gap:"8px"}}>
-          <LogoAnimation2/>
+          <Link
+            to="/"
+            className={styles.heroLink}
+            style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "8px" }}
+          >
+            <LogoAnimation2 />
             UX STRATEGY
           </Link>
-          <Link to="/" className={styles.heroLink} style={{display:"flex",flexDirection:"row", alignItems:"center",gap:"8px"}}>
-          <LogoAnimation/>
+          <Link
+            to="/"
+            className={styles.heroLink}
+            style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "8px" }}
+          >
+            <LogoAnimation />
             PRODUCT DESIGN
           </Link>
-          <Link to="/" className={styles.heroLink} style={{display:"flex",flexDirection:"row", alignItems:"center",gap:"8px"}}>
-          <LogoAnimation3/>
-            BRANDING
+          <Link
+            to="/"
+            className={styles.heroLink}
+            style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "8px" }}
+          >
+            <LogoAnimation4 />
+            UX ENGINEERING
           </Link>
-          <Link to="/" className={styles.heroLink} style={{display:"flex",flexDirection:"row", alignItems:"center",gap:"8px"}}>
-          <LogoAnimation4/>
-
-            DESIGN TO CODE
+          <Link
+            to="/"
+            className={styles.heroLink}
+            style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "8px" }}
+          >
+            <LogoAnimation3 />
+            BRANDING
           </Link>
         </div>
       </div>
       <div className={styles.workSection}>
+    
         <div className={styles.subsection}>
           <div className={styles.featuredWorkHeader}>
-            <p className={styles.p2}>FEATURED WORK</p>
+            <p className={styles.p2}>PROJECTS</p>
             <div className={styles.viewModeButtons}>
               <button
                 onClick={() => setViewMode("large")}
