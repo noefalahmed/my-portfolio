@@ -15,11 +15,7 @@ const Home: React.FC = () => {
     window.scrollTo(0, 0)
   }
 
-  const featuredProject = {
-    title: "Precisely",
-    imageUrl: "assets/precisely.png", // Replace with the actual path
-    link: "Precisely",
-  }
+
 
   const projects = [
     { title: "Precisely", imageUrl: "assets/precisely.png", link: "Precisely" },
