@@ -29,7 +29,6 @@ body::before {
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  background: url('/assets/texture.png') no-repeat center center fixed !important;
   background-size: cover !important;
   z-index: 2 !important;
   pointer-events: none !important;

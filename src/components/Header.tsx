@@ -10,9 +10,9 @@ import styles from  './Header.module.css';
 interface HeaderProps {
 
   imageUrl:string;
-  pretitle:string;
+  pretitle?:string;
   title:string;
-  subtitle:string;
+  subtitle?:string;
   isDark:boolean;
   style?: React.CSSProperties;  // Allow custom styles to be passed
 

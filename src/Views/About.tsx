@@ -20,7 +20,7 @@ const About: React.FC = () => {
 
             <div className={styles.links}>
               <a
-                href="https://linkedin.com/in/yourusername"
+                href="https://linkedin.com/in/noefalahmed"
                 className={styles.link}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -10,9 +10,8 @@
     padding-bottom: 680px;
     place-content: start;
     place-self: center;
-    width:100%;
-    max-width: 1440px;
-
+    width: 100%;
+    max-width: 1600px;
   }
   
   .heroSection {
@@ -24,7 +23,7 @@
     text-align: left;
     align-items: left;
     justify-content: center;
-    gap: 0px;
+    gap: 32px;
   }
   
   .workSection {
@@ -52,7 +51,7 @@
   
   .cardarrangement.large {
     flex-direction: column;
-    gap:88px;
+    gap: 88px;
   }
   
   .cardarrangement.tiles {
@@ -66,16 +65,17 @@
   }
   
   .h2 {
-    color: #dfdad8;
+    color: #f4ead9;
     text-align: left;
-    font-family: "Wosker", sans-serif;
-    font-size: 144px;
+    font-family: "Wosker";
+    font-size: 112px;
     line-height: 78%;
-    font-weight: 400;
+    font-weight: 600;
     padding: 0px;
-    margin-top: 32px;
-    margin-bottom: 12px;
+    margin-top: 0px;
+    margin-bottom: -12px;
     height: 100%;
+    letter-spacing: 2px;
   }
   
   .p2 {
@@ -85,7 +85,7 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 210%;
-    opacity: 0.88;
+    opacity: 1;
     margin: 0;
     padding: 0;
   }
@@ -125,13 +125,10 @@
     transition: width 0.3s ease-in-out;
     pointer-events: none;
   }
-
   
   .featuredWorkHeader {
     display: flex;
     justify-content: space-between;
-    
-
     align-items: center;
     width: 100%;
     margin-bottom: 20px;
@@ -159,8 +156,7 @@
   .cardLink {
     text-decoration: none;
     color: inherit;
-      display: contents;
-
+    display: contents;
   }
   
   @media (max-width: 1328px) {
@@ -207,8 +203,13 @@
       flex-direction: row;
       align-items: flex-start;
       gap: 16px;
-      justify-content: space-between ;
+      justify-content: space-between;
     }
+
+    .viewModeButtons{
+      visibility: collapse;
+    }
+
   }
   
   
