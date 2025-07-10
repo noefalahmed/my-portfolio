@@ -1,6 +1,5 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
-import HeaderImage from '/assets/guide.png';
 
 const Guide: React.FC = () => {
     return (
