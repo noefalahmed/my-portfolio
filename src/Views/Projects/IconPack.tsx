@@ -1,12 +1,12 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
-import HeaderImage from '/assets/iconpackpng.png';
+import HeaderImage from '/assets/icon.png';
 
 const IconPack: React.FC = () => {
     return (
         <div className={styles.page}>
             
-            <Header style={{color:'var(--DarkSurface)'}} isDark={false} imageUrl={HeaderImage} pretitle="Project" subtitle="Designing an" title="Icon Set"/>
+            <Header imageUrl={HeaderImage} title="Designing Icons"/>
             <div className={styles.contentcontainer}>
 
 

@@ -6,7 +6,7 @@ const Guide: React.FC = () => {
     return (
         <div className={styles.page}>
             
-            <Header isDark={false} imageUrl={HeaderImage} pretitle="Project" subtitle="A Guide to Designing Complex" title="Data Tables" style={{color:'#000000'}}/>
+            <Header  title="Applied Design Thinking" imageUrl={"/assets/designthinking.png"} style={{ backgroundColor: '#your-project-bg-color' }} />// Optional background color
             <div className={styles.contentcontainer}>
                 <div className={styles.subsection}>
                         <h1 className={styles.sh1}>About</h1>

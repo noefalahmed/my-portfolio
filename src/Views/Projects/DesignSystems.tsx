@@ -1,17 +1,18 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
-import HeaderImage from '/assets/designsystems.png';
 
 const DesignSystems: React.FC = () => {
     return (
         <div className={styles.page}>
             
-            <Header isDark={true} imageUrl={HeaderImage} pretitle="Project" subtitle="How I Created a" title="Component Library"/>
+            <Header  title="how i created a design system" imageUrl={"/assets/designthinking.png"}/>
             <div className={styles.contentcontainer}>
+            <img src="./assets/ds0.png" className={`${styles.image} ${styles['image-full']}`} ></img>
+
                 <div className={styles.subsection}>
                     <h1 className={styles.sh1}>About</h1>
                     <p className={styles.p1}>Eat, Sleep, Repeat, or ESR, provides food enthusiasts with discounts and reviews for restaurants, both beloved and new. In 2020, I collaborated with ESR and designed their debut mobile phone user experience. I designed a simple user journey that transformed their tedious manual discount availing process into a 1 minute interaction on the phone.</p>
-                    <img src="./assets/ds1.png" className={`${styles.image} ${styles['image-dynamic']}`} ></img>
+                    <img src="./assets/ds1.png" className={`${styles.image} ${styles['image-full']}`} ></img>
 
                 </div>
                 <div className={styles.subsection}>

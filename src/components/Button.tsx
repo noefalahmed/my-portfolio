@@ -44,8 +44,9 @@ const Button: React.FC<ButtonProps> = ({ label, variant, icon, onClick, style, i
         style={style}
       >
         {/* Render content based on variant */}
-        {icon && <span className={styles.icon}>{icon}</span>}
+        
         {variant !== 'icon-only' && label && <span className={styles.text}>{label}</span>}
+        {icon && <span className={styles.icon}>{icon}</span>}
       </button>
     );
 };

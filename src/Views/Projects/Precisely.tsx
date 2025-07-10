@@ -1,13 +1,12 @@
 import type React from "react"
 import styles from "./Projects.module.css"
 import Header from "../../components/Header"
-import HeaderImage from "/assets/precisely.png"
+import HeaderImage from "/assets/pcly.png"
 
 const Precisely: React.FC = () => {
   return (
     <div className={styles.page}>
       <Header
-        isDark={true}
         imageUrl={HeaderImage}
         title="Precisely"/>
       <div className={styles.contentcontainer}>

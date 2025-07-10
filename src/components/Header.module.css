@@ -1,98 +1,166 @@
-.header{
-    overflow: hidden;    
-    width:100%;
-    position:relative;
-    display:flex;
-    place-content:center;
-    align-items: center;
+.header {
+  width: 100%;
+  height: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  place-content: center;
+  overflow: hidden;
+  padding: 200px 0px;
 }
 
-.image{
-    width:100%;
-    align-self: center;
-    height:auto;   /* Auto to maintain aspect ratio */
-    display: block; /* Ensure it's displayed properly */
+.backgroundImage {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0; /* Behind the text */
+  display: block;
+  max-width: 1600px;
+  /* Initial state - hidden and scaled down */
+  opacity: 0;
+  transform: scale(0.95);
+  transition: none; /* Disable transition initially */
 }
 
+.imageAnimated {
+  /* Animate in with smooth, clean effect */
+  animation: imageWarpIn 1.0s ease-out forwards;
+}
 
-@keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    100% {
-      opacity: 1;
-      transform:scale(1.0);
-    }
+.title {
+  position: relative; /* This ensures it's above the background */
+  z-index: 10; /* High z-index to ensure it's on top */
+  color: #f4ead9;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 105px;
+  font-weight: 400; /* Regular weight */
+  line-height: 115%;
+  text-align: left;
+  max-width: 900px;
+  text-wrap: wrap;
+  margin-right: 182px;
+  /* Initial state - hidden */
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.subtitle {
+  position: relative;
+  z-index: 10;
+  color: #f4ead9;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 24px;
+  font-weight: 400;
+  text-align: left;
+  margin-bottom: 16px;
+  /* Initial state - hidden */
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.textAnimated {
+  /* Animate in with smooth fade and slide up */
+  animation: textFadeIn 0.8s ease-out 0.4s forwards; /* 0.4s delay after image starts */
+}
+
+/* Keyframe animations */
+@keyframes imageWarpIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes textFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1328px) {
+  .title {
+    padding-left: 32px;
+    font-size: 90px;
+    max-width: 1000px;
   }
 
+  .subtitle {
+    padding-left: 32px;
+    font-size: 20px;
+  }
 
-.title{
-    width:100%;
-    position:absolute;
-    z-index:1;
-    top: 45%;
-    text-align: center;    
-    margin:0;
-
-    color: #fff;
-    font-family: Inter;
-    font-size: 7vw;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 100%; /* 177.165px */
-
-    opacity:0;
-    animation: fadeIn 0.3s ease-in-out forwards;
+  .header {
+    height: 800px;
+  }
 }
 
-.subtitle{
-    position:absolute;
-    z-index:1;
-    top:35%;
+@media (max-width: 768px) {
+  .title {
+    padding-left: 24px;
+    font-size: 64px;
+  }
 
-    margin:0;
+  .subtitle {
+    padding-left: 24px;
+    font-size: 18px;
+  }
 
-    color: #fff;
-    font-family: "IBM Plex Sans";
-    font-size: 3.4vw;
-    font-style: normal;
-    font-weight: 410;
-    line-height: 137%; /* 76.72px */
+  .header {
+    height: 600px;
+  }
 
+  /* Slightly faster animations on mobile */
+  .imageAnimated {
+    animation: imageWarpIn 0.8s ease-out forwards;
+  }
 
-    opacity:0;
-    animation: fadeIn 0.2s ease-in-out forwards;
+  .textAnimated {
+    animation: textFadeIn 0.6s ease-out 0.3s forwards;
+  }
 }
 
-.pretitle{
-    top:20%;
-    margin:0;
+@media (max-width: 480px) {
+  .title {
+    padding-left: 16px;
+    font-size: 48px;
+    max-width: calc(100% - 32px);
+  }
 
-    color: --Light;
+  .subtitle {
+    padding-left: 16px;
+    font-size: 16px;
+  }
 
-    /* Pre-Heading 1 */
-    font-family: "IBM Plex Sans Condensed";
-    font-size: 24.92px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 160%; /* 39.871px */
-    letter-spacing: 3.863px;
-    text-transform: uppercase;
-
-    position:absolute;
-    z-index:1;
-
-    animation: fadeIn 0.2s ease-in-out forwards;
-    opacity:0.3;
+  .header {
+    height: 500px;
+  }
 }
 
-.iconbutton{
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .imageAnimated,
+  .textAnimated {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 
-    top:5%;
-    left: 3.5%;
-    margin:0;
-    padding:0px;
-    z-index:1;
-    position:absolute;
+  .backgroundImage,
+  .title,
+  .subtitle {
+    opacity: 1;
+    transform: none;
+  }
 }

@@ -1,13 +1,13 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
-import HeaderImage from '/assets/designthinking.png';
 
 
 const DesignThinking: React.FC = () => {
     return (
         <div className={styles.page}>
             
-            <Header isDark={true} imageUrl={HeaderImage} pretitle="Project" subtitle="Applied" title="Design Thinking"/>
+            <Header  title="Applied Design Thinking" imageUrl={"/assets/planets.png"}  // Optional background color
+/>
             <div className={styles.contentcontainer}>
                 <div className={styles.subsection}>
                     <h1 className={styles.sh1}>About</h1>

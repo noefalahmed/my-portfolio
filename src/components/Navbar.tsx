@@ -34,11 +34,6 @@ const Navbar: React.FC = () => {
                 isActive={location.pathname === '/about'} 
             />
         </Link>
-          <a className={styles.navButton} href="https://calendly.com/noefalahmed" target="_blank" rel="noopener noreferrer">
-            <Button variant="text-only" 
-                label="Request Call" 
-                isActive={false}/>
-          </a>
       </div>
       {/* Menu button for smaller screens */}
       <div className={styles.menuButton}>

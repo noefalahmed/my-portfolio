@@ -4,9 +4,7 @@
   align-items: flex-start;
   overflow: visible;
   transition: transform 0.2s ease-in-out;
-  text-decoration: none;
-  opacity: 0.98;
- 
+  text-decoration: none;   
 }
 
 .card-large {
@@ -69,12 +67,18 @@
 .card:hover {
   transform: scale(1.0125);
   opacity: 1.0;
-  filter: none;
+  filter:brightness(1.2);
   transition: 0.2s ease-in-out;
 
 }
 
 @media (max-width: 768px) {
+
+  .card{
+    filter:brightness(1.1);
+
+  }
+
   .card-tiles {
     width: 100%;
   }

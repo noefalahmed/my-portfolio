@@ -2,7 +2,7 @@
 .button{
     justify-content: center;
     border: none;
-    padding: 16px 24px;
+    padding: 24px 40px;
     cursor: pointer;
     transition: color 0.3s, background-color 0.2s;
     border-radius: 100px;
@@ -22,13 +22,15 @@
     height:72px;
     border-radius: 100%;
     color: var(--Gray-3);
+    padding: 24px 24px;
+
 
 
 }
 
 .icon-and-text{
     background-color: transparent;
-    gap:16px;
+    gap:8px;
     align-items: center;
     place-content: center;
     color: var(--Gray-3);
@@ -55,12 +57,13 @@
     font-family: 'IBM Plex Sans Condensed';
     font-size: 16px;
     font-style:normal;
-    font-weight: 400;
-    line-height: 210%; /* 42px */
+    font-weight: 500;
+    line-height: 100%; /* 42px */
     word-spacing: 4px;
-    letter-spacing: 3.1px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     text-wrap: nowrap;
+    margin-top:3px; margin-bottom: 3px;
 }
 
 
@@ -82,4 +85,11 @@
 .onlight:hover{
 
     color:black;
+}
+@media (max-width: 768px) {
+
+    .button{
+        width:100%;
+
+    }
 }

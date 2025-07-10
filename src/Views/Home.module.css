@@ -1,215 +1,490 @@
 .contentContainer {
-    display: flex;
-    padding: 0px 182px;
+  display: flex;
+  padding: 0px 182px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 35px;
+  min-height: 100vh;
+  justify-content: space-between;
+  height: 100%;
+  padding-bottom: 680px;
+  place-content: start;
+  place-self: center;
+  width: 100%;
+  max-width: 1600px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.pageLoaded {
+  opacity: 1;
+}
+
+/* Animation classes for page load */
+.animateSection {
+  opacity: 0;
+}
+
+.animateItem {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.pageLoaded .animateSection {
+  opacity: 1;
+  transition: opacity 0.8s ease-out;
+}
+
+.pageLoaded .animateItem {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Staggered animation delays */
+.animateDelay1 {
+  transition-delay: 0.1s;
+}
+.animateDelay2 {
+  transition-delay: 0.2s;
+}
+.animateDelay3 {
+  transition-delay: 0.3s;
+}
+.animateDelay4 {
+  transition-delay: 0.4s;
+}
+.animateDelay5 {
+  transition-delay: 0.5s;
+}
+.animateDelay6 {
+  transition-delay: 0.6s;
+}
+.animateDelay7 {
+  transition-delay: 0.7s;
+}
+.animateDelay8 {
+  transition-delay: 0.8s;
+}
+
+.heroSection {
+  display: flex;
+  width: 100%;
+  padding-top: 32px;
+  padding-bottom: 128px;
+  flex-direction: column;
+  text-align: left;
+  align-items: left;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* Add styling for hero icons */
+.heroIcon {
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+/* Comment out or remove any animation-related styles if they exist */
+/* 
+.logo-container,
+.logo-animation-2-container,
+.logo-animation-3-container,
+.logo-animation-4-container {
+  // These styles are no longer needed
+}
+*/
+
+.workSection {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 180px;
+  justify-content: left;
+}
+
+.subsection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start;
+  gap: 56px;
+}
+
+.buttonsection {
+  display: flex;
+  flex-direction: row;
+  padding-top: 16px;
+  gap: 32px;
+}
+
+.cardarrangement {
+  display: flex;
+  width: 100%;
+  gap: 24px;
+  transition: all 0.3s ease-in-out;
+}
+
+.cardarrangement.large {
+  flex-direction: column;
+  gap: 88px;
+}
+
+.cardarrangement.tiles {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.cardarrangement.list {
+  flex-direction: column;
+}
+
+.socialbutton {
+  text-decoration: none;
+  text-align: center;
+  place-items: center;
+}
+
+.h2 {
+  color: #f4ead9;
+  text-align: left;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 82px;
+  line-height: 78%;
+  font-weight: 400;
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: -12px;
+  height: 100%;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+}
+
+.typingText {
+  display: inline-block;
+  min-width: 0ch;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 3px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.p1 {
+  color: #f4ead9;
+  text-align: left;
+  font-family: "IBM Plex Sans";
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 150%;
+  opacity: 1;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inlineLink {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: opacity 0.3s ease;
+}
+
+.inlineLink:hover {
+  opacity: 0.8;
+}
+
+.p2 {
+  color: #f4ead9;
+  text-align: left;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 210%;
+  opacity: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.heroline {
+  display: flex;
+  width: 100%;
+  max-width: 1300px;
+  gap: 80px;
+  margin-top: 32px;
+}
+
+.heroLink {
+  color: #f4ead9;
+  opacity: 1;
+  transition: opacity 0.3s, color 0.3s;
+  text-decoration: none;
+  position: relative;
+  text-align: left;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 210%;
+  text-transform: capitalize;
+  letter-spacing: -1px;
+}
+
+.heroLink:hover {
+  opacity: 1;
+}
+
+.heroLink::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #dfdad8;
+  transition: width 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.featuredWorkHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.viewModeButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.viewModeButtons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  padding: 5px;
+}
+
+.viewModeButtons button:hover,
+.viewModeButtons button.activeViewMode {
+  opacity: 1;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: contents;
+}
+
+/* Contact Section Styles */
+.contactSection {
+  width: 100%;
+  padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contactTitle {
+  color: #f4ead9;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 80px;
+  font-weight: 400;
+  margin:0;
+}
+
+.contactDescription {
+  color: #f4ead9;
+  font-family: "IBM Plex Sans";
+  font-size: 20px;
+  line-height: 150%;
+  margin-bottom: 72px ;
+}
+
+.contactForm {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formLabel {
+  color: #bdbdbd;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+}
+
+.formInput,
+.formTextarea {
+  width: 100%;
+  padding: 16px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: #f4ead9;
+  transition: all 0.3s ease;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.formInput::placeholder,
+.formTextarea::placeholder {
+  color: rgba(189, 189, 189, 0.6);
+}
+
+.formTextarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  color: #f4ead9;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+.submitButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 1328px) {
+  .contentContainer {
+    padding: 0px 32px;
+    padding-bottom: 550px;
+    gap: 24px;
+  }
+
+  .h2 {
+    text-wrap: nowrap;
+  }
+
+  .heroSection {
+    padding-top: 64px;
+    padding-bottom: 64px;
+    align-items: start;
+  }
+
+  .subsection {
+    gap: 24px;
+  }
+
+  .contactTitle {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .h2 {
+    font-size: 72px;
+    text-wrap: wrap;
+  }
+
+  .p1 {
+    font-size: 28px;
+    display: block;
+    line-height: 180%;
+  }
+
+  .heroline {
     flex-direction: column;
     align-items: flex-start;
-    gap: 35px;
-    min-height: 100vh;
-    justify-content: space-between;
-    height: 100%;
-    padding-bottom: 680px;
-    place-content: start;
-    place-self: center;
-    width: 100%;
-    max-width: 1600px;
+    gap: 0px;
   }
-  
+
   .heroSection {
-    display: flex;
-    width: 100%;
-    padding-top: 64px;
-    padding-bottom: 128px;
+    gap: 24px;
+  }
+
+  .buttonsection{
+
     flex-direction: column;
-    text-align: left;
-    align-items: left;
-    justify-content: center;
+    width:100%;
+  }
+
+  .cardarrangement.large {
     gap: 32px;
   }
-  
-  .workSection {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    gap: 180px;
-    justify-content: left;
-  }
-  
-  .subsection {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: flex-start;
-    gap: 56px;
-  }
-  
-  .cardarrangement {
-    display: flex;
-    width: 100%;
-    gap: 24px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .cardarrangement.large {
-    flex-direction: column;
-    gap: 88px;
-  }
-  
+
   .cardarrangement.tiles {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .cardarrangement.list {
     flex-direction: column;
   }
-  
-  .h2 {
-    color: #f4ead9;
-    text-align: left;
-    font-family: "Wosker";
-    font-size: 112px;
-    line-height: 78%;
-    font-weight: 600;
-    padding: 0px;
-    margin-top: 0px;
-    margin-bottom: -12px;
-    height: 100%;
-    letter-spacing: 2px;
-  }
-  
-  .p2 {
-    color: #bdbdbd;
-    text-align: left;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 210%;
-    opacity: 1;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .heroline {
-    display: flex;
-    width: 100%;
-    max-width: 1300px;
-    justify-content: space-between;
-  }
-  
-  .heroLink {
-    color: #bdbdbd;
-    opacity: 1;
-    transition: opacity 0.3s, color 0.3s;
-    text-decoration: none;
-    position: relative;
-    text-align: left;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 210%;
-  }
-  
-  .heroLink:hover {
-    opacity: 1;
-  }
-  
-  .heroLink::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: #dfdad8;
-    transition: width 0.3s ease-in-out;
-    pointer-events: none;
-  }
-  
+
   .featuredWorkHeader {
-    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
     justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 20px;
   }
-  
+
   .viewModeButtons {
-    display: flex;
-    gap: 10px;
+    visibility: collapse;
   }
-  
-  .viewModeButtons button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    opacity: 0.5;
-    transition: opacity 0.3s;
-    padding: 5px;
-  }
-  
-  .viewModeButtons button:hover,
-  .viewModeButtons button.activeViewMode {
-    opacity: 1;
-  }
-  
-  .cardLink {
-    text-decoration: none;
-    color: inherit;
-    display: contents;
-  }
-  
-  @media (max-width: 1328px) {
-    .contentContainer {
-      padding: 0px 32px;
-      padding-bottom: 550px;
-      gap: 24px;
-    }
-  
-    .h2 {
-      font-size: 130px;
-      text-wrap: nowrap;
-      margin-top: 12px;
-    }
-  
-    .heroSection {
-      padding-top: 64px;
-      padding-bottom: 64px;
-      align-items: start;
-      gap: 16px;
-    }
-  
-    .subsection {
-      gap: 24px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .h2 {
-      font-size: 112px;
-      text-wrap: wrap;
-    }
-  
-    .heroline {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .cardarrangement.tiles {
-      flex-direction: column;
-    }
-  
-    .featuredWorkHeader {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 16px;
-      justify-content: space-between;
-    }
 
-    .viewModeButtons{
-      visibility: collapse;
-    }
-
+  .contactTitle {
+    font-size: 36px;
   }
-  
-  
+
+  .contactDescription {
+    font-size: 20px;
+    margin-bottom: 32px;
+  }
+
+  .formInput,
+  .formTextarea {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+}
