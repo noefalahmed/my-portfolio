@@ -89,8 +89,25 @@ body{
     background-color:var(--DarkElevation);
     border-radius: 8px;
     display:flex;
+    
     object-fit: cover;
 }
+ .image-full{
+    height: 100%;
+    width: 100vw;
+    background-color: unset;
+    display:block;
+    place-self: center;
+    place-content: center;
+    place-items: center;
+    align-self: center;
+    align-items: center;
+    align-content: center;
+    margin: 0;
+    padding: 24px;
+    padding-left: 38px;
+    max-width: 1920px;
+ }
 
 
 .image-large{
@@ -115,13 +132,13 @@ body{
 
 .sh1{
     color: --Light;
-    font-family: "IBM Plex Sans Condensed";
+    font-family: "IBM Plex Mono";
     font-size: 38px;
     font-style: normal;
-    font-weight: 550;
+    font-weight: 400;
     line-height: 160%; /* 54.516px */
-    letter-spacing: 3.67px;
-    text-transform: uppercase;
+    letter-spacing: -1px;
+    text-transform: capitalize;
     padding:0px;
     margin:0px;
 }
@@ -132,8 +149,8 @@ body{
     text-transform: uppercase;
     text-align: left;
     font-family: "IBM Plex Mono", monospace;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: 500;
     line-height: 210%;
     opacity: 0.8;
     margin: 0;
@@ -191,6 +208,10 @@ body{
     .sub3section{
 
         width: 100%;
+    }
+
+    .subsection{
+        gap: 16px;
     }
 }
 

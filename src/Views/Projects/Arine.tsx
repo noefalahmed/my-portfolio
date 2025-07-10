@@ -1,12 +1,12 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
-import HeaderImage from '/assets/arine.png';
+import HeaderImage from '/assets/arn.png';
 
 const Arine: React.FC = () => {
     return (
         <div className={styles.page}>
             
-            <Header isDark={true} imageUrl={HeaderImage} pretitle="Project" subtitle="Visual Design at" title="Arine"/>
+            <Header imageUrl={HeaderImage} title="Leading Design at Arine" />
             <div className={styles.contentcontainer}>
                 <div className={styles.subsection}>
                     <h1 className={styles.sh1}>About</h1>
