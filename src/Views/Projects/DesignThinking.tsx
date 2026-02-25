@@ -150,7 +150,7 @@ const DesignThinking: React.FC = () => {
     <div className={styles.page}>
       <Header
         title="i redesigned a Dashboard for Account Managers"
-        imageSrc="/public/assets/proj3.png"
+        imageSrc="./assets/proj3.png"
         imageAlt="Description of image"
         details={[
           { label: "Company", value: "Upland Software" },

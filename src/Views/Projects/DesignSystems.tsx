@@ -131,7 +131,7 @@ const DesignSystems: React.FC = () => {
         <div className={styles.page}>
             <Header
                 title="i created a design system for a Rewards app."
-                imageSrc="/public/assets/proj2.png"
+                imageSrc="./assets/proj2.png"
                 imageAlt="Description of image"
                 details={[
                     { label: "Company", value: "Eat Sleep Repeat" },

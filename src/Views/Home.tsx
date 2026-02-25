@@ -446,7 +446,7 @@ useEffect(() => {
       {/* Main Bento Grid Container */}
       <div className={`${styles.contentContainer} ${isPageLoaded ? styles.pageLoaded : ""}`}>
         <main className={styles.bentoContainer}>
-          <img src="public/assets/bg-grid.png" className={styles.bentoImage}/>
+          <img src="./assets/bg-grid.png" className={styles.bentoImage}/>
           {/* Decorative wandering dots */}
           <div ref={setDotRef(0)} className={styles.decorativeDot} style={{ left: '35%', top: '30%' }} />
           <div ref={setDotRef(1)} className={styles.decorativeDot} style={{ left: '18%', top: '50%' }} />
@@ -472,13 +472,13 @@ useEffect(() => {
                 <>
                   <div className={styles.artworkStack}>
                     <div className={`${styles.artworkTile} ${styles.artworkTile3}`}>
-                      <img src="/public/assets/Birds.JPG" alt="Artwork 3" />
+                      <img src="./assets/Birds.JPG" alt="Artwork 3" />
                     </div>
                     <div className={`${styles.artworkTile} ${styles.artworkTile2}`}>
-                      <img src="/public/assets/SunDay.png" alt="Artwork 2" />
+                      <img src="./assets/SunDay.png" alt="Artwork 2" />
                     </div>
                     <div className={`${styles.artworkTile} ${styles.artworkTile1}`}>
-                      <img src="/public/assets/nightshade.png" alt="Artwork 1" />
+                      <img src="./assets/nightshade.png" alt="Artwork 1" />
                     </div>
                   </div>
                   <span className={styles.cardLabel}>My Artwork</span>
@@ -487,9 +487,9 @@ useEffect(() => {
 
               {artworkActive && (
                 <div className={styles.artworkGallery}>
-                  <img src="/public/assets/Birds.JPG" alt="Artwork 3" />
-                  <img src="/public/assets/SunDay.png" alt="Artwork 2" />
-                  <img src="/public/assets/nightshade.png" alt="Artwork 1" />
+                  <img src="./assets/Birds.JPG" alt="Artwork 3" />
+                  <img src="./assets/SunDay.png" alt="Artwork 2" />
+                  <img src="./assets/nightshade.png" alt="Artwork 1" />
                 </div>
               )}
             </div>
@@ -696,7 +696,7 @@ useEffect(() => {
               <div className={styles.projectImageWrapper}>
                 <p className={styles.projectCaption}>CORNELL UNIVERSITY, SCHOOL OF ENGINEERING</p>
                 <img 
-                  src="/public/assets/proj0.png" 
+                  src="./assets/proj0.png" 
                   alt="design-systems" 
                   className={styles.projectImage}
                 />
@@ -707,7 +707,7 @@ useEffect(() => {
               <div className={styles.projectImageWrapper}>
                 <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
                 <img 
-                  src="/public/assets/proj3.png" 
+                  src="./assets/proj3.png" 
                   alt="design-thinking" 
                   className={styles.projectImage}
                 />
@@ -718,7 +718,7 @@ useEffect(() => {
               <div className={styles.projectImageWrapper}>
                 <p className={styles.projectCaption}>EAT SLEEP REPEAT</p>
                 <img 
-                  src="/public/assets/proj2.png" 
+                  src="./assets/proj2.png" 
                   alt="Data Analytics" 
                   className={styles.projectImage}
                 />
@@ -729,7 +729,7 @@ useEffect(() => {
               <div className={styles.projectImageWrapper}>
                 <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
                 <img 
-                  src="/public/assets/proj1.png" 
+                  src="./assets/proj1.png" 
                   alt="Project Management" 
                   className={styles.projectImage}
                 />
