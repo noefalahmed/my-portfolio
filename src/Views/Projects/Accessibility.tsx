@@ -162,7 +162,7 @@ const Accessibility: React.FC = () => {
     <div className={styles.page}>
       <Header
         title="i created an accessibility framework for a project management software"
-        imageSrc="public/proj1.png"
+        imageSrc="/public/assets/proj1.png"
         imageAlt="Description of image"
         details={[
           { label: "Company", value: "Upland Software" },
