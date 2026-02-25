@@ -1,0 +1,94 @@
+.accordionContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+  gap:0px;
+  height:fit-content;
+
+}
+
+.accordionItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.dashedLine {
+  width: 100%;
+  height: 1px;
+  border-top: 0.5px dashed #3A3A3A;
+  
+}
+
+.accordionHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.accordionHeader:hover {
+  opacity: 0.8;
+}
+
+.accordionTitle {
+  color: #FFF;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.accordionArrow {
+  color: #d8d8d8;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.accordionArrowOpen {
+  transform: rotate(180deg);
+}
+
+.accordionContent {
+
+  overflow-x: visible;   /* allow horizontal escape */
+  overflow-y: hidden;    /* preserve vertical accordion animation */
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordionContentInner {
+  padding: 24px 0px 44px 0px;
+  color: #d8d8d8;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .accordionContainer {
+    padding: 0 16px;
+    gap: 24px;
+  }
+
+  .accordionTitle {
+    font-size: 18px;
+  }
+
+  .accordionHeader {
+    padding: 20px 0;
+  }
+
+  .accordionContentInner {
+    font-size: 14px;
+  }
+}

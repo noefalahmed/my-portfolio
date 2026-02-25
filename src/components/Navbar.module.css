@@ -1,90 +1,67 @@
-/* src/components/Navbar.module.css */
-
 .navbar {
-    display:flex;
-    width:100%;
-    padding: 32px 32px;
-    justify-content:space-between;
-    align-items: center;
-    align-content: center;
-    align-self: stretch;
-    flex-direction:row;
-  }
-
-  .leftSection {
-    display: flex;
-    align-items: center;
-    gap: 0px;
-    flex-direction: row;
-  }
-  
-  .rightSection {
-    display: flex;
-    align-items: center;
-    justify-content:flex-end;
-    gap: 16px;
-    flex-direction: row;
-  }
-
-/* Dropdown menu for the right section, initially hidden */
- .dropdown {
-    display: none;
-    flex-direction: column;
-  }
-  
-  .avatar {
-    width: 48px;
-    height: 48px;
-    background-color:none; /* Placeholder color */
-  }
-
-
-  .navButton{
-    text-decoration: none;
-  }
-
-  .menuButton{
-    display:none;  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #03070D;
+  transform: translateY(0);
+  transition: transform 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease;
+  height:fit-content;
 }
 
-@media (max-width:1200px){
-    .navbar{
-
-        padding: 24px 16px;
-    }
+.navbarHidden {
+  transform: translateY(-100%);
 }
 
+.navbarScrolled {
+  background-color: rgba(3, 7, 13, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
 
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
 
-/* Responsive styles for smaller screens */
+.logo:hover {
+  opacity: 0.7;
+}
+
+.navLinks {
+  display: flex;
+  gap: 48px;
+}
+
+.navLink {
+  color: #d8d8d8;
+  text-decoration: none;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  font-weight: 400;
+  transition: color 0.3s ease;
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.navLink:hover {
+  color: #ffffff;
+}
+
 @media (max-width: 768px) {
-
-
-    .rightSection {
-      display: none; /* Hide the right section's links */
-    }
-
-      /* Display the menu button */
-  .menuButton {
-    display: block;
-    cursor: pointer;
-    height:72px;
+  .navbar {
+    padding: 16px 24px;
   }
 
-   /* When the menu is expanded, show the dropdown */
-   .dropdown.show {
-    display: flex;
-    position: absolute;
-    top:3.5%; /* Adjust this to your navbar height */
-    right:3%;
-    background-color: var(--DarkElevation); /* Or match the navbar color */
-    width: fit-content; /* Adjust as necessary */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional styling */
-    align-items: flex-start;
-    padding: 16px 16px;
-    border-radius: 16px;
-    z-index: 1;
+  .navLinks {
+    gap: 24px;
+  }
 }
-  /* Add styles for individual dropdown links */
-} 
- 

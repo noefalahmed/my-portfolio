@@ -1,160 +1,177 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
+import Accordion from "../../components/Accordion"
 
+const accordionItems = [
+  {
+    title: "The Problem",
+    content: (
+        <div className={styles.subsection}>
+            <p>
+             Account Managers use Cimpl’s Accounts Dashboard every single day. The data they handle here connects through every part of the platform...
+            </p>
+            <img  src="./assets/cimple-1.png" className={`${styles.image} ${styles['image-dynamic']} `} ></img>
+            <p>...but users were struggling.
+                <br></br><br></br>
+                In speaking to Account Managers, I understood that managing data was slow and frustrating. In evaluating their interface, I saw disorganized layouts and unclear hierarchy. But to get to the root of the problem, I knew I needed to trace daily workflows.
+                <br></br><br></br>
+                Using the 5 Whys Method, I guided 3 Account Managers in reflecting on their own pain points to surface the true source of their friction. Here’s what I found:
+                <br></br><br></br>
+                The existing architecture didn’t reflect the relationships between accounts that mattered the most to users. Critical information was buried and disconnected, forcing overly-complicated mitigation and workarounds: spreadsheets, notes... anything except digging through Cimpl.
+            </p>
+        </div>
+    ),
+  },
+  {
+    title: "The Process",
+    content: (
+      <>
+        <div className={styles.subsection}>
+            <p>I collaborated with the product team to structure our design process into focused, iterative sprints: aligning design, research, and development around weekly deliverable and measurable feedback loops. </p>
+            <img  src="./assets/cimple-2.png" className={`${styles.image} ${styles['image-dynamic']} `} ></img>
+          <h1 className={styles.sh1}  style={{color: '#D78CF3'}} >Redefining the Architecture</h1>
+          <p>I rebuilt the experience that the UI was mapped on. To do this, I needed to understand how account managers thought about and did their work, then collaborate with cross-functional stakeholders to match the users’ priorities.</p>
+          <div className={styles.sub1section}>
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2} style={{color: '#D78CF3'}}>Creating the Taxonomy</h2>
+                                <p className={styles.p1}>Conducting interviews with Account Managers, we found that the existing account relationships were flat and needed parent-child relations to match users’ mental model.</p>
+                              <img src="./assets/cimple-3.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                            </div> 
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2} style={{color: '#D78CF3'}}>Adding Missing Data Points</h2>
+                                <p className={styles.p1}>With insights from the product owner and software development, I identified the key information that lived outside of Cimpl. By centralizing it,  we would simplify workflows and give account managers everything they needed in one place.</p>
+                                 <img src="./assets/cimple-4.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                            </div>
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2} style={{color: '#D78CF3'}}>Updating the Sitemap</h2>
+                                <p className={styles.p1}>Redefining the parent-child structure and adding new data meant that I needed to rethink the entire architecture. We designed a new framework to reflect how the system actually worked by building out more intuitive tabs and sections.</p>
+                                <img src="./assets/cimple-5.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                            </div> 
+            </div> 
+            <h1 className={styles.sh1} style={{color: '#73A0F9'}}>Design</h1>
+            <p>In weekly sprints, our design and product teams focused on one section of the UI at a time. We redesigned, tested, and checked feasibility before moving on, keeping an effective and focused project pace.
+            <br></br><br></br>
+             We evaluated and marked poorly designed components and misused UI patterns. By applying laws of UX, we redesigned the interface to be intuitive and engaging, ensuring that users could engage with data rather than struggling to find it.   
+            </p>
+            <img  src="./assets/cimple-6.png" className={`${styles.image} ${styles['image-dynamic']} `} ></img>
+            <div className={styles.sub1section}>
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2} style={{color: '#73A0F9'}}>How do we improve information clarity?</h2>
+                                <p className={styles.p1}>We implemented a consistent grid system and established visual rhythm to improve legibility and make information easier to scan at a glance.</p>
+                              <img src="./assets/cimple-7.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                            </div> 
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2} style={{color: '#73A0F9'}}>How do we show account relationships?</h2>
+                                <p className={styles.p1}>We designed multi-level tables that let users see relationships clearly and drill down into details without losing context.</p>
+                                 <img src="./assets/cimple-8.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                            </div>
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2} style={{color: '#73A0F9'}}>How do we communicate progress?</h2>
+                                <p className={styles.p1}>We added a step-by-step progress indicator that guided users through account creation, showing exactly where they were and what came next.</p>
+                                <img src="./assets/cimple-9.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                            </div> 
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2} style={{color: '#73A0F9'}}>How do we make content findable?</h2>
+                                <p className={styles.p1}>We matched section names to users' mental models, making it faster to find what they needed and complete tasks without guesswork.</p>
+                                <img src="./assets/cimple-10.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                            </div> 
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2} style={{color: '#73A0F9'}}>How do we give users control?</h2>
+                                <p className={styles.p1}>We introduced smart filters and progressive disclosure, allowing users to reveal relevant information while hiding the rest.</p>
+                                <img src="./assets/cimple-11.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                            </div> 
+            </div> 
+            <h1 className={styles.sh1} style={{color: '#73A0F9'}}>Validation</h1>
+            <p>We ran internal guerrilla tests and A/B tests with account managers to choose between competing concepts. We corroborated design decisions based on users’ simple majority.
+            </p>
+            <div className={styles.sub1section}>
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2} style={{color: '#73A0F9'}}>A/B Testing</h2>
+                              <img src="./assets/cimple-12.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                            </div> 
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2} style={{color: '#73A0F9'}}>Usability Testing Sessions</h2>
+                                 <img src="./assets/cimple-13.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                            </div>
+                         
+            </div> 
+        </div>
+      </>
+    ),
+  },
+  {
+    title: "The Result",
+    content: (
+      <>
+        <div className={styles.largetext}>
+          We packaged designs with detailed specs, component states, and implementation notes. This clarity eliminated guesswork and helped developers build faster with fewer revisions.
+          <br></br><br></br>
+          Our agile design process allowed for each section of Accounts to perform faster, yield better outcomes, and report lesser concerns from users. 
+        </div>
+        <br></br><br></br>
+        <img src="./assets/cimple-14.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+        <br></br><br></br>
+        <img src="./assets/cimple-15.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+        <br></br><br></br>
+        <img src="./assets/cimple-16.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+
+
+
+
+      </>
+    ),
+  },
+  {
+    title: "The Bigger Picture",
+    content: (
+      <>
+      <div className={styles.sub1section}>
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2}>Building Once, Deploying Everywhere</h2>
+                                <p className={styles.p1}>A design system isn't just about making things look good. It's about building a foundation that scales with ambition. ESR's roadmap extends well beyond this mobile app. The team envisions web platforms, in-store kiosks, loyalty integrations, and digital touchpoints we haven't imagined yet. Without a unified system, each new surface means rebuilding components from scratch, burning design and engineering hours while risking visual inconsistency. A solid design system prevents that waste. It ensures every future product ships faster, looks cohesive, and builds on solved problems instead of reinventing them.</p>
+                            </div> 
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2}>Tokens Over Templates</h2>
+                                <p className={styles.p1}>The system prioritizes flexibility without sacrificing consistency. Everything anchors to design tokens: colors, typography, spacing, elevation. These tokens create a single source of truth that adapts across contexts. A mobile button can feel native to iOS while sharing the same semantic tokens as its web counterpart. This approach means we're not just designing screens; we're encoding decisions that travel across platforms. When the brand evolves or accessibility standards shift, we update tokens once and changes propagate everywhere. That's the leverage a good system provides.</p>
+                            </div> 
+                            <div className={styles.sub2section}>
+                                <h2 className={styles.sh2}>Systems Should Grow, Not Bloat</h2>
+                                <p className={styles.p1}>The real test isn't whether the system works today. It's whether it evolves gracefully as the product matures. I've structured this to grow incrementally: start with foundational primitives, layer in base components, then compose complex patterns as needs emerge. This phased approach prevents overbuilding while staying flexible for future complexity. As ESR scales, the design system should feel like a living toolkit, not a rigid constraint. The goal is simple: empower teams to move fast with confidence, with guardrails that maintain quality without slowing down innovation.</p>
+                            </div> 
+        </div>
+      
+      </>
+    )
+  }
+]
 
 const DesignThinking: React.FC = () => {
-    return (
-        <div className={styles.page}>
-            
-            <Header  title="Applied Design Thinking" imageUrl={"/assets/planets.png"}  // Optional background color
-/>
-            <div className={styles.contentcontainer}>
-                <div className={styles.subsection}>
-                    <h1 className={styles.sh1}>About</h1>
-                    <p className={styles.p1}>At Upland Cimpl, a tool used for technology expense management, I helped users to better achieve cost transparency for their businesses. In a quarterly update to improve user satisfaction, I created a design process with the product team that allowed us to gather insights while designing and delivering solutions.</p>
-                </div>
-                <div className={styles.subsection}>
-                    <h1 className={styles.sh1}>The Problem</h1>
-                    <p className={styles.p1}>Users use Accounts in Cimpl to manage, track, and dispute bills. These Accounts carry vital information used throughout Cimpl.</p>
-                    <img src="/assets/cimple-1.png" className={`${styles.image} ${styles['image-dynamic']} `}></img>
-                    <img src="/assets/cimple-2.png" className={`${styles.image} ${styles['image-large']}`}></img>
+  return (
+    <div className={styles.page}>
+      <Header
+        title="i redesigned a Dashboard for Account Managers"
+        imageSrc="public/proj3.png"
+        imageAlt="Description of image"
+        details={[
+          { label: "Company", value: "Upland Software" },
+          { label: "Role", value: "Product Designer II" },
+          { label: "Duration", value: "3 Months" },
+          { label: "Skills", value: "User Research, Information Architecture, Product Design" },
+        ]}
+      />
 
-                    <div className={styles.sub1section} style={{alignItems: 'flex-start'}}>
-                    <div className={styles.sub2section}>
-                            <h2 className={styles.sh2}>What I Heard</h2>
-                            <p className={styles.p1}>
-                                The UX of entering, managing, and finding data in Accounts asked for too much time and effort from users. 
-                            </p>
-                    </div>
-                    <div className={styles.sub2section}>
-                            <h2 className={styles.sh2}>What I Saw</h2>
-                            <p className={styles.p1}>
-                                Evaluating the UI, there was obvious room for improvements in organisation and hierarchy in all the related pages. However, since the problem arose from user frustration, I pushed to determine and prioritise the shortcomings of the current experience.
-                            </p>
-                    </div>
-                </div>
-               
-                </div>
-                <div className={styles.subsection}>
-                    <h1 className={styles.sh1}>Design Process</h1>
-                    <img src="/assets/cimple-3.png" className={`${styles.image} ${styles['image-large']}`}></img>
-                </div>
-                <div className={styles.subsection}>
-                    <h1 className={styles.sh1}>Defining Friction</h1>
-                    <p className={styles.p1}>After talking to a couple of these Account Managers about how they were using Accounts in Cimpl, I realised how frustrated they were. My use of the 5 Whys Method while asking questions helped me reached the root of these frustrations:</p>
-                    <div className={styles.sub1section}>
-
-                        <div className={styles.rowcontent} style={{alignItems: 'flex-start'}}>
-                        <p className={styles.p1}>Related Accounts were poorly reflected in Cimpl. Root: Accounts had crucial parent child relations that were not easy to identify in Cimpl. </p>
-                        <p className={styles.p1}> Important Information was hard to find. Root: Users needed to be able to smoothly scan and find crucial numbers and dates in between forms and tables.</p>
-                        <p className={styles.p1}>Users lost time managing data outside of Cimpl. Root: Attributes of accounts that were not recorded in Cimpl were kept in Excel sheets. </p>
-                       </div>
-                        <div className={styles.rowcontent}>
-                            <div className={styles.sub2section}>
-                                <h2 className={styles.sh2}>Creating a New Taxonomy</h2>
-                                <p className={styles.p1}>We sat down with Account Managers to understand their need for a holistic account structure. </p>
-                            </div> 
-                            <img src="/assets/cimple-4.png" className={`${styles.image} ${styles['image-small']}`}></img>
-                        </div> 
-                        <div className={styles.rowcontent}>
-                            <div className={styles.sub2section}>
-                                <h2 className={styles.sh2}>Preventing Data Loss</h2>
-                                <p className={styles.p1}>I worked with the product owner and dev team to look at new data requirements. Our goal was to make sure that Cimpl users don’t go looking elsewhere for information.</p>
-                            </div> 
-                            <img src="/assets/cimple-5.png" className={`${styles.image} ${styles['image-small']}`}></img>
-                        </div>
-                        <div className={styles.rowcontent}>
-                            <div className={styles.sub2section}>
-                                <h2 className={styles.sh2}>Upadting the Sitemap</h2>
-                                <p className={styles.p1}>The change in architecture brought new tabs and sections users could navigate to.</p>
-                            </div> 
-                            <img src="/assets/cimple-6.png" className={`${styles.image} ${styles['image-small']}`}></img>
-                        </div> 
-                        <div className={styles.rowcontent}>
-                            <div className={styles.sub2section}>
-                                    <h2 className={styles.sh2}>UI Evaluation</h2>
-                                    <p className={styles.p1}>We evaluated and marked poorly designed components and misused patterns. This allowed us to lay out the design work for the project.</p>
-                            </div> 
-                            <img src="/assets/cimple-7.png" className={`${styles.image} ${styles['image-small']}`}></img>
-                        </div>
-
-                    </div>    
-                </div>
-                <div className={styles.subsection}>
-                    <h1 className={styles.sh1}>Designing & Validating</h1>
-                    <p className={styles.p1}>We explored designs for each of the tabs in Accounts. The agile nature of the process gave us time to focus on each Tab on it’s own. We generated concepts, iterated, and designed in high fidelity.</p>   
-                    <img src="/assets/cimple-8.png" className={`${styles.image} ${styles['image-large']}`}></img>
-                    <div className={styles.sub1section}>
-                        <div className={styles.sub2section} style={{paddingTop:'24px'}}>
-                            <h2 className={styles.sh2}>Applying Design Patterns</h2>
-                            <p className={styles.p1}>We evaluated and marked poorly designed components and misused patterns. This allowed us to lay out the design work for the project.</p>   
-                        </div>
-                        <div className={styles.rowcontent}>
-                                <div className={styles.sub2section}>
-                                    <p className={styles.p1}>Providing Focus to users by creating space and direction.  </p>
-                                </div> 
-                                <img src="/assets/cimple-9.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
-                        </div> 
-                        <div className={styles.rowcontent}>
-                                <div className={styles.sub2section}>
-                                    <p className={styles.p1}>Visual Hierarchy to show Account parent-child relations. We iterated on this to make adoption easier. </p>
-                                </div> 
-                                <img src="/assets/cimple-10.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
-                        </div> <div className={styles.rowcontent}style={{alignItems: 'flex-start'}}>
-                                <div className={styles.sub2section}>
-                                    <p className={styles.p1}>Applying Progressive Disclosure when creating accounts to improve task completion efficiency. </p>
-                                </div> 
-                                <img src="/assets/cimple-11.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
-                        </div> <div className={styles.rowcontent}>
-                                <div className={styles.sub2section}>
-                                    <p className={styles.p1}>Organising content by explicitly naming sections. This was trickier than we anticipated because we needed to talk to users to understand their mental model. </p>
-                                </div> 
-                                <img src="/assets/cimple-12.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
-                        </div>
-                        <div className={styles.sub2section}>
-                        <img src="/assets/cimple-13.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
-                        </div>
-
-                    </div>
-                    <div className={styles.sub1section}>
-                        <div className={styles.sub2section} style={{paddingTop:'56px'}}>
-                            <h2 className={styles.sh2}>Design Validation</h2>
-                            <p className={styles.p1}>Without collaborating with end-users, it would have been an incomplete redesign effort. Internal Guerrilla testing and A/B testing sessions helped us decide between our concepts.</p>  
-                            <img src="/assets/cimple-15.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
-                            <img src="/assets/cimple-16.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
-
-                        </div>
-                   </div>
-                   </div>
-                <div className={styles.subsection}>
-                    <h1 className={styles.sh1}>Delivering Solutions</h1>
-                  <div className={styles.sub1section}>
-                        <div className={styles.sub2section}>
-                                <p className={styles.p1}>An all new Accounts Page, it’s sub sections/tabs, and a complete UI refresh for all existing components.</p>   
-                                <img src="/assets/cimple-17.png" className={`${styles.image} ${styles['image-large']}`}></img>
-                        </div>
-                        <div className={styles.sub2section}>
-                                <h2 className={styles.sh2}>Displaying Data Responsively</h2>
-                                <p className={styles.p1}>Based off of built components from the Upland Design System, UI 2.0, I designed new components and layouts.</p>   
-                                <img src="/assets/cimple-18.png" className={`${styles.image} ${styles['image-large']}`}></img>
-                                
-                        </div>
-                        <div className={styles.sub2section}>
-                                <h2 className={styles.sh2}>Improving Task Completion</h2>
-                                <p className={styles.p1}>Using Progressive Disclosure, we made it easier to complete form-like tasks and to find everything right where it’s supposed to be.</p>   
-                                <img src="/assets/cimple-19.png" className={`${styles.image} ${styles['image-large']}`}></img>
-                            
-                        </div>
-                        <div className={styles.sub2section}style={{gap:'56px'}}>
-                        <p className={styles.p1}>Specs of each redesigned page were also carefully created to minimise design to code friction. </p>
-                                <img src="/assets/cimple-20.png" className={`${styles.image} ${styles['image-large']}`}></img>
-                                <img src="/assets/cimple-21.png" className={`${styles.image} ${styles['image-large']}`}></img>
-                        </div>
-                  </div> 
-                </div>
-            </div>
+      <div className={styles.contentcontainer}>
+        <img  src="./assets/cimple-17.png" className={`${styles.image} ${styles['image-full']} `} ></img>
+        <div className={styles.largetext}>
+          When critical information is hard to find, it’s often a symptom of poor interface design, or worse, fundamentally disorganised architecture. Here, it was both. 
+          <br></br>
+          <br></br>
+          Over the course of 2 months, I restructured Upland Software’s Accounts Dashboard by rebuilding key workflows related to forms, settings, records and filters.  
         </div>
-    );
-  };
-  
- export default DesignThinking; 
+        <Accordion items={accordionItems} />
+      </div>
+    </div>
+  )
+}
+
+export default DesignThinking

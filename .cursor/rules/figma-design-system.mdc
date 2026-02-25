@@ -1,0 +1,214 @@
+---
+description: Rules for implementing Figma designs in the portfolio. Covers component organization, styling conventions, design tokens, asset handling, and the required Figma-to-code workflow.
+globs: ["src/**/*.{tsx,ts,css}"]
+alwaysApply: false
+---
+
+# Figma Design System Rules — my-portfolio
+
+## Codebase Analysis Summary
+
+This document captures design system conventions derived from analyzing the portfolio codebase. Use these rules when translating Figma designs to code.
+
+---
+
+## 1. Token Definitions
+
+### Where Tokens Are Defined
+
+- **Primary:** `src/index.css` — root-level CSS variables
+- **Secondary:** `src/styles/global.css` — colors, background, text
+
+### Token Format
+
+```css
+/* src/index.css :root */
+--DarkSurface: #03070D;
+--DarkElevation: #15191E;
+--Light: #DFDAD8;
+--Gray-3: #828282;
+--Gray-4: #BDBDBD;
+```
+
+```css
+/* src/styles/global.css :root */
+--primary: #6b46c1;
+--background: #121212;
+--text: #dfdad8;
+--text-muted: #bdbdbd;
+```
+
+### Token Usage Rules
+
+- IMPORTANT: Prefer `var(--DarkSurface)`, `var(--Gray-3)`, `var(--Gray-4)` over hardcoded hex colors when matching the dark theme
+- Background surfaces: `#03070D` (DarkSurface), `#15191E` (DarkElevation)
+- Text: `#dfdad8`, `#d8d8d8`, `#ffffff` for primary/emphasis; `#828282`, `#BDBDBD` for muted
+- Borders: `#3A3A3A`, `#272727`
+- No formal token transformation system — use existing CSS variables
+
+---
+
+## 2. Component Library
+
+### Location
+
+- Reusable UI: `src/components/`
+- Page views: `src/Views/` (Home, About, Projects/*)
+
+### Component Architecture
+
+- Functional components with TypeScript interfaces
+- Use `React.FC<Props>` typing
+- Props interfaces defined above or beside components
+- Export default
+
+### Existing Components (Reuse, Don't Recreate)
+
+| Component | Path | Notes |
+|-----------|------|-------|
+| Button | `src/components/Button.tsx` | Variants: `text-only`, `icon-only`, `icon-and-text`; props: `label`, `icon`, `onClick`, `isActive`, `onlight` |
+| Card | `src/components/Card.tsx` | `viewMode`: `large` \| `tiles` \| `list`; props: `title`, `imageUrl`, `viewMode` |
+| Header | `src/components/Header.tsx` | Props: `title`, `imageSrc`, `imageAlt`, `details` (array of `{label, value}`) |
+| Navbar | `src/components/Navbar.tsx` | Fixed nav with logo + links |
+| Footer | `src/components/Footer.tsx` | Uses Button for links |
+| Accordion | `src/components/Accordion.tsx` | Props: `items` (array of `{title, content}`); uses lucide-react ChevronDown |
+
+### Component Patterns
+
+- Place new components in `src/components/` with co-located `ComponentName.module.css`
+- Use CSS Modules: `import styles from './ComponentName.module.css'`
+- Apply classes: `className={styles.className}` or `className={\`${styles.base} ${styles[variant]}\`}`
+
+---
+
+## 3. Frameworks & Libraries
+
+- **UI:** React 18
+- **Routing:** react-router-dom
+- **Build:** Vite 5, @vitejs/plugin-react
+- **SVG:** vite-plugin-svgr (SVG as React components)
+- **No Tailwind** — use CSS Modules only
+
+---
+
+## 4. Asset Management
+
+### Storage
+
+- Static assets in `public/` (served from root)
+- Project-specific images in `public/assets/`
+
+### Reference Rules
+
+- Use root-relative paths: `/assets/Logo.svg`, `/proj2.png`, `/SunDay.png`
+- Do NOT use `public/` prefix in `src` (e.g. use `/proj2.png`, not `public/proj2.png`)
+- For images in Views: `./assets/` or `/assets/` depending on context (both resolve correctly when Vite serves from public)
+
+### Asset Handling for Figma
+
+- IMPORTANT: If the Figma MCP server returns a localhost source for an image or SVG, use that source directly
+- IMPORTANT: DO NOT add new icon packages — use lucide-react, react-icons, or assets from Figma payload
+- Store downloaded Figma assets in `public/assets/`
+
+---
+
+## 5. Icon System
+
+### Sources
+
+- **lucide-react:** Primary icon library — `import { ChevronDown, Volume2 } from "lucide-react"`
+- **react-icons:** Available in package.json
+- **SVG files:** Use vite-plugin-svgr; import as React component: `import Logo from '/assets/Logo.svg'`
+- **Img for SVGs:** Also acceptable: `<img src="/assets/Logo.svg" alt="Logo" />`
+
+### Usage Pattern
+
+```tsx
+import { ChevronDown } from "lucide-react"
+<ChevronDown size={24} className={styles.icon} />
+```
+
+### Naming
+
+- PascalCase for React icon components
+- kebab-case for file names (e.g. `icon-pack.png`)
+
+---
+
+## 6. Styling Approach
+
+### Methodology
+
+- **CSS Modules** (`.module.css`) for all components and views
+- **Global styles:** `src/index.css`, `src/App.css`, `src/styles/global.css`
+
+### Typography
+
+- **Primary:** `"IBM Plex Sans", sans-serif`
+- **Monospace:** `"IBM Plex Mono", monospace`
+- Fonts loaded via Google Fonts in `global.css`: IBM Plex Mono (400, 500), IBM Plex Sans (300, 400, 500)
+
+### Responsive Breakpoints
+
+- `@media (max-width: 1200px)` — tablet / smaller desktop
+- `@media (max-width: 768px)` — mobile primary breakpoint
+- `@media (max-width: 480px)` — small mobile
+
+### Styling Rules
+
+- Use CSS custom properties for colors where tokens exist
+- Border radius: `8px`, `12px`, `100px` (for pills/buttons)
+- Transitions: `0.2s ease-in-out`, `0.3s ease` for hover/interaction
+- Flexbox and CSS Grid for layout (e.g. bento grid: `grid-template-columns: 1fr 2fr 1fr`)
+
+---
+
+## 7. Project Structure
+
+```
+src/
+├── components/          # Reusable UI (Button, Card, Header, Navbar, Footer, Accordion)
+├── Views/               # Page-level components
+│   ├── Home.tsx
+│   ├── About.tsx
+│   └── Projects/        # Project case studies (DesignSystems, Arine, Precisely, etc.)
+├── styles/              # Global animations, logo styles
+├── App.tsx
+├── main.tsx
+└── index.css            # Root tokens, base styles
+
+public/
+├── assets/              # Images, logos, project assets
+├── Fonts/               # Custom fonts (Wosker)
+└── *.png, *.svg         # Root-level images
+```
+
+---
+
+## Figma MCP Integration Rules
+
+### Required Flow (Do Not Skip)
+
+1. Run `get_design_context` for the exact node(s) to fetch layout, typography, colors
+2. If response is truncated, run `get_metadata` for node map, then re-fetch specific nodes with `get_design_context`
+3. Run `get_screenshot` for visual reference
+4. Download any assets from Figma MCP (use localhost sources directly)
+5. Translate Figma output into this project's conventions (CSS Modules, tokens, existing components)
+6. Validate against Figma for 1:1 look and behavior before marking complete
+
+### Implementation Rules
+
+- Treat Figma MCP output (often React + Tailwind) as design reference only — convert to CSS Modules and project tokens
+- Reuse components from `src/components/` instead of creating new ones when structure matches
+- Use `var(--DarkSurface)`, `var(--Gray-3)`, etc. for colors; avoid hardcoding hex except where no token exists
+- Use IBM Plex Sans / IBM Plex Mono for typography
+- Follow responsive breakpoints: 1200px, 768px, 480px
+- Place new components in `src/components/` with `.tsx` + `.module.css`
+- Use lucide-react or react-icons for icons — do not add new icon libraries
+
+### Asset Rules
+
+- Figma MCP localhost sources: use directly, no modification
+- Store new assets in `public/assets/`
+- Reference as `/assets/filename.ext` from components
+- DO NOT use placeholder images if Figma provides a localhost asset URL

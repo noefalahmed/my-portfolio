@@ -12,6 +12,7 @@ import Guide from './Views/Projects/Guide.tsx';
 import Arine from './Views/Projects/Arine.tsx';
 import About from './Views/About.tsx';
 import Precisely from './Views/Projects/Precisely.tsx'
+import Accessibility from './Views/Projects/Accessibility.tsx';
 
 
 const App: React.FC = () => {
@@ -29,6 +30,9 @@ const App: React.FC = () => {
           <Route path="/arine" element={<Arine />} /> 
           <Route path="/about" element={<About />} /> 
           <Route path="/Precisely" element={<Precisely />} /> 
+          <Route path="/accessibility" element={<Accessibility />} /> 
+
+
 
 
         </Routes>

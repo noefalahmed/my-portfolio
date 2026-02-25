@@ -1,0 +1,45 @@
+.headerAnimationWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+.circle1, .circle2 {
+  transform-origin: center;
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+.movingRing {
+  offset-path: path("M834.841 54 C871 100 928 140 1026 159");
+  offset-distance: 0%;
+  animation: followPath 4s linear infinite alternate;
+}
+
+@keyframes followPath {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+
+.pill {
+  stroke: #D83D3D;
+  stroke-width: 4;
+  animation: pulseBorder 2s ease-in-out infinite;
+}
+
+@keyframes pulseBorder {
+  0%, 100% { stroke-width: 2; }
+  50% { stroke-width: 8; }
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
