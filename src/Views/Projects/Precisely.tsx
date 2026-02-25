@@ -1,14 +1,20 @@
 import type React from "react"
 import styles from "./Projects.module.css"
 import Header from "../../components/Header"
-import HeaderImage from "/assets/pcly.png"
 
 const Precisely: React.FC = () => {
   return (
     <div className={styles.page}>
       <Header
-        imageUrl={HeaderImage}
-        title="Precisely"/>
+                title="i created a design system for a Rewards app."
+                imageSrc="public/proj2.png"
+                imageAlt="Description of image"
+                details={[
+                    { label: "Company", value: "Eat Sleep Repeat" },
+                    { label: "Role", value: "UX Designer" },
+                    { label: "Duration", value: "7 Months" },
+                    { label: "Skills", value: "Design Systems, UI, Product Design" },
+                ]}/>
       <div className={styles.contentcontainer}>
         <div className={styles.subsection}>
         <p

@@ -1,13 +1,20 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
-import HeaderImage from '/assets/arn.png';
 
 const Arine: React.FC = () => {
     return (
         <div className={styles.page}>
             
-            <Header imageUrl={HeaderImage} title="Leading Design at Arine" />
-            <div className={styles.contentcontainer}>
+                <Header
+                title="i created a design system for a Rewards app."
+                imageSrc="public/proj2.png"
+                imageAlt="Description of image"
+                details={[
+                    { label: "Company", value: "Eat Sleep Repeat" },
+                    { label: "Role", value: "UX Designer" },
+                    { label: "Duration", value: "7 Months" },
+                    { label: "Skills", value: "Design Systems, UI, Product Design" },
+                ]}/>            <div className={styles.contentcontainer}>
                 <div className={styles.subsection}>
                     <h1 className={styles.sh1}>About</h1>
                     <p className={styles.p1}>Launched in late 2020, Arine is a one-stop shop for organic skin care in Pakistan. Since then, Arine has emerged from a growing venture into a monumental business in the skincare industry in Pakistan. As one of its founding members, I was trusted to lead design-centric efforts including brand, visual, and web design. </p>

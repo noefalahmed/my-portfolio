@@ -1,166 +1,118 @@
-.header {
-  width: 100%;
-  height: auto;
-  position: relative;
+.headerContainer {
+  border: 0.5px solid #272727;
+  border-radius: 12px;
+  padding: 186px 0;
   display: flex;
-  align-items: center;
-  place-content: center;
-  overflow: hidden;
-  padding: 200px 0px;
+  flex-direction: column;
+  align-items: center; /* center horizontally */
+  justify-content: center; /* center vertically if needed */
+  min-height: calc(100vh - 120px);
+  width: 100%;
+  gap: 72px;
+  text-align: center; /* ensures all child text is centered */
 }
 
-.backgroundImage {
-  position: absolute;
+.imageWrapper {
+  display: flex;
+  width: 100%;
+  max-width: 780px; /* keeps image from overflowing on large screens */
+  height: auto; /* height scales automatically */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.headerImage {
   width: 100%;
   height: auto;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 0; /* Behind the text */
+  object-fit: cover;
   display: block;
-  max-width: 1600px;
-  /* Initial state - hidden and scaled down */
-  opacity: 0;
-  transform: scale(0.95);
-  transition: none; /* Disable transition initially */
 }
 
-.imageAnimated {
-  /* Animate in with smooth, clean effect */
-  animation: imageWarpIn 1.0s ease-out forwards;
-}
-
-.title {
-  position: relative; /* This ensures it's above the background */
-  z-index: 10; /* High z-index to ensure it's on top */
-  color: #f4ead9;
+.headerTitle {
+  color: #ffffff;
   font-family: "IBM Plex Mono", monospace;
-  font-size: 105px;
-  font-weight: 400; /* Regular weight */
-  line-height: 115%;
-  text-align: left;
-  max-width: 900px;
-  text-wrap: wrap;
-  margin-right: 182px;
-  /* Initial state - hidden */
-  opacity: 0;
-  transform: translateY(20px);
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1.1;
+  margin: 0;
+  text-align: center;
+  max-width: 800px;
 }
 
-.subtitle {
-  position: relative;
-  z-index: 10;
-  color: #f4ead9;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 24px;
+.detailsRow {
+  display: flex;
+  flex-wrap: wrap; /* wraps on smaller screens */
+  justify-content: center; /* horizontal centering */
+  align-items: flex-start;
+  gap: 64px;
+  max-width: 880px;
+}
+
+.detailPair {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers label + value inside each pair */
+  gap: 4px;
+  width: fit-content;
+}
+
+.detailLabel {
+  color: #FFF;
+  font-family: "IBM Plex Mono";
+  font-size: 16px;
   font-weight: 400;
-  text-align: left;
-  margin-bottom: 16px;
-  /* Initial state - hidden */
-  opacity: 0;
-  transform: translateY(20px);
+  line-height: 18px;
+  opacity: 0.5;
+  text-align: center; /* centers label text */
 }
 
-.textAnimated {
-  /* Animate in with smooth fade and slide up */
-  animation: textFadeIn 0.8s ease-out 0.4s forwards; /* 0.4s delay after image starts */
+.detailValue {
+  color: #d8d8d8;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center; /* centers value text */
 }
 
-/* Keyframe animations */
-@keyframes imageWarpIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes textFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive adjustments */
-@media (max-width: 1328px) {
-  .title {
-    padding-left: 32px;
-    font-size: 90px;
-    max-width: 1000px;
+@media (max-width: 1200px) {
+  .headerContainer {
+    padding: 48px 32px 32px;
   }
 
-  .subtitle {
-    padding-left: 32px;
-    font-size: 20px;
+  .headerTitle {
+    font-size: 36px;
   }
 
-  .header {
-    height: 800px;
+  .detailsRow {
+    gap: 32px;
   }
 }
 
 @media (max-width: 768px) {
-  .title {
-    padding-left: 24px;
-    font-size: 64px;
+  .headerContainer {
+    margin: 0 16px;
+    padding: 32px 24px 24px;
   }
 
-  .subtitle {
-    padding-left: 24px;
-    font-size: 18px;
+  .headerTitle {
+    font-size: 32px;
   }
 
-  .header {
-    height: 600px;
+  .detailsRow {
+    gap: 24px;
   }
 
-  /* Slightly faster animations on mobile */
-  .imageAnimated {
-    animation: imageWarpIn 0.8s ease-out forwards;
-  }
-
-  .textAnimated {
-    animation: textFadeIn 0.6s ease-out 0.3s forwards;
+  .detailPair {
+    min-width: 50%; /* each pair takes half row */
   }
 }
 
 @media (max-width: 480px) {
-  .title {
-    padding-left: 16px;
-    font-size: 48px;
-    max-width: calc(100% - 32px);
+  .detailsRow {
+    gap: 16px;
   }
 
-  .subtitle {
-    padding-left: 16px;
-    font-size: 16px;
-  }
-
-  .header {
-    height: 500px;
-  }
-}
-
-/* Reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .imageAnimated,
-  .textAnimated {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
-  .backgroundImage,
-  .title,
-  .subtitle {
-    opacity: 1;
-    transform: none;
+  .detailPair {
+    min-width: 100%; /* stack vertically on very small screens */
   }
 }

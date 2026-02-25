@@ -1,61 +1,48 @@
-// src/components/Navbar.tsx
-import React, {useState} from 'react';
-import styles from './Navbar.module.css'; // Importing the styles
-import Button from './Button.tsx';
-import { Link, useLocation } from 'react-router-dom'; 
-// import { ReactComponent as Logo } from '/assets/Logo.svg';
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { MdKeyboardArrowLeft } from "react-icons/md";
+"use client"
 
+import React, { useState, useEffect, useRef } from "react"
+import styles from "./Navbar.module.css"
+import { Download } from "lucide-react";
 
 const Navbar: React.FC = () => {
-  const location = useLocation();
-  const [MenuOpen, setIsMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const lastScrollY = useRef(0)
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!MenuOpen);
-  };
+  useEffect(() => {
+    const THRESHOLD = 4
+
+    function onScroll() {
+      const y = window.scrollY
+      const delta = y - lastScrollY.current
+
+      if (delta > THRESHOLD) {
+        setHidden(true)
+      } else if (delta < -THRESHOLD) {
+        setHidden(false)
+      }
+
+      setScrolled(y > 10)
+      lastScrollY.current = y
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   return (
-    <div className={styles.navbar}>
-      <div className={styles.leftSection}>
-        <Link to="/" className={styles.navButton}>
-            <Button variant={location.pathname==='/' ? "text-only" :"icon-only"}
-                label="Home" 
-                isActive={location.pathname === '/'} 
-                icon={location.pathname === '/' ? null : <MdKeyboardArrowLeft />}
-                />
-        </Link>
+    <nav
+      className={`${styles.navbar} ${hidden ? styles.navbarHidden : ""} ${scrolled ? styles.navbarScrolled : ""}`}
+    >
+      <a href="/" className={styles.logo} aria-label="Home">
+        <img src="/assets/Logo.svg" alt="Logo" width="24" height="24" />
+      </a>
+      <div className={styles.navLinks}>
+        <a href="/public/resume.pdf" download className={styles.navLink}><span>Resume</span>  <Download size={16} strokeWidth={1.5} />
+</a>
+       {/*<a href="/about" className={styles.navLink}>About</a>*/} 
       </div>
-      <div className={styles.rightSection}>
-        <Link to="about" className={styles.navButton}>
-            <Button variant="text-only" 
-                label="About" 
-                isActive={location.pathname === '/about'} 
-            />
-        </Link>
-      </div>
-      {/* Menu button for smaller screens */}
-      <div className={styles.menuButton}>
-        <Button variant="icon-only" icon={<MdKeyboardArrowDown className={styles.icon}/>} onClick={toggleMenu} isActive={MenuOpen ? true: false}/>
-      </div>
-
-      {/* Dropdown menu that shows when menuOpen is true */}
-      <div className={`${styles.dropdown} ${MenuOpen ? styles.show : ''}`}>
-        <Link to="about" className={styles.navButton}>
-            <Button variant="text-only" 
-                label="About" 
-                isActive={location.pathname === '/about'} 
-        />
-        </Link>
-        <a className={styles.navButton} href="https://calendly.com/noefalahmed" target="_blank" rel="noopener noreferrer">
-            <Button variant="text-only" 
-                label="Request Call" 
-                isActive={false}/>
-          </a>
-      </div>
-
-    </div>
-  );
-};
-export default Navbar;
+    </nav>
+  )
+}
+export default Navbar
