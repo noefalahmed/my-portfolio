@@ -1,6 +1,6 @@
 .contentContainer {
   display: flex;
-  padding: 0px 182px;
+  padding-inline: clamp(1.5rem, 12.64vw, 11.375rem);
   flex-direction: column;
   align-items: flex-start;
   min-height: 100vh;
@@ -12,7 +12,7 @@
 }
 
 .aboutSection {
-  padding-top: 120px;
+  padding-block: clamp(2rem, 8.33vw, 7.5rem);
   width: 100%;
 }
 
@@ -60,6 +60,7 @@
   font-size: 24px;
   line-height: 1.5;
   margin-bottom: 32px;
+  max-width: 65ch;
 }
 
 .links {
@@ -143,7 +144,7 @@
 
 @media (max-width: 1328px) {
   .contentContainer {
-    padding: 0px 32px;
+    padding-inline: 2rem;
   }
 
   .title {
