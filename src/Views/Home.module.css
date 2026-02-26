@@ -398,6 +398,7 @@
   top:50%;
   left:50%;
   transform: translate(-50%, -50%);
+  margin-right:16px;
 }
 
 
@@ -944,7 +945,6 @@ text-wrap: nowrap;
 }
 
 .about{
-  margin:96px 420px;
   padding-bottom: 96px;
   border: 1px solid #272727;
   border-radius: 12px;
@@ -953,6 +953,9 @@ text-wrap: nowrap;
   flex-direction: column;
   gap:96px;
   position: relative;  
+  max-width: 800px;
+  width: 100%; 
+  margin: 96px auto;
 }
 
 .rect1{
@@ -998,11 +1001,14 @@ text-wrap: nowrap;
 .aboutdescription{
   color: #d8d8d8;
   font-family: "IBM Plex Mono", monospace;
-  font-size: 14px;
+  /* font-size: 14px; */
   font-weight: 400;
   padding: 0 132px;
   line-height: 1.8;
+
+  font-size: 14px;
 }
+
 
 
 .backToTop {
@@ -1041,8 +1047,8 @@ text-wrap: nowrap;
  
     align-items: flex-start;
     gap:8px;
-    top:56px;
-    left:56px;
+    top:44px;
+    left:32px;
     transform: none;
    
   }
@@ -1086,20 +1092,15 @@ text-wrap: nowrap;
 
 
   /* Responsive breakpoint for tablets / smaller screens */
-  @media (max-width: 1024px) {
     .playgroundGrid {
       grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
     }
-  }
+  
 
-  /* Optional: even smaller screens (like phones) */
-  @media (max-width: 600px) {
-    .playgroundGrid {
-      grid-template-columns: 1fr; /* 1 card per row */
-    }
-  }
+  
+
 .about{
-  margin:120px 160px;
+  place-self: center;
 }
 }
 
@@ -1115,6 +1116,7 @@ text-wrap: nowrap;
 
   .bentoContainer{
     min-height: 1200px;
+
   }
 
   .playgroundGrid,.projectsGrid{
@@ -1148,14 +1150,35 @@ text-wrap: nowrap;
   .cornellBadge{
     right: 10%;
     left:auto;
-    top: 400px;
+    top: 600px;
     bottom:auto;
   }
    .about{
-  margin:0px;
-  margin-top:32px;
-  padding:24px;
+      margin:0px;
+      gap: 32px;
 }
+
+  .aboutdescription{
+    padding:40px;    
+  }
+  /* Optional: even smaller screens (like phones) */
+    .playgroundGrid {
+      grid-template-columns: 1fr; /* 1 card per row */
+    }
+
+    .buttonsection{
+      flex-direction: column;
+      width:100%;
+      gap:0px;
+    }
+
+    .filledButton, .outlinedButton{
+      margin: 8px 0px;
+      
+    }
+
+
+
 }
 
 @media (max-width: 480px) {
@@ -1165,14 +1188,15 @@ text-wrap: nowrap;
   }
 
   .ticTacToeCard {
-  right:24px;
+  right:16px;
   top:55%;
+  left: auto;
   }
 
   .pronunciationCard{
 
     left:24px;
-    top:60%;
+    top:64%;
   }
 
   .artworkCard{
@@ -1188,15 +1212,12 @@ text-wrap: nowrap;
   .noteCard{
     
      max-width: 400px;
-
   }
 
   .heroSection{
     left:20px;
   }
 
-/* Mobile view: entire card including title is square */
-@media (max-width: 480px) {
   .contentContainer {
   padding: 8px 16px;
 }
@@ -1246,6 +1267,17 @@ text-wrap: nowrap;
 
 
   }
-}
+
+  .about{
+    gap:24px;
+  }
+
+
+    .aboutdescription{
+    padding:20px;    
+
+  }
+  
+
 
 }
