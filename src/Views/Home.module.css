@@ -1090,14 +1090,10 @@ text-wrap: nowrap;
    grid-template-columns: 1fr;  
   }
 
-
   /* Responsive breakpoint for tablets / smaller screens */
     .playgroundGrid {
       grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
     }
-  
-
-  
 
 .about{
   place-self: center;

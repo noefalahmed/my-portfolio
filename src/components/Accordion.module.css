@@ -75,10 +75,8 @@
 }
 
 @media (max-width: 768px) {
-  .accordionContainer {
-    padding: 0 16px;
-    gap: 24px;
-  }
+  
+  
 
   .accordionTitle {
     font-size: 18px;

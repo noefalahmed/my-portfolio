@@ -75,13 +75,7 @@
 }
 
 @media (max-width: 1200px) {
-  .headerContainer {
-    padding: 48px 32px 32px;
-  }
 
-  .headerTitle {
-    font-size: 36px;
-  }
 
   .detailsRow {
     gap: 32px;
@@ -90,8 +84,8 @@
 
 @media (max-width: 768px) {
   .headerContainer {
-    margin: 0 16px;
-    padding: 32px 24px 24px;
+
+    padding: 186px 32px;
   }
 
   .headerTitle {
