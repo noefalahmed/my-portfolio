@@ -172,19 +172,28 @@ const Home: React.FC = () => {
   const artworkCardRef = useRef<HTMLDivElement>(null)
 
   const typingRef = useRef<HTMLSpanElement>(null)
+  const cornellWrapperRef = useRef<HTMLDivElement>(null)
+  const cornellAngle = useRef(0)
+  const cornellSpeed = useRef(0.024)       // deg/ms at normal speed (~15s/rotation)
+  const cornellTargetSpeed = useRef(0.024)
   const noteCardRef = useRef<HTMLDivElement>(null)
   const tttCardRef = useRef<HTMLDivElement>(null)
   const bentoContainerRef = useRef<HTMLElement>(null)
   const bentoImageRef = useRef<HTMLImageElement>(null)
   // const { setDotRef } = useWanderingDots(3)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [audioDuration, setAudioDuration] = useState(2)
 
   const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   const handlePlayPronunciation = () => {
-      if (!audioRef.current) return
-      audioRef.current.currentTime = 0
-      audioRef.current.play()
-    }
+    if (!audioRef.current) return
+    audioRef.current.currentTime = 0
+    const duration = audioRef.current.duration || 2
+    audioRef.current.play()
+    setIsPlaying(true)
+    setAudioDuration(duration)
+  }
 
   const handleSendNote = async () => {
     setNoteError("")
@@ -426,8 +435,26 @@ const Home: React.FC = () => {
   }, [])
   
   useEffect(() => {
-    audioRef.current = new Audio("/noefal-pronounciation.mp3")
+    let lastTime = performance.now()
+    let rafId: number
+    function animate(now: number) {
+      const dt = Math.min(now - lastTime, 50)
+      lastTime = now
+      cornellSpeed.current += (cornellTargetSpeed.current - cornellSpeed.current) * 0.06
+      cornellAngle.current += cornellSpeed.current * dt
+      if (cornellWrapperRef.current) {
+        cornellWrapperRef.current.style.transform = `rotate(${cornellAngle.current}deg)`
+      }
+      rafId = requestAnimationFrame(animate)
+    }
+    rafId = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(rafId)
+  }, [])
+
+  useEffect(() => {
+    audioRef.current = new Audio("/assets/noefal-pronounciation.mp3")
     audioRef.current.preload = "auto"
+    audioRef.current.addEventListener("ended", () => setIsPlaying(false))
   }, [])
 
   useEffect(() => {
@@ -689,9 +716,10 @@ useEffect(() => {
           </div>
 
           {/* Write me a note Card - Bottom Left */}
+          {noteActive && <div className={styles.noteOverlay} />}
           <div
             ref={noteCardRef}
-            className={`${styles.bentoCard} ${styles.noteCard} ${styles.animateItem} ${styles.animateDelay6}`}
+            className={`${styles.bentoCard} ${styles.noteCard} ${noteActive ? styles.noteCardActive : ""} ${styles.animateItem} ${styles.animateDelay6}`}
           >
             <span className={styles.noteCardTitle}>Write me a note</span>
             <div className={styles.noteInputArea}>
@@ -739,8 +767,12 @@ useEffect(() => {
           </div>
 
           {/* Cornell Badge - Center */}
-          <div className={`${styles.bentoCard} ${styles.cornellBadge} ${styles.animateItem} ${styles.animateDelay7}`}>
-            <div className={styles.cornellTextWrapper}>
+          <div
+            className={`${styles.bentoCard} ${styles.cornellBadge} ${styles.animateItem} ${styles.animateDelay7}`}
+            onMouseEnter={() => { cornellTargetSpeed.current = 0.36 }}
+            onMouseLeave={() => { cornellTargetSpeed.current = 0.024 }}
+          >
+            <div className={styles.cornellTextWrapper} ref={cornellWrapperRef}>
               <div className={styles.cornellText}>
                 {/* Text arranged in a circle */}
                 {"Cornell University Cornell University ".split("").map((char, i) => (
@@ -758,9 +790,11 @@ useEffect(() => {
           </div>
 
           {/* Urdu Name Pronunciation - Bottom Right */}
+          {isPlaying && <div className={styles.pronunciationOverlay} />}
           <button
             onClick={handlePlayPronunciation}
-            className={`${styles.bentoCard} ${styles.pronunciationCard} ${styles.animateItem} ${styles.animateDelay8}`}>
+            className={`${styles.bentoCard} ${styles.pronunciationCard} ${isPlaying ? styles.pronunciationCardActive : ""} ${styles.animateItem} ${styles.animateDelay8}`}
+            style={{ '--audio-duration': `${audioDuration}s` } as React.CSSProperties}>
             <div className={styles.volumeIconWrapper}>
               <Volume2 size={20} className={styles.volumeIcon} />
             </div>
