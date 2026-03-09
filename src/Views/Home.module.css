@@ -105,19 +105,17 @@
 /* Bento Cards Base */
 .bentoCard {
   border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.4s cubic-bezier(0.2, 0, 0, 1);
   text-decoration: none;
   color: inherit;
   cursor:inherit;
-
-  
 }
 
 .bentoCard:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  filter: saturate(1.5); /* 1 = normal, 1.5 = 150% */
   filter:brightness(1.1);
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.12s cubic-bezier(0.2, 0, 0, 1);
 }
 
 /* Artwork Card - Top Left */
@@ -323,14 +321,14 @@
 .tttOverlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(3, 7, 13, 0.7);
+  background-color: rgba(3, 7, 13, 0.88);
   z-index: 90;
   backdrop-filter: blur(2px);
 }
 
 /* Active state - float above overlay */
 .ticTacToeCardActive {
-  position: relative;
+  position: absolute;
   z-index: 100;
   transform: scale(1.06);
   cursor: default;
@@ -558,6 +556,14 @@ text-wrap: nowrap;
 }
 
 /* Note Card - Bottom Left */
+.noteOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(3, 7, 13, 0.88);
+  z-index: 90;
+  backdrop-filter: blur(2px);
+}
+
 .noteCard {
   background-color: #cb7c0f;
   border-radius: 12px;
@@ -572,6 +578,10 @@ text-wrap: nowrap;
   position: absolute;
   bottom:24px;
   left: 24px;
+}
+
+.noteCardActive {
+  z-index: 100;
 }
 
 .noteCardTitle {
@@ -707,6 +717,41 @@ text-wrap: nowrap;
   flex-shrink: 0;
 }
 
+.pronunciationOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(3, 7, 13, 0.88);
+  z-index: 90;
+  backdrop-filter: blur(2px);
+}
+
+.pronunciationCardActive {
+  z-index: 100;
+  overflow: hidden;
+}
+
+.pronunciationCardActive::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(-100%);
+  animation: audioFill var(--audio-duration, 2s) cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  border-radius: 100px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pronunciationCardActive > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes audioFill {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0%); }
+}
+
 /* Pronunciation Card - Bottom Right */
 .pronunciationCard {
 
@@ -714,7 +759,7 @@ text-wrap: nowrap;
   align-self: center;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), background-color 0.4s cubic-bezier(0.2, 0, 0, 1);
   display: flex;
   width: fit-content;
   padding: 8px 16px 8px 8px;
@@ -735,6 +780,7 @@ text-wrap: nowrap;
 .pronunciationCard:hover {
   transform: scale(1.02);
   background-color: #243352;
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1), background-color 0.12s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .pronunciationCard:active {
@@ -804,7 +850,6 @@ text-wrap: nowrap;
   position: relative;
   width: 100px;
   height: 100px;
-  animation: rotate 15s linear infinite;
 }
 
 .cornellText {
