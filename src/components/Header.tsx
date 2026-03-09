@@ -20,16 +20,18 @@ const Header: React.FC<HeaderProps> = ({ title, imageSrc, imageAlt, details }) =
   const wrapperRef = useRef<HTMLDivElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
   const [typedTitle, setTypedTitle] = useState("")
-  const [typedValues, setTypedValues] = useState<string[]>(details.map(() => ""))
-  const [doneValues, setDoneValues] = useState<boolean[]>(details.map(() => false))
+
+  const titleWords = title.trim().split(' ')
+  const titlePrefix = titleWords.length > 1 ? titleWords.slice(0, -1).join(' ') + ' ' : ''
+  const titleSuffix = titleWords.length > 1 ? titleWords[titleWords.length - 1] : title
 
   useEffect(() => {
     const PIXEL_SIZE = 32       // larger pixel blocks
-    const LERP = 0.025          // how fast each pixel transitions toward its target (per frame)
-    const CHANGE_MIN = 400      // ms minimum before a pixel picks a new target
-    const CHANGE_MAX = 1200     // ms maximum
-    const NOISE_DURATION = 1400 // ms of noise phase
-    const FADE_DURATION = 1400  // ms of fade-out phase
+    const LERP = 0.04           // how fast each pixel transitions toward its target (per frame)
+    const CHANGE_MIN = 150      // ms minimum before a pixel picks a new target
+    const CHANGE_MAX = 600      // ms maximum
+    const NOISE_DURATION = 700  // ms of noise phase
+    const FADE_DURATION = 500   // ms of fade-out phase
 
     const canvas = canvasRef.current
     const wrapper = wrapperRef.current
@@ -154,39 +156,16 @@ const Header: React.FC<HeaderProps> = ({ title, imageSrc, imageAlt, details }) =
   useEffect(() => {
     const speed = 45
 
-    // Type the title once — cursor stays blinking permanently
+    // Type only the last two words of the title
     let i = 0
     const titleInterval = setInterval(() => {
       i++
-      setTypedTitle(title.slice(0, i))
-      if (i >= title.length) clearInterval(titleInterval)
+      setTypedTitle(titleSuffix.slice(0, i))
+      if (i >= titleSuffix.length) clearInterval(titleInterval)
     }, speed)
-
-    // Type all detail values simultaneously — cursor fades after each
-    const valueIntervals = details.map((detail, idx) => {
-      let j = 0
-      const interval = setInterval(() => {
-        j++
-        setTypedValues(prev => {
-          const next = [...prev]
-          next[idx] = detail.value.slice(0, j)
-          return next
-        })
-        if (j >= detail.value.length) {
-          clearInterval(interval)
-          setDoneValues(prev => {
-            const next = [...prev]
-            next[idx] = true
-            return next
-          })
-        }
-      }, speed)
-      return interval
-    })
 
     return () => {
       clearInterval(titleInterval)
-      valueIntervals.forEach(clearInterval)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -197,21 +176,13 @@ const Header: React.FC<HeaderProps> = ({ title, imageSrc, imageAlt, details }) =
         <canvas ref={canvasRef} className={styles.canvasOverlay} />
       </div>
       <h1 className={styles.headerTitle}>
-        {typedTitle}
-        <span className={styles.cursor} />
+        {titlePrefix}<span className={styles.typedSuffix}>{typedTitle}</span><span style={{ opacity: 0 }}>{titleSuffix.slice(typedTitle.length)}</span>
       </h1>
       <div className={styles.detailsRow}>
         {details.map((detail, index) => (
           <div key={index} className={styles.detailPair}>
             <span className={styles.detailLabel}>{detail.label}</span>
-            <span className={styles.detailValue} style={{ width: `${detail.value.length}ch` }}>
-              {typedValues[index]}
-              {typedValues[index].length > 0 && (
-                doneValues[index]
-                  ? <span className={styles.cursorFade} />
-                  : <span className={styles.cursor} />
-              )}
-            </span>
+            <span className={styles.detailValue}>{detail.value}</span>
           </div>
         ))}
       </div>
