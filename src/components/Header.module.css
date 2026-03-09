@@ -18,6 +18,24 @@
   to { opacity: 1; }
 }
 
+.typedSuffix {
+  display: inline-block;
+  vertical-align: baseline;
+  position: relative;
+}
+
+.typedSuffix::after {
+  content: '';
+  position: absolute;
+  top: 0.1em;
+  left: 100%;
+  margin-left: 2px;
+  width: 2px;
+  height: 0.85em;
+  background-color: #fff;
+  animation: blink 1.2s step-end infinite;
+}
+
 .cursor {
   display: inline-block;
   width: 2px;
