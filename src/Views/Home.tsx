@@ -1,7 +1,26 @@
 "use client"
 import React, { useState, useEffect, useRef, useCallback } from "react"
 import styles from "./Home.module.css"
-import { Volume2, ArrowUp, Check, Loader2 } from "lucide-react"
+import { Volume2, ArrowUp, Check, Loader2, ArrowRight } from "lucide-react"
+import { FaLinkedin } from "react-icons/fa"
+
+function startTyping(
+  text: string,
+  setter: React.Dispatch<React.SetStateAction<string>>,
+  doneSetter: React.Dispatch<React.SetStateAction<boolean>>,
+  speed = 45
+) {
+  let i = 0
+  const interval = setInterval(() => {
+    i++
+    setter(text.slice(0, i))
+    if (i >= text.length) {
+      clearInterval(interval)
+      doneSetter(true)
+    }
+  }, speed)
+  return interval
+}
 
 interface DotState {
   x: number
@@ -121,6 +140,32 @@ const Home: React.FC = () => {
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const [shouldType, setShouldType] = useState(false);
   const [typedText, setTypedText] = useState("");
+  const [pill1, setPill1] = useState("")
+  const [pill2, setPill2] = useState("")
+  const [pill3, setPill3] = useState("")
+  const [taglineTyped, setTaglineTyped] = useState("")
+  const [pill1Done, setPill1Done] = useState(false)
+  const [pill2Done, setPill2Done] = useState(false)
+  const [pill3Done, setPill3Done] = useState(false)
+  const [taglineDone, setTaglineDone] = useState(false)
+
+  const [proj1Text, setProj1Text] = useState("")
+  const [proj2Text, setProj2Text] = useState("")
+  const [proj3Text, setProj3Text] = useState("")
+  const [proj4Text, setProj4Text] = useState("")
+  const [proj1Done, setProj1Done] = useState(false)
+  const [proj2Done, setProj2Done] = useState(false)
+  const [proj3Done, setProj3Done] = useState(false)
+  const [proj4Done, setProj4Done] = useState(false)
+  const [proj1ImgVisible, setProj1ImgVisible] = useState(false)
+  const [proj2ImgVisible, setProj2ImgVisible] = useState(false)
+  const [proj3ImgVisible, setProj3ImgVisible] = useState(false)
+  const [proj4ImgVisible, setProj4ImgVisible] = useState(false)
+
+  const proj1Ref = useRef<HTMLAnchorElement>(null)
+  const proj2Ref = useRef<HTMLAnchorElement>(null)
+  const proj3Ref = useRef<HTMLAnchorElement>(null)
+  const proj4Ref = useRef<HTMLAnchorElement>(null)
 
   // Tic Tac Toe state
   type CellValue = null | "X" | "O"
@@ -135,6 +180,8 @@ const Home: React.FC = () => {
   const typingRef = useRef<HTMLSpanElement>(null)
   const noteCardRef = useRef<HTMLDivElement>(null)
   const tttCardRef = useRef<HTMLDivElement>(null)
+  const bentoContainerRef = useRef<HTMLElement>(null)
+  const bentoImageRef = useRef<HTMLImageElement>(null)
   const { setDotRef } = useWanderingDots(3)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
@@ -428,6 +475,56 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, [shouldType]);
 
+  useEffect(() => {
+    if (!isPageLoaded) return
+    const speed = 45
+    const typeText = (
+      text: string,
+      setter: React.Dispatch<React.SetStateAction<string>>,
+      doneSetter: React.Dispatch<React.SetStateAction<boolean>>
+    ) => {
+      let i = 0
+      const interval = setInterval(() => {
+        i++
+        setter(text.slice(0, i))
+        if (i >= text.length) {
+          clearInterval(interval)
+          doneSetter(true)
+        }
+      }, speed)
+      return interval
+    }
+    const i1 = typeText("Human-AI Interaction", setPill1, setPill1Done)
+    const i2 = typeText("Product Design", setPill2, setPill2Done)
+    const i3 = typeText("Systems Thinking", setPill3, setPill3Done)
+    const i4 = typeText("I'm an architect of scales, grids, systems, and smooth interactions.", setTaglineTyped, setTaglineDone)
+    return () => { clearInterval(i1); clearInterval(i2); clearInterval(i3); clearInterval(i4) }
+  }, [isPageLoaded])
+
+  useEffect(() => {
+    const cards: { ref: React.RefObject<HTMLAnchorElement | null>, text: string, setter: React.Dispatch<React.SetStateAction<string>>, doneSetter: React.Dispatch<React.SetStateAction<boolean>>, imgSetter: React.Dispatch<React.SetStateAction<boolean>> }[] = [
+      { ref: proj1Ref, text: "...work in progress...", setter: setProj1Text, doneSetter: setProj1Done, imgSetter: setProj1ImgVisible },
+      { ref: proj2Ref, text: "i redesigned a Dashboard for Account Managers.", setter: setProj2Text, doneSetter: setProj2Done, imgSetter: setProj2ImgVisible },
+      { ref: proj3Ref, text: "i created a Design System for a Rewards App.", setter: setProj3Text, doneSetter: setProj3Done, imgSetter: setProj3ImgVisible },
+      { ref: proj4Ref, text: "i created an accessibility framework for a project management software.", setter: setProj4Text, doneSetter: setProj4Done, imgSetter: setProj4ImgVisible },
+    ]
+    const observers = cards.map(({ ref, text, setter, doneSetter, imgSetter }) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            observer.disconnect()
+            startTyping(text, setter, doneSetter)
+            imgSetter(true)
+          }
+        },
+        { threshold: 0.5 }
+      )
+      if (ref.current) observer.observe(ref.current)
+      return observer
+    })
+    return () => observers.forEach(o => o.disconnect())
+  }, [])
+
   return (
     <div className={styles.pageWrapper}>
       {/* Navigation
@@ -445,8 +542,29 @@ useEffect(() => {
 
       {/* Main Bento Grid Container */}
       <div className={`${styles.contentContainer} ${isPageLoaded ? styles.pageLoaded : ""}`}>
-        <main className={styles.bentoContainer}>
-          <img src="./assets/bg-grid.png" className={styles.bentoImage}/>
+        <main
+          className={styles.bentoContainer}
+          onMouseMove={(e) => {
+            const el = bentoContainerRef.current
+            const img = bentoImageRef.current
+            if (!el || !img) return
+            const rect = el.getBoundingClientRect()
+            const cx = rect.left + rect.width / 2
+            const cy = rect.top + rect.height / 2
+            const nx = (e.clientX - cx) / (rect.width / 2)
+            const ny = (e.clientY - cy) / (rect.height / 2)
+            img.style.transition = "transform 0.08s ease-out"
+            img.style.transform = `translate(${nx * 15}px, ${ny * 12}px)`
+          }}
+          onMouseLeave={() => {
+            const img = bentoImageRef.current
+            if (!img) return
+            img.style.transition = "transform 0.6s ease-out"
+            img.style.transform = "translate(0px, 0px)"
+          }}
+          ref={bentoContainerRef}
+        >
+          <img src="./assets/bg-grid.png" className={styles.bentoImage} ref={bentoImageRef}/>
           {/* Decorative wandering dots */}
           <div ref={setDotRef(0)} className={styles.decorativeDot} style={{ left: '35%', top: '30%' }} />
           <div ref={setDotRef(1)} className={styles.decorativeDot} style={{ left: '18%', top: '50%' }} />
@@ -570,37 +688,43 @@ useEffect(() => {
             {/* Skill Pills */}
             <div className={`${styles.skillPills} ${styles.animateItem} ${styles.animateDelay4}`}>
               <span className={styles.skillPill}>
-                <span className={styles.skillIcon} style={{ color: '#ff5e5e' }}>✦</span>
-                <p className={`${styles.tagline} ${styles.animateItem} ${styles.animateDelay5}`}>
-                Human-AI Interaction
+                <img src="https://www.figma.com/api/mcp/asset/d96a85f3-12f6-442b-bf85-ff1038cf4d18" alt="" className={styles.skillIcon} />
+                <p className={styles.tagline} style={{ width: '20ch', textAlign: 'left' }}>
+                  {pill1}
+                  {isPageLoaded && (pill1Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
                 </p>
               </span>
               <span className={styles.skillPill}>
-                <span className={styles.skillIcon} style={{ color: '#178fff' }}>◉</span>
-                <p className={`${styles.tagline} ${styles.animateItem} ${styles.animateDelay5}`}>
-                Product Design
+                <img src="https://www.figma.com/api/mcp/asset/b930b662-e6c2-42d0-bf13-a43dad1863f2" alt="" className={styles.skillIcon} />
+                <p className={styles.tagline} style={{ width: '14ch', textAlign: 'left' }}>
+                  {pill2}
+                  {isPageLoaded && (pill2Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
                 </p>
               </span>
               <span className={styles.skillPill}>
-                <span className={styles.skillIcon} style={{ color: '#8f6aff' }}>⊞</span>
-                <p className={`${styles.tagline} ${styles.animateItem} ${styles.animateDelay5}`}>
-                Systems Thinking
+                <img src="https://www.figma.com/api/mcp/asset/330cc483-86b2-4637-8176-fbabc4b5fefd" alt="" className={styles.skillIcon} />
+                <p className={styles.tagline} style={{ width: '16ch', textAlign: 'left' }}>
+                  {pill3}
+                  {isPageLoaded && (pill3Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
                 </p>
               </span>
             </div>
 
             {/* Tagline */}
-            <p className={`${styles.tagline} ${styles.animateItem} ${styles.animateDelay5}`}>
-              I’m an architect of scales, grids, systems, and smooth interactions.
+            <p className={styles.tagline} style={{ width: '68ch', maxWidth: '100%', textAlign: 'left' }}>
+              {taglineTyped}
+              {isPageLoaded && (taglineDone ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
             </p>
             <div className={styles.buttonsection}>
               <button className={styles.outlinedButton}
               onClick={() => window.open("https://www.linkedin.com/in/noefalahmed", "_blank")}>
+              <FaLinkedin size={14} color="#ffffff" />
               LinkedIn
             </button>
             <button className={styles.filledButton}
             onClick={() => window.open("https://www.calendly.com/noefalahmed", "_blank")}>
               Connect
+              <ArrowRight size={14} color="#05090F" />
             </button>
             </div>
           </div>
@@ -692,49 +816,61 @@ useEffect(() => {
             Projects that I've worked on across different companies.
           </p>
           <div className={styles.projectsGrid}>
-            <a href="/design-systems" className={`${styles.projectCard} ${styles.projectCardDisabled}`}>
+            <a href="/design-systems" ref={proj1Ref} className={`${styles.projectCard} ${styles.projectCardDisabled}`}>
               <div className={styles.projectImageWrapper}>
                 <p className={styles.projectCaption}>CORNELL UNIVERSITY, SCHOOL OF ENGINEERING</p>
-                <img 
-                  src="./assets/proj0.png" 
-                  alt="design-systems" 
-                  className={styles.projectImage}
+                <img
+                  src="./assets/proj0.png"
+                  alt="design-systems"
+                  className={`${styles.projectImage} ${proj1ImgVisible ? styles.projectImageVisible : ""}`}
                 />
               </div>
-              <span className={styles.projectTitle}>...work in progress...</span>
+              <span className={styles.projectTitle}>
+                {proj1Text}
+                {proj1Text.length > 0 && (proj1Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
+              </span>
             </a>
-            <a href="/design-thinking" className={styles.projectCard}>
+            <a href="/design-thinking" ref={proj2Ref} className={styles.projectCard}>
               <div className={styles.projectImageWrapper}>
                 <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
-                <img 
-                  src="./assets/proj3.png" 
-                  alt="design-thinking" 
-                  className={styles.projectImage}
+                <img
+                  src="./assets/proj3.png"
+                  alt="design-thinking"
+                  className={`${styles.projectImage} ${proj2ImgVisible ? styles.projectImageVisible : ""}`}
                 />
               </div>
-              <span className={styles.projectTitle}>i redesigned a Dashboard for Account Managers.</span>
+              <span className={styles.projectTitle}>
+                {proj2Text}
+                {proj2Text.length > 0 && (proj2Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
+              </span>
             </a>
-            <a href="/design-systems" className={styles.projectCard}>
+            <a href="/design-systems" ref={proj3Ref} className={styles.projectCard}>
               <div className={styles.projectImageWrapper}>
                 <p className={styles.projectCaption}>EAT SLEEP REPEAT</p>
-                <img 
-                  src="./assets/proj2.png" 
-                  alt="Data Analytics" 
-                  className={styles.projectImage}
+                <img
+                  src="./assets/proj2.png"
+                  alt="Data Analytics"
+                  className={`${styles.projectImage} ${proj3ImgVisible ? styles.projectImageVisible : ""}`}
                 />
               </div>
-              <span className={styles.projectTitle}>i created a Design System for a Rewards App.</span>
+              <span className={styles.projectTitle}>
+                {proj3Text}
+                {proj3Text.length > 0 && (proj3Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
+              </span>
             </a>
-            <a href="/accessibility" className={styles.projectCard}>
+            <a href="/accessibility" ref={proj4Ref} className={styles.projectCard}>
               <div className={styles.projectImageWrapper}>
                 <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
-                <img 
-                  src="./assets/proj1.png" 
-                  alt="Project Management" 
-                  className={styles.projectImage}
+                <img
+                  src="./assets/proj1.png"
+                  alt="Project Management"
+                  className={`${styles.projectImage} ${proj4ImgVisible ? styles.projectImageVisible : ""}`}
                 />
               </div>
-              <span className={styles.projectTitle}>i created an accessibility framework for a project management software.</span>
+              <span className={styles.projectTitle}>
+                {proj4Text}
+                {proj4Text.length > 0 && (proj4Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
+              </span>
             </a>
           </div>
         </section>

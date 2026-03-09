@@ -10,6 +10,42 @@
   width: 100%;
   gap: 72px;
   text-align: center; /* ensures all child text is centered */
+  animation: pageFadeIn 0.4s ease forwards;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  background-color: #fff;
+  vertical-align: -0.1em;
+  margin-left: 4px;
+  animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursorFade {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  background-color: #fff;
+  vertical-align: -0.1em;
+  margin-left: 4px;
+  animation: blinkFade 1.2s step-end 2 forwards;
+}
+
+@keyframes blinkFade {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 .imageWrapper {
@@ -17,8 +53,17 @@
   width: 100%;
   max-width: 780px; /* keeps image from overflowing on large screens */
   height: auto; /* height scales automatically */
-  border-radius: 8px;
   overflow: hidden;
+  position: relative;
+}
+
+.canvasOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .headerImage {
@@ -41,17 +86,16 @@
 
 .detailsRow {
   display: flex;
-  flex-wrap: wrap; /* wraps on smaller screens */
-  justify-content: center; /* horizontal centering */
+  flex-wrap: nowrap;
+  justify-content: center;
   align-items: flex-start;
   gap: 64px;
-  max-width: 880px;
 }
 
 .detailPair {
   display: flex;
   flex-direction: column;
-  align-items: center; /* centers label + value inside each pair */
+  align-items: flex-start;
   gap: 4px;
   width: fit-content;
 }
@@ -59,19 +103,20 @@
 .detailLabel {
   color: #FFF;
   font-family: "IBM Plex Mono";
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 18px;
   opacity: 0.5;
-  text-align: center; /* centers label text */
 }
 
 .detailValue {
   color: #d8d8d8;
   font-family: "IBM Plex Mono", monospace;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  text-align: center; /* centers value text */
+  display: inline-block;
+  text-align: left;
+  white-space: nowrap;
 }
 
 @media (max-width: 1200px) {
@@ -95,18 +140,10 @@
   .detailsRow {
     gap: 24px;
   }
-
-  .detailPair {
-    min-width: 50%; /* each pair takes half row */
-  }
 }
 
 @media (max-width: 480px) {
   .detailsRow {
     gap: 16px;
-  }
-
-  .detailPair {
-    min-width: 100%; /* stack vertically on very small screens */
   }
 }
