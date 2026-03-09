@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect, useRef, useCallback } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import styles from "./Home.module.css"
 import { Volume2, ArrowUp, Check, Loader2, ArrowRight } from "lucide-react"
 import { FaLinkedin } from "react-icons/fa"
@@ -22,6 +22,7 @@ function startTyping(
   return interval
 }
 
+/* Wandering dots (commented out — uncomment to re-enable)
 interface DotState {
   x: number
   y: number
@@ -125,6 +126,7 @@ function useWanderingDots(count: number) {
 
   return { setDotRef }
 }
+*/
 
 const Home: React.FC = () => {
   const [greeting, setGreeting] = useState("hi,")
