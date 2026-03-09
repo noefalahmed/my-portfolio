@@ -35,6 +35,7 @@
   border-radius: 12px;
   padding: 44px;
   display: block;
+  overflow: hidden;
 
   min-height: 800px;
   width: 100%;
@@ -42,15 +43,18 @@
 
 .bentoImage{
   position: absolute;
-  inset: 0;
-  width:100%;
+  left: -5%;
+  top: -5%;
+  width: 110%;
+  height: 110%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0.3;          /* control transparency */
   z-index: 0;
   overflow: hidden;
-  height:100%;
+  will-change: transform;
+  transition: transform 0.08s ease-out;
 }
 
 
@@ -438,6 +442,21 @@
   50% { opacity: 0; }
 }
 
+.cursorFade {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  background-color: #fff;
+  vertical-align: -0.1em;
+  margin-left: 4px;
+  animation: blinkFade 1.2s step-end 2 forwards;
+}
+
+@keyframes blinkFade {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
 /* Skill Pills */
 .skillPills {
   display: flex;
@@ -458,7 +477,9 @@
 }
 
 .skillIcon {
-  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
 /* Tagline */
@@ -494,6 +515,7 @@ text-wrap: nowrap;
   border: none;
   cursor: pointer;
   margin:20px 0px;
+  transition: filter 0.2s ease;
 
   color: var(--Precisely-Dark-100, #05090F);
   text-align: center;
@@ -502,6 +524,10 @@ text-wrap: nowrap;
   font-style: normal;
   font-weight: 500;
   line-height: 167%;
+}
+
+.filledButton:hover {
+  filter: brightness(1.15);
 }
 
 .outlinedButton{
@@ -517,6 +543,7 @@ text-wrap: nowrap;
   border: 1px solid #D4D4D4;
   cursor: pointer;
   margin:20px 0px;
+  transition: background 0.2s ease;
 
   text-align: center;
   font-family: "IBM Plex Mono";
@@ -524,6 +551,10 @@ text-wrap: nowrap;
   font-style: normal;
   font-weight: 500;
   line-height: 167%;
+}
+
+.outlinedButton:hover {
+  background: rgba(212, 212, 212, 0.08);
 }
 
 /* Note Card - Bottom Left */
@@ -536,8 +567,8 @@ text-wrap: nowrap;
   gap: 16px;
   align-self: end;
   justify-self: start;
-  width: 312px;
-  height: 232px;
+  width: 215px;
+  height: 215px;
   position: absolute;
   bottom:24px;
   left: 24px;
@@ -697,6 +728,7 @@ text-wrap: nowrap;
   background: #1A263B;
   position: absolute;
   bottom:56px;
+  right: 24px;
 
 }
 
@@ -762,10 +794,10 @@ text-wrap: nowrap;
   width: 100px;
   height: 100px;
   background: transparent;
-  margin-right: 60px;
   position: absolute;
   bottom:56px;
-  right:24px;
+  left: 50%;
+  margin-left: -50px;
 }
 
 .cornellTextWrapper {
@@ -879,6 +911,12 @@ text-wrap: nowrap;
   justify-self: center;
   padding:0px 72px;
   place-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.projectImageVisible {
+  opacity: 1;
 }
 
 .projectTitle {
