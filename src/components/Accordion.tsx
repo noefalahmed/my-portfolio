@@ -20,6 +20,7 @@ const AccordionContent = React.forwardRef<HTMLDivElement, { content: React.React
   ({ content, isOpen }, outerRef) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
+  React.useImperativeHandle(outerRef, () => wrapperRef.current as HTMLDivElement)
   const [height, setHeight] = useState<number | 'auto'>(0)
   const [overflow, setOverflow] = useState<'hidden' | 'visible'>('hidden')
   const [opacity, setOpacity] = useState(0)
@@ -56,12 +57,7 @@ const AccordionContent = React.forwardRef<HTMLDivElement, { content: React.React
 
   return (
     <div
-      ref={el => {
-        wrapperRef.current = el
-        if (!outerRef) return
-        if (typeof outerRef === 'function') outerRef(el)
-        else Object.assign(outerRef, { current: el })
-      }}
+      ref={wrapperRef}
       className={styles.accordionContent}
       style={{ height: height === 'auto' ? 'auto' : `${height}px`, overflow }}
       onTransitionEnd={handleTransitionEnd}
