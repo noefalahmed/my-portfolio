@@ -15,7 +15,7 @@ html, body {
   margin:0;
   background: var(--Dark-Surface, #03070D); /*Global background color*/
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif, IBM Plex Sans, IBM Plex Mono;
-  overflow-x: hidden; /* Prevents horizontal scrolling */
+  overflow-x: clip; /* Prevents horizontal scrolling without breaking position:sticky */
   align-items: center;
   padding:0;
   margin: 0;
@@ -36,8 +36,9 @@ body::before {
 }
 
 *{
-  box-sizing: border-box; 
+  box-sizing: border-box;
   /* Makes sure padding and borders are included in the element's width and height */
+  cursor: none !important;
 }
 
 
