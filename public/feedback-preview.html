@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1480" />
+  <title>Feedback Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1480px;
+      background: #ffffff;
+      font-family: 'IBM Plex Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .frame {
+      width: 1480px;
+      background: #ffffff;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .texture {
+      position: absolute;
+      inset: 0;
+      background-image: url('/assets/sc-texture.png');
+      background-repeat: repeat;
+      background-size: auto;
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Header */
+    .header {
+      width: 100%;
+      height: 54px;
+      background: #b31b1b;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-logo {
+      height: 19px;
+    }
+
+    /* Content */
+    .content {
+      width: 946px;
+      margin: 0 auto;
+      padding: 22px 0 80px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Cards */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e8e8e8;
+      border-radius: 10px;
+      padding: 24px;
+      width: 100%;
+    }
+
+    .card-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #222;
+      margin-bottom: 32px;
+    }
+
+    /* ── Overview Card ── */
+    .overview-card {
+      border-color: #e4e4e4;
+      border-radius: 4px;
+      height: 90px;
+      padding: 0 25px;
+      display: flex;
+      align-items: center;
+      gap: 63px;
+    }
+
+    .overview-agent {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .agent-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #e8d5d5;
+    }
+
+    .agent-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #222;
+      white-space: nowrap;
+    }
+
+    .agent-sub {
+      font-size: 13px;
+      color: #888;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    .overview-meta {
+      display: flex;
+      gap: 36px;
+    }
+
+    .meta-item {}
+
+    .meta-label {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+
+    .meta-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: #222;
+      white-space: nowrap;
+    }
+
+    /* ── Overall Score ── */
+    .score-card .card-title {
+      margin-bottom: 20px;
+    }
+
+    .score-row {
+      display: flex;
+      align-items: center;
+      gap: 52px;
+    }
+
+    .score-summary {
+      flex: 1;
+    }
+
+    .score-descriptor {
+      font-size: 24px;
+      font-weight: 600;
+      color: #222;
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+
+    .score-body {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.75;
+    }
+
+    /* ── Metrics ── */
+    .metrics-card .card-title {
+      margin-bottom: 0;
+    }
+
+    .metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .metric-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .metric-label {
+      width: 200px;
+      font-size: 14px;
+      color: #444;
+      flex-shrink: 0;
+    }
+
+    .metric-track {
+      flex: 1;
+      height: 7px;
+      background: #ebebeb;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .metric-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: #b31b1b;
+    }
+
+    .metric-score {
+      width: 36px;
+      text-align: right;
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      flex-shrink: 0;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    /* ── Best Moments ── */
+    .best-moments-grid {
+      display: flex;
+      gap: 20px;
+    }
+
+    .best-moment-col {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      gap: 10px;
+      padding: 13px;
+    }
+
+    .bm-bubble-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      align-items: flex-end;
+      flex: 1;
+    }
+
+    .bm-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: #b31b1b;
+      text-align: right;
+    }
+
+    .bm-bubble {
+      background: #222;
+      border-radius: 8px;
+      padding: 10px 13px;
+      color: #f5f5f5;
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 302px;
+      position: relative;
+    }
+
+    .bm-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* ── Feedback items (Strengths / Opportunities) ── */
+    .feedback-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .feedback-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .feedback-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 482px;
+      flex-shrink: 0;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    .dot-green  { background: #2d9e6b; }
+    .dot-orange { background: #e07b39; }
+    .dot-blue   { background: #4a7fbf; }
+
+    .feedback-text {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.65;
+    }
+
+    /* ── Snippet column (right side) ── */
+    .feedback-snippet {
+      width: 306px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .snippet-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      align-items: flex-start;
+      width: 240px;
+    }
+
+    .snippet-label-me {
+      font-size: 10px;
+      font-weight: 500;
+      color: #b31b1b;
+      text-align: right;
+      width: 100%;
+    }
+
+    .snippet-label-drew {
+      font-size: 10px;
+      font-weight: 500;
+      color: #555;
+      text-align: left;
+      width: 100%;
+    }
+
+    .snippet-bubble-dark {
+      background: #222;
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: #f5f5f5;
+      font-size: 13px;
+      line-height: 1.6;
+      width: 240px;
+    }
+
+    .snippet-bubble-drew {
+      background: #fcfcfc;
+      border: 1px solid #222;
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: #222;
+      font-size: 13px;
+      line-height: 1.6;
+      width: 240px;
+    }
+
+    .snippet-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 240px;
+    }
+
+    .snippet-row-me {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
+    .snippet-row-drew {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      justify-content: flex-start;
+    }
+
+    .snippet-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* ── Consider Adding ── */
+    .consider-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .consider-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .consider-text {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.65;
+    }
+
+    /* ── Inline highlight spans ── */
+    .hl-s  { background: rgba(0, 36, 135, 0.55);  border-radius: 2px; padding: 0 1px; }
+    .hl-b  { background: rgba(194, 114, 48, 0.65); border-radius: 2px; padding: 0 1px; }
+    .hl-i  { background: rgba(28, 99, 51, 0.65);   border-radius: 2px; padding: 0 1px; }
+    .hl-green     { background: rgba(45, 158, 107, 0.38); border-radius: 2px; padding: 0 2px; }
+    .hl-yellow    { background: rgba(255, 195, 0, 0.55);  border-radius: 2px; padding: 0 2px; }
+    .hl-blue-mini { background: rgba(74, 127, 191, 0.35); border-radius: 2px; padding: 0 2px; }
+    .strikethrough-text { text-decoration: line-through; opacity: 0.5; }
+  </style>
+</head>
+<body>
+<div class="frame">
+  <div class="texture"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <img
+      class="header-logo"
+      src="https://www.figma.com/api/mcp/asset/7741e5ce-d823-416e-a4fe-f0c3b6333dda"
+      alt="CornellEngineering"
+    />
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Overview Card -->
+    <div class="card overview-card">
+      <div class="overview-agent">
+        <img
+          class="agent-avatar"
+          src="https://www.figma.com/api/mcp/asset/98bfe8e9-c251-4cf8-8f38-db5bd334a4e5"
+          alt="Drew"
+        />
+        <div>
+          <div class="agent-name">Drew</div>
+          <div class="agent-sub">Your Teammate</div>
+        </div>
+      </div>
+      <div class="overview-meta">
+        <div class="meta-item">
+          <div class="meta-label">Scenario</div>
+          <div class="meta-value">Teammate Conflict</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Difficulty</div>
+          <div class="meta-value">Standard</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value">4:32</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Exchanges</div>
+          <div class="meta-value">12</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overall Score -->
+    <div class="card score-card">
+      <div class="card-title">Overall Score</div>
+      <div class="score-row">
+        <svg width="172" height="172" viewBox="0 0 172 172" style="flex-shrink:0">
+          <circle cx="86" cy="86" r="68" fill="none" stroke="#f0e8e8" stroke-width="11"/>
+          <circle cx="86" cy="86" r="68" fill="none" stroke="#b31b1b" stroke-width="11"
+            stroke-dasharray="427.3" stroke-dashoffset="115"
+            stroke-linecap="round"
+            transform="rotate(-90 86 86)"/>
+          <text x="86" y="78" text-anchor="middle" font-family="IBM Plex Sans" font-size="40" font-weight="700" fill="#b31b1b">73</text>
+          <text x="86" y="100" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" fill="#888">/100</text>
+        </svg>
+        <div class="score-summary">
+          <div class="score-descriptor">Good — clear structure, room to improve emotional tone.</div>
+          <div class="score-body">Your feedback hit the key structural markers — you named the situation, described the behavior, and articulated the impact. Where it fell short was tone: two exchanges read as defensive rather than accountable, and the conversation ended without a clear next step.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scores -->
+    <div class="card metrics-card">
+      <div class="card-title">Scores</div>
+      <div class="metrics">
+        <div class="metric-row">
+          <span class="metric-label">Empathy</span>
+          <div class="metric-track"><div class="metric-fill" style="width:70%"></div></div>
+          <span class="metric-score">7.0</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Listening</span>
+          <div class="metric-track"><div class="metric-fill" style="width:60%"></div></div>
+          <span class="metric-score">6.0</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Setting Expectations</span>
+          <div class="metric-track"><div class="metric-fill" style="width:80%"></div></div>
+          <span class="metric-score">8.0</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Clarity</span>
+          <div class="metric-track"><div class="metric-fill" style="width:72%"></div></div>
+          <span class="metric-score">7.2</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Conciseness</span>
+          <div class="metric-track"><div class="metric-fill" style="width:50%"></div></div>
+          <span class="metric-score">5.0</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Accountability</span>
+          <div class="metric-track"><div class="metric-fill" style="width:82%"></div></div>
+          <span class="metric-score">8.2</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Specificity</span>
+          <div class="metric-track"><div class="metric-fill" style="width:65%"></div></div>
+          <span class="metric-score">6.5</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Best Moments -->
+    <div class="card">
+      <div class="card-title">Best Moments</div>
+      <div class="best-moments-grid">
+
+        <!-- Moment 1 — SBI annotated bubble -->
+        <div class="best-moment-col">
+          <div class="bm-bubble-group">
+            <div class="bm-label">Me</div>
+            <div class="bm-bubble">
+              <span class="hl-s">I was working on the build this week and realised </span><span class="hl-b">you had not merged your branch this week again</span><span class="hl-i">. We were left confused and wasted time while trying to contact you to help us resolve the issue before deciding next steps amongst ourselves.</span>
+            </div>
+          </div>
+          <img
+            class="bm-avatar"
+            src="https://www.figma.com/api/mcp/asset/e9eec7a3-4cf1-49d9-987e-475f4c09ea24"
+            alt="Me"
+          />
+        </div>
+
+        <!-- Moment 2 — SBI annotated bubble -->
+        <div class="best-moment-col">
+          <div class="bm-bubble-group">
+            <div class="bm-label">Me</div>
+            <div class="bm-bubble">
+              <span class="hl-s">I was working on the build this week and realised </span><span class="hl-b">you had not merged your branch this week again</span><span class="hl-i">. We were left confused and wasted time while trying to contact you to help us resolve the issue before deciding next steps amongst ourselves.</span>
+            </div>
+          </div>
+          <img
+            class="bm-avatar"
+            src="https://www.figma.com/api/mcp/asset/e9eec7a3-4cf1-49d9-987e-475f4c09ea24"
+            alt="Me"
+          />
+        </div>
+
+      </div>
+
+      <!-- SBI legend -->
+      <div style="display:flex; gap:24px; margin-top:16px; justify-content:flex-end;">
+        <div style="display:flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#999;">
+          <div style="width:10px; height:10px; border-radius:2px; background:rgba(0,36,135,0.75);"></div>
+          Situation
+        </div>
+        <div style="display:flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#999;">
+          <div style="width:10px; height:10px; border-radius:2px; background:rgba(194,114,48,0.85);"></div>
+          Behavior
+        </div>
+        <div style="display:flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:#999;">
+          <div style="width:10px; height:10px; border-radius:2px; background:rgba(28,99,51,0.85);"></div>
+          Impact
+        </div>
+      </div>
+    </div>
+
+    <!-- Strengths -->
+    <div class="card">
+      <div class="card-title">Strengths</div>
+      <div class="feedback-list">
+
+        <!-- S1 -->
+        <div class="feedback-item">
+          <div class="feedback-left">
+            <div class="dot dot-green"></div>
+            <span class="feedback-text">Named the specific project and deadline clearly, giving Drew concrete context.</span>
+          </div>
+          <div class="feedback-snippet">
+            <div class="snippet-group">
+              <div class="snippet-label-me">Me</div>
+              <div class="snippet-bubble-dark">I know, but we needed <span class="hl-green">your branch merged before the build</span> and we had to work around it last minute.</div>
+            </div>
+            <img class="snippet-avatar" src="https://www.figma.com/api/mcp/asset/e9eec7a3-4cf1-49d9-987e-475f4c09ea24" alt="Me" style="width:40px;height:40px;" />
+          </div>
+        </div>
+
+        <!-- S2 -->
+        <div class="feedback-item">
+          <div class="feedback-left">
+            <div class="dot dot-green"></div>
+            <span class="feedback-text">Kept feedback focused on the observable behavior (branch not merged), not character.</span>
+          </div>
+          <div class="feedback-snippet">
+            <div class="snippet-group">
+              <div class="snippet-label-me">Me</div>
+              <div class="snippet-bubble-dark">Hey Drew, I wanted to talk about the project. <span class="hl-green">The workload hasn't been split evenly</span> and it held up the whole team.</div>
+            </div>
+            <img class="snippet-avatar" src="https://www.figma.com/api/mcp/asset/e9eec7a3-4cf1-49d9-987e-475f4c09ea24" alt="Me" style="width:40px;height:40px;" />
+          </div>
+        </div>
+
+        <!-- S3 -->
+        <div class="feedback-item">
+          <div class="feedback-left">
+            <div class="dot dot-green"></div>
+            <span class="feedback-text">Held your ground when Drew pushed back, without escalating the tension further.</span>
+          </div>
+          <div class="feedback-snippet">
+            <div class="snippet-group">
+              <div class="snippet-label-me">Me</div>
+              <div class="snippet-bubble-dark">I know, but we needed <span class="hl-green">your branch merged before the build</span> and we had to work around it last minute.</div>
+            </div>
+            <img class="snippet-avatar" src="https://www.figma.com/api/mcp/asset/e9eec7a3-4cf1-49d9-987e-475f4c09ea24" alt="Me" style="width:40px;height:40px;" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Opportunities -->
+    <div class="card">
+      <div class="card-title">Opportunities to Improve</div>
+      <div class="feedback-list">
+
+        <!-- O1 -->
+        <div class="feedback-item">
+          <div class="feedback-left">
+            <div class="dot dot-orange"></div>
+            <span class="feedback-text">Tone became defensive in the second exchange — try acknowledging Drew's situation before restating impact.</span>
+          </div>
+          <div class="feedback-snippet">
+            <div class="snippet-group">
+              <div class="snippet-label-me">Me</div>
+              <div class="snippet-bubble-dark"><span class="strikethrough-text">That's literally what it did — it blocked the whole team.</span> <span class="hl-yellow">I hear you — and it still cost us time we couldn't get back.</span></div>
+            </div>
+            <img class="snippet-avatar" src="https://www.figma.com/api/mcp/asset/e9eec7a3-4cf1-49d9-987e-475f4c09ea24" alt="Me" style="width:40px;height:40px;" />
+          </div>
+        </div>
+
+        <!-- O2 -->
+        <div class="feedback-item">
+          <div class="feedback-left">
+            <div class="dot dot-orange"></div>
+            <span class="feedback-text">Ended without a clear resolution — the conversation closed without a next step or mutual agreement.</span>
+          </div>
+          <div class="feedback-snippet">
+            <div class="snippet-group">
+              <div class="snippet-label-me">Me</div>
+              <div class="snippet-bubble-dark"><span class="strikethrough-text">Alright, let's just make sure it doesn't happen again.</span> <span class="hl-yellow">Can we agree — branch merged at least a day before any build?</span></div>
+            </div>
+            <img class="snippet-avatar" src="https://www.figma.com/api/mcp/asset/e9eec7a3-4cf1-49d9-987e-475f4c09ea24" alt="Me" style="width:40px;height:40px;" />
+          </div>
+        </div>
+
+        <!-- O3 -->
+        <div class="feedback-item">
+          <div class="feedback-left">
+            <div class="dot dot-orange"></div>
+            <span class="feedback-text">Held your ground when Drew pushed back, without escalating the tension further.</span>
+          </div>
+          <div class="feedback-snippet">
+            <div class="snippet-group">
+              <div class="snippet-label-me">Me</div>
+              <div class="snippet-bubble-dark">I know, but we needed your branch merged before the build and we had to work around it last minute.</div>
+            </div>
+            <img class="snippet-avatar" src="https://www.figma.com/api/mcp/asset/e9eec7a3-4cf1-49d9-987e-475f4c09ea24" alt="Me" style="width:40px;height:40px;" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Consider Adding -->
+    <div class="card">
+      <div class="card-title">Consider Adding</div>
+      <div class="consider-list">
+        <div class="consider-item">
+          <div class="dot dot-blue" style="margin-top:8px;"></div>
+          <span class="consider-text">A direct ask: "What do you need to make sure this doesn't happen again?" — invites ownership.</span>
+        </div>
+        <div class="consider-item">
+          <div class="dot dot-blue" style="margin-top:8px;"></div>
+          <span class="consider-text">Acknowledge Drew's workload before asserting impact — it reduces defensiveness and signals you heard him.</span>
+        </div>
+        <div class="consider-item">
+          <div class="dot dot-blue" style="margin-top:8px;"></div>
+          <span class="consider-text">Summarize the agreed action before closing — it makes accountability mutual and explicit.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 24px;
+}
+
+.wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/sc-texture.png');
+  background-repeat: repeat;
+  background-size: auto;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 56px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Large gap when the speaker switches sides */
+.rowMe + .rowDrew,
+.rowDrew + .rowMe {
+  margin-top: 48px;
+}
+
+.rowMe {
+  justify-content: flex-end;
+}
+
+.rowDrew {
+  justify-content: flex-start;
+}
+
+.bubbleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 42%;
+}
+
+.rowMe .bubbleGroup {
+  align-items: flex-end;
+}
+
+.rowDrew .bubbleGroup {
+  align-items: flex-start;
+}
+
+.label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.labelMe {
+  color: #b31b1b;
+}
+
+.labelDrew {
+  color: #222222;
+}
+
+.bubble {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  transition: box-shadow 0.2s ease;
+}
+
+.bubbleMe {
+  background-color: #b31b1b;
+  color: #f5f5f5;
+}
+
+.bubbleDrew {
+  background-color: #fcfcfc;
+  border: 1px solid #222222;
+  color: #222222;
+}
+
+.bubbleActive.bubbleMe {
+  box-shadow: 0 0 0 2px #b31b1b, 0 0 12px 2px rgba(179, 27, 27, 0.3);
+}
+
+.bubbleActive.bubbleDrew {
+  box-shadow: 0 0 0 2px #222222, 0 0 12px 2px rgba(34, 34, 34, 0.2);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background-color: #e0e0e0;
+}
+
+.playBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background-color: #1a1a1a;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.playBtn:hover {
+  background-color: #333333;
+  transform: scale(1.05);
+}
+
+.playBtn:active {
+  transform: scale(0.97);
+}
+
+.playBtnActive {
+  background-color: #b31b1b;
+}
+
+.playBtnActive:hover {
+  background-color: #9a1717;
+}
+
+.disclaimer {
+  position: relative;
+  z-index: 1;
+  text-align: left;
+  padding-left: 24px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+  padding-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .inner {
+    padding: 24px 0;
+  }
+
+  .bubbleGroup {
+    max-width: 55%;
+  }
+
+  .bubble {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .playBtn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .row {
+    padding: 6px 8px;
+    gap: 8px;
+  }
+
+  .bubbleGroup {
+    max-width: 65%;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .playBtn {
+    width: 36px;
+    height: 36px;
+  }
+}
