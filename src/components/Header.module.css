@@ -10,12 +10,6 @@
   width: 100%;
   gap: 72px;
   text-align: center; /* ensures all child text is centered */
-  animation: pageFadeIn 0.4s ease forwards;
-}
-
-@keyframes pageFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .typedSuffix {
