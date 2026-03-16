@@ -59,7 +59,7 @@ const AccordionContent = React.forwardRef<HTMLDivElement, { content: React.React
       ref={el => {
         wrapperRef.current = el
         if (typeof outerRef === 'function') outerRef(el)
-        else if (outerRef) outerRef.current = el
+        else if (outerRef) (outerRef as React.MutableRefObject<HTMLDivElement | null>).current = el
       }}
       className={styles.accordionContent}
       style={{ height: height === 'auto' ? 'auto' : `${height}px`, overflow }}
