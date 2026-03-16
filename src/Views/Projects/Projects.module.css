@@ -8,6 +8,12 @@
     padding-left: 24px;
     padding-right: 24px;
     height: fit-content;
+    animation: pageSlideUp 0.8s ease-out both;
+}
+
+@keyframes pageSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .contentcontainer{
@@ -32,7 +38,7 @@
     font-style: normal;
     font-weight: 300;
     line-height: 189%; /* 75.6px */
-    padding: 44px 0px;
+    padding: 80px 0px;
 }
 
 
@@ -160,6 +166,53 @@
   display: block;
   width: 100%;
   height: auto;
+}
+
+.ipadShowcase {
+    width: calc(100vw - 48px);
+    margin-left: calc(50% - 50vw + 24px);
+    background: #f0f0f0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.ipadShowcase::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/assets/sc-texture.png');
+    background-repeat: repeat;
+    background-size: auto;
+    opacity: 1;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ipadShowcase > * {
+    position: relative;
+    z-index: 1;
+}
+
+.ipadFrame {
+    width: 70%;
+    aspect-ratio: 2672 / 1806;
+    border: 12px solid #000;
+    border-radius: 24px;
+    background: transparent;
+    overflow: hidden;
+}
+
+.ipadVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
 }
 
 .sh1{

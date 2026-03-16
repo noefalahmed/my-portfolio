@@ -147,19 +147,23 @@ const Home: React.FC = () => {
   const [proj2Text, setProj2Text] = useState("")
   const [proj3Text, setProj3Text] = useState("")
   const [proj4Text, setProj4Text] = useState("")
+  const [proj5Text, setProj5Text] = useState("")
   const [proj1Done, setProj1Done] = useState(false)
   const [proj2Done, setProj2Done] = useState(false)
   const [proj3Done, setProj3Done] = useState(false)
   const [proj4Done, setProj4Done] = useState(false)
+  const [proj5Done, setProj5Done] = useState(false)
   const [proj1ImgVisible, setProj1ImgVisible] = useState(false)
   const [proj2ImgVisible, setProj2ImgVisible] = useState(false)
   const [proj3ImgVisible, setProj3ImgVisible] = useState(false)
   const [proj4ImgVisible, setProj4ImgVisible] = useState(false)
+  const [proj5ImgVisible, setProj5ImgVisible] = useState(false)
 
   const proj1Ref = useRef<HTMLAnchorElement>(null)
   const proj2Ref = useRef<HTMLAnchorElement>(null)
   const proj3Ref = useRef<HTMLAnchorElement>(null)
   const proj4Ref = useRef<HTMLAnchorElement>(null)
+  const proj5Ref = useRef<HTMLAnchorElement>(null)
 
   // Tic Tac Toe state
   type CellValue = null | "X" | "O"
@@ -209,7 +213,7 @@ const Home: React.FC = () => {
 
     setNoteStatus("sending")
     try {
-      const res = await fetch("http://localhost:3001/send-note", {
+      const res = await fetch("/api/send-note", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: noteEmail, message: noteText }),
@@ -503,6 +507,7 @@ useEffect(() => {
       { ref: proj2Ref, text: "Account Managers.", setter: setProj2Text, doneSetter: setProj2Done, imgSetter: setProj2ImgVisible },
       { ref: proj3Ref, text: "Rewards App.", setter: setProj3Text, doneSetter: setProj3Done, imgSetter: setProj3ImgVisible },
       { ref: proj4Ref, text: "management software.", setter: setProj4Text, doneSetter: setProj4Done, imgSetter: setProj4ImgVisible },
+      { ref: proj5Ref, text: "students.", setter: setProj5Text, doneSetter: setProj5Done, imgSetter: setProj5ImgVisible },
     ]
     const observers = cards.map(({ ref, text, setter, doneSetter, imgSetter }) => {
       const observer = new IntersectionObserver(
@@ -684,15 +689,15 @@ useEffect(() => {
             {/* Skill Pills */}
             <div className={`${styles.skillPills} ${styles.animateItem} ${styles.animateDelay4}`}>
               <span className={styles.skillPill}>
-                <img src="https://www.figma.com/api/mcp/asset/d96a85f3-12f6-442b-bf85-ff1038cf4d18" alt="" className={styles.skillIcon} />
+                <img src="/assets/a.svg" alt="" className={styles.skillIcon} />
                 <p className={styles.tagline} style={{ textAlign: 'left' }}>Human-AI Interaction</p>
               </span>
               <span className={styles.skillPill}>
-                <img src="https://www.figma.com/api/mcp/asset/b930b662-e6c2-42d0-bf13-a43dad1863f2" alt="" className={styles.skillIcon} />
+                <img src="/assets/b.svg" alt="" className={styles.skillIcon} />
                 <p className={styles.tagline} style={{ textAlign: 'left' }}>Product Design</p>
               </span>
               <span className={styles.skillPill}>
-                <img src="https://www.figma.com/api/mcp/asset/330cc483-86b2-4637-8176-fbabc4b5fefd" alt="" className={styles.skillIcon} />
+                <img src="/assets/p.svg" alt="" className={styles.skillIcon} />
                 <p className={styles.tagline} style={{ textAlign: 'left' }}>Systems Thinking</p>
               </span>
             </div>
@@ -863,6 +868,20 @@ useEffect(() => {
               <span className={styles.projectTitle}>
                 {"i created an accessibility framework for a project "}{proj4Text}
                 {proj4Text.length > 0 && (proj4Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
+              </span>
+            </a>
+            <a href="/speech-coach" ref={proj5Ref} className={styles.projectCard}>
+              <div className={styles.projectImageWrapper}>
+                <p className={styles.projectCaption}>CORNELL UNIVERSITY</p>
+                <img
+                  src="./assets/proj0.png"
+                  alt="Speech Coach"
+                  className={`${styles.projectImage} ${proj5ImgVisible ? styles.projectImageVisible : ""}`}
+                />
+              </div>
+              <span className={styles.projectTitle}>
+                {"i built a speech-enabled leadership coach for "}{proj5Text}
+                {proj5Text.length > 0 && (proj5Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
               </span>
             </a>
           </div>

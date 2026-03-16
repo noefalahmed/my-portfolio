@@ -13,7 +13,13 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+}
 
+.stickyHeader {
+  position: sticky;
+  background-color: #03070D;
+  z-index: 10;
+  width: 100%;
 }
 
 .dashedLine {
@@ -31,7 +37,7 @@
   padding: 20px 0;
   background: none;
   border: none;
-  cursor: pointer;
+  cursor: none;
   transition: opacity 0.2s ease;
 }
 
@@ -59,9 +65,6 @@
 }
 
 .accordionContent {
-
-  overflow-x: visible;   /* allow horizontal escape */
-  overflow-y: hidden;    /* preserve vertical accordion animation */
   transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

@@ -1,0 +1,14 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform-origin: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #6b6b6b;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%) scale(0.8);
+  will-change: transform;
+}

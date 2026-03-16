@@ -5,6 +5,7 @@ import './App.css';
 import './index.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer.tsx';
+import CustomCursor from './components/CustomCursor';
 import DesignSystems from './Views/Projects/DesignSystems.tsx'
 import DesignThinking from './Views/Projects/DesignThinking.tsx';
 import Guide from './Views/Projects/Guide.tsx';
@@ -12,6 +13,7 @@ import Arine from './Views/Projects/Arine.tsx';
 import About from './Views/About.tsx';
 import Precisely from './Views/Projects/Precisely.tsx'
 import Accessibility from './Views/Projects/Accessibility.tsx';
+import SpeechCoach from './Views/Projects/SpeechCoach.tsx';
 
 
 const App: React.FC = () => {
@@ -21,7 +23,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-
+        <CustomCursor />
         <Navbar/>
         <Routes>
           {/* Define routes to render specific components based on URL */}
@@ -32,7 +34,8 @@ const App: React.FC = () => {
           <Route path="/arine" element={<Arine />} /> 
           <Route path="/about" element={<About />} /> 
           <Route path="/Precisely" element={<Precisely />} /> 
-          <Route path="/accessibility" element={<Accessibility />} /> 
+          <Route path="/accessibility" element={<Accessibility />} />
+          <Route path="/speech-coach" element={<SpeechCoach />} />
 
 
 
