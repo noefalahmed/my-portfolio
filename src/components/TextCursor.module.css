@@ -1,0 +1,14 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 20px;
+  background: #E8E3D5;
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-1px, -50%);
+  will-change: left, top, opacity;
+  transition: opacity 0.3s ease;
+}

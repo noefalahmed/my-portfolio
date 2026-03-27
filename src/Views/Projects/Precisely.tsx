@@ -39,8 +39,8 @@ const Precisely: React.FC = () => {
                 to build them. And we hate this for you. Also, we love Figma. So we found a way to make things easier
                 for you right where you design everything else.
               </p>
-              <img src="/assets/P3.png" className={`${styles.image} ${styles['image-large']}`}></img>
-              <img src="/assets/P4.png" className={`${styles.image} ${styles['image-large']}`}></img>
+              <img src="/assets/P3.png" className={`${styles.image} ${styles['image-large']}`} />
+              <img src="/assets/P4.png" className={`${styles.image} ${styles['image-large']}`} /> 
 
             </div>
           </div>

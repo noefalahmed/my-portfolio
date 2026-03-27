@@ -10,7 +10,7 @@ const accordionItems = [
             <p>
              Account Managers use Cimpl’s Accounts Dashboard every single day. The data they handle here connects through every part of the platform...
             </p>
-            <img  src="./assets/cimple-1.png" className={`${styles.image} ${styles['image-dynamic']} `} ></img>
+            <img data-zoom src="./assets/cimple-1.png" className={`${styles.image} ${styles['image-dynamic']} `} />
             <p>...but users were struggling.
                 <br></br><br></br>
                 In speaking to Account Managers, I understood that managing data was slow and frustrating. In evaluating their interface, I saw disorganized layouts and unclear hierarchy. But to get to the root of the problem, I knew I needed to trace daily workflows.
@@ -28,24 +28,24 @@ const accordionItems = [
       <>
         <div className={styles.subsection}>
             <p>I collaborated with the product team to structure our design process into focused, iterative sprints: aligning design, research, and development around weekly deliverable and measurable feedback loops. </p>
-            <img  src="./assets/cimple-2.png" className={`${styles.image} ${styles['image-dynamic']} `} ></img>
+            <img data-zoom src="./assets/cimple-2.png" className={`${styles.image} ${styles['image-dynamic']} `} />
           <h1 className={styles.sh1}  style={{color: '#D78CF3'}} >Redefining the Architecture</h1>
           <p>I rebuilt the experience that the UI was mapped on. To do this, I needed to understand how account managers thought about and did their work, then collaborate with cross-functional stakeholders to match the users’ priorities.</p>
           <div className={styles.sub1section}>
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#D78CF3'}}>Creating the Taxonomy</h2>
                                 <p className={styles.p1}>Conducting interviews with Account Managers, we found that the existing account relationships were flat and needed parent-child relations to match users’ mental model.</p>
-                              <img src="./assets/cimple-3.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                              <img data-zoom src="./assets/cimple-3.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#D78CF3'}}>Adding Missing Data Points</h2>
                                 <p className={styles.p1}>With insights from the product owner and software development, I identified the key information that lived outside of Cimpl. By centralizing it,  we would simplify workflows and give account managers everything they needed in one place.</p>
-                                 <img src="./assets/cimple-4.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                 <img data-zoom src="./assets/cimple-4.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div>
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#D78CF3'}}>Updating the Sitemap</h2>
                                 <p className={styles.p1}>Redefining the parent-child structure and adding new data meant that I needed to rethink the entire architecture. We designed a new framework to reflect how the system actually worked by building out more intuitive tabs and sections.</p>
-                                <img src="./assets/cimple-5.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                <img data-zoom src="./assets/cimple-5.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
             </div> 
             <h1 className={styles.sh1} style={{color: '#73A0F9'}}>Design</h1>
@@ -53,32 +53,32 @@ const accordionItems = [
             <br></br><br></br>
              We evaluated and marked poorly designed components and misused UI patterns. By applying laws of UX, we redesigned the interface to be intuitive and engaging, ensuring that users could engage with data rather than struggling to find it.   
             </p>
-            <img  src="./assets/cimple-6.png" className={`${styles.image} ${styles['image-dynamic']} `} ></img>
+            <img data-zoom src="./assets/cimple-6.png" className={`${styles.image} ${styles['image-dynamic']} `} />
             <div className={styles.sub1section}>
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#73A0F9'}}>How do we improve information clarity?</h2>
                                 <p className={styles.p1}>We implemented a consistent grid system and established visual rhythm to improve legibility and make information easier to scan at a glance.</p>
-                              <img src="./assets/cimple-7.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                              <img data-zoom src="./assets/cimple-7.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#73A0F9'}}>How do we show account relationships?</h2>
                                 <p className={styles.p1}>We designed multi-level tables that let users see relationships clearly and drill down into details without losing context.</p>
-                                 <img src="./assets/cimple-8.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                 <img data-zoom src="./assets/cimple-8.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div>
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#73A0F9'}}>How do we communicate progress?</h2>
                                 <p className={styles.p1}>We added a step-by-step progress indicator that guided users through account creation, showing exactly where they were and what came next.</p>
-                                <img src="./assets/cimple-9.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                <img data-zoom src="./assets/cimple-9.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#73A0F9'}}>How do we make content findable?</h2>
                                 <p className={styles.p1}>We matched section names to users' mental models, making it faster to find what they needed and complete tasks without guesswork.</p>
-                                <img src="./assets/cimple-10.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                <img data-zoom src="./assets/cimple-10.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#73A0F9'}}>How do we give users control?</h2>
                                 <p className={styles.p1}>We introduced smart filters and progressive disclosure, allowing users to reveal relevant information while hiding the rest.</p>
-                                <img src="./assets/cimple-11.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                <img data-zoom src="./assets/cimple-11.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
             </div> 
             <h1 className={styles.sh1} style={{color: '#73A0F9'}}>Validation</h1>
@@ -87,11 +87,11 @@ const accordionItems = [
             <div className={styles.sub1section}>
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#73A0F9'}}>A/B Testing</h2>
-                              <img src="./assets/cimple-12.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                              <img data-zoom src="./assets/cimple-12.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#73A0F9'}}>Usability Testing Sessions</h2>
-                                 <img src="./assets/cimple-13.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                 <img data-zoom src="./assets/cimple-13.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div>
                          
             </div> 
@@ -109,11 +109,11 @@ const accordionItems = [
           Our agile design process allowed for each section of Accounts to perform faster, yield better outcomes, and report lesser concerns from users. 
         </div>
         <br></br><br></br>
-        <img src="./assets/cimple-14.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+        <img data-zoom src="./assets/cimple-14.png" className={`${styles.image} ${styles['image-dynamic']}`} />
         <br></br><br></br>
-        <img src="./assets/cimple-15.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+        <img data-zoom src="./assets/cimple-15.png" className={`${styles.image} ${styles['image-dynamic']}`} />
         <br></br><br></br>
-        <img src="./assets/cimple-16.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+        <img data-zoom src="./assets/cimple-16.png" className={`${styles.image} ${styles['image-dynamic']}`} />
 
 
 
@@ -161,7 +161,7 @@ const DesignThinking: React.FC = () => {
       />
 
       <div className={styles.contentcontainer}>
-        <img  src="./assets/cimple-17.png" className={`${styles.image} ${styles['image-full']} `} ></img>
+        <img  src="./assets/cimple-17.png" className={`${styles.image} ${styles['image-full']} `} />
         <div className={styles.largetext}>
           When critical information is hard to find, it’s often a symptom of poor interface design, or worse, fundamentally disorganised architecture. Here, it was both. 
           <br></br>

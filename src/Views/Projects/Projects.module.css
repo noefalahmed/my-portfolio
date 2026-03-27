@@ -110,11 +110,14 @@
     border-style: solid;
     object-fit: cover;
     position:relative;
+    background-color: #000309;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
  .image-full{
     height: 100%;
     width: 100vw;
-    background-color: none;
+    background-color: #000309;
     display:block;
     place-self: center;
     place-content: center;
@@ -139,15 +142,17 @@
 .image-large{
     height: auto;
     width:100%;
+    background-color: #000309;
 }
 
 .image-small{
     height: auto;
     width:49%;
+    background-color: #000309;
 }
 
 .image-dynamic{
-    background:none;
+    background-color: #000309;
     height: auto;
     width:100%;
 }
@@ -166,6 +171,7 @@
   display: block;
   width: 100%;
   height: auto;
+  background-color: #000309;
 }
 
 .ipadShowcase {
@@ -244,7 +250,7 @@
     font-weight: 400;
     line-height: 1.6;
     margin-top:0px;
-    margin-bottom:32px;
+    margin-bottom:16px;
 }
 
 @media(max-width: 1200px)

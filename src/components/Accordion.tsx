@@ -76,13 +76,23 @@ const AccordionContent = React.forwardRef<HTMLDivElement, { content: React.React
 const Accordion: React.FC<AccordionProps> = ({ items }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [navbarBottom, setNavbarBottom] = useState(0)
+  const [hidden, setHidden] = useState(false)
   const headerRefs = useRef<(HTMLDivElement | null)[]>([])
   const contentRefs = useRef<(HTMLDivElement | null)[]>([])
+  const lastScrollY = useRef(0)
 
   useEffect(() => {
+    const THRESHOLD = 4
     const update = () => {
       const navbar = document.querySelector('nav')
-      if (navbar) setNavbarBottom(Math.max(0, navbar.getBoundingClientRect().bottom))
+      const bottom = navbar ? Math.max(0, navbar.getBoundingClientRect().bottom) : 0
+      setNavbarBottom(bottom)
+
+      const y = window.scrollY
+      const delta = y - lastScrollY.current
+      if (delta > THRESHOLD) setHidden(true)
+      else if (delta < -THRESHOLD) setHidden(false)
+      lastScrollY.current = y
     }
     update()
     window.addEventListener('scroll', update, { passive: true })
@@ -100,10 +110,10 @@ const Accordion: React.FC<AccordionProps> = ({ items }) => {
         if (!content) return
         const navbar = document.querySelector('nav')
         const currentNavbarBottom = navbar ? Math.max(0, navbar.getBoundingClientRect().bottom) : 0
-        const stickyOffset = currentNavbarBottom + (index + 1) * HEADER_HEIGHT
+        const stickyOffset = currentNavbarBottom + HEADER_HEIGHT
         const rect = content.getBoundingClientRect()
         window.scrollTo({
-          top: window.scrollY + rect.top - stickyOffset,
+          top: window.scrollY + rect.top - stickyOffset + 32,
           behavior: 'smooth',
         })
       }, 400)
@@ -117,7 +127,7 @@ const Accordion: React.FC<AccordionProps> = ({ items }) => {
           <div
             ref={el => { headerRefs.current[index] = el }}
             className={styles.stickyHeader}
-            style={{ top: navbarBottom + index * HEADER_HEIGHT, zIndex: 10 + index }}
+            style={{ top: hidden ? -(HEADER_HEIGHT + 8) : navbarBottom, zIndex: 10 + index }}
           >
             <div className={styles.dashedLine} />
             <button

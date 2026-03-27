@@ -63,10 +63,10 @@
 .imageWrapper {
   display: flex;
   width: 100%;
-  max-width: 780px; /* keeps image from overflowing on large screens */
-  height: auto; /* height scales automatically */
-  overflow: hidden;
+  max-width: 650px;
+  height: auto;
   position: relative;
+  animation: imageFadeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 400ms both;
 }
 
 .canvasOverlay {
@@ -83,6 +83,18 @@
   height: auto;
   object-fit: cover;
   display: block;
+  transition: transform 400ms ease, filter 400ms ease;
+  transform-origin: center center;
+}
+
+.imageWrapper:hover .headerImage {
+  transform: scale(1.01);
+  filter: brightness(1.1);
+}
+
+@keyframes imageFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .headerTitle {

@@ -147,23 +147,23 @@ const Home: React.FC = () => {
   const [proj2Text, setProj2Text] = useState("")
   const [proj3Text, setProj3Text] = useState("")
   const [proj4Text, setProj4Text] = useState("")
-  const [proj5Text, setProj5Text] = useState("")
+
   const [proj1Done, setProj1Done] = useState(false)
   const [proj2Done, setProj2Done] = useState(false)
   const [proj3Done, setProj3Done] = useState(false)
   const [proj4Done, setProj4Done] = useState(false)
-  const [proj5Done, setProj5Done] = useState(false)
+
   const [proj1ImgVisible, setProj1ImgVisible] = useState(false)
   const [proj2ImgVisible, setProj2ImgVisible] = useState(false)
   const [proj3ImgVisible, setProj3ImgVisible] = useState(false)
   const [proj4ImgVisible, setProj4ImgVisible] = useState(false)
-  const [proj5ImgVisible, setProj5ImgVisible] = useState(false)
+
 
   const proj1Ref = useRef<HTMLAnchorElement>(null)
   const proj2Ref = useRef<HTMLAnchorElement>(null)
   const proj3Ref = useRef<HTMLAnchorElement>(null)
   const proj4Ref = useRef<HTMLAnchorElement>(null)
-  const proj5Ref = useRef<HTMLAnchorElement>(null)
+
 
   // Tic Tac Toe state
   type CellValue = null | "X" | "O"
@@ -174,6 +174,50 @@ const Home: React.FC = () => {
 
   const [artworkActive, setArtworkActive] = useState(false)
   const artworkCardRef = useRef<HTMLDivElement>(null)
+
+  // Bento drag state
+  type CardKey = 'artwork' | 'ttt' | 'note' | 'cornell' | 'pronunciation'
+  const [dragStyle, setDragStyle] = useState<Record<CardKey, React.CSSProperties>>({
+    artwork: {}, ttt: {}, note: {}, cornell: {}, pronunciation: {},
+  })
+  const wasDragged = useRef(false)
+
+  function startDrag(key: CardKey, disabled = false) {
+    return (e: React.MouseEvent<HTMLElement>) => {
+      if (disabled) return
+      const tag = (e.target as HTMLElement).tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'BUTTON') return
+      e.preventDefault()
+      const containerRect = bentoContainerRef.current!.getBoundingClientRect()
+      const cardRect = e.currentTarget.getBoundingClientRect()
+      const initLeft = cardRect.left - containerRect.left
+      const initTop = cardRect.top - containerRect.top
+      const sx = e.clientX, sy = e.clientY
+      let moved = false
+
+      function onMove(ev: MouseEvent) {
+        const dx = ev.clientX - sx, dy = ev.clientY - sy
+        if (!moved && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) { moved = true; wasDragged.current = true }
+        if (moved) {
+          setDragStyle(p => ({
+            ...p,
+            [key]: { left: initLeft + dx, top: initTop + dy, right: 'auto', bottom: 'auto' },
+          }))
+        }
+      }
+      function onUp() {
+        if (!moved) wasDragged.current = false
+        window.removeEventListener('mousemove', onMove)
+        window.removeEventListener('mouseup', onUp)
+      }
+      window.addEventListener('mousemove', onMove)
+      window.addEventListener('mouseup', onUp)
+    }
+  }
+
+  function dp(key: CardKey): React.CSSProperties {
+    return { ...dragStyle[key], cursor: 'grab' }
+  }
 
   const typingRef = useRef<HTMLSpanElement>(null)
   const cornellWrapperRef = useRef<HTMLDivElement>(null)
@@ -503,11 +547,10 @@ useEffect(() => {
 
   useEffect(() => {
     const cards: { ref: React.RefObject<HTMLAnchorElement | null>, text: string, setter: React.Dispatch<React.SetStateAction<string>>, doneSetter: React.Dispatch<React.SetStateAction<boolean>>, imgSetter: React.Dispatch<React.SetStateAction<boolean>> }[] = [
-      { ref: proj1Ref, text: "in progress...", setter: setProj1Text, doneSetter: setProj1Done, imgSetter: setProj1ImgVisible },
+      { ref: proj1Ref, text: "students.", setter: setProj1Text, doneSetter: setProj1Done, imgSetter: setProj1ImgVisible },
       { ref: proj2Ref, text: "Account Managers.", setter: setProj2Text, doneSetter: setProj2Done, imgSetter: setProj2ImgVisible },
       { ref: proj3Ref, text: "Rewards App.", setter: setProj3Text, doneSetter: setProj3Done, imgSetter: setProj3ImgVisible },
       { ref: proj4Ref, text: "management software.", setter: setProj4Text, doneSetter: setProj4Done, imgSetter: setProj4ImgVisible },
-      { ref: proj5Ref, text: "students.", setter: setProj5Text, doneSetter: setProj5Done, imgSetter: setProj5ImgVisible },
     ]
     const observers = cards.map(({ ref, text, setter, doneSetter, imgSetter }) => {
       const observer = new IntersectionObserver(
@@ -576,16 +619,13 @@ useEffect(() => {
 
             <div
               ref={artworkCardRef}
-              className={`
-                ${styles.bentoCard} 
-                ${styles.artworkCard} 
-                ${artworkActive ? styles.artworkCardActive : ""} 
-                ${styles.animateItem} 
-                ${styles.animateDelay1}
-              `}
+              className={`${styles.bentoCard} ${styles.artworkCard} ${artworkActive ? styles.artworkCardActive : ""} ${styles.bentoAnimate1}`}
+              onMouseDown={startDrag('artwork', artworkActive)}
               onClick={() => {
+                if (wasDragged.current) { wasDragged.current = false; return }
                 if (!artworkActive) setArtworkActive(true)
               }}
+              style={dp('artwork')}
             >
               {!artworkActive && (
                 <>
@@ -618,8 +658,13 @@ useEffect(() => {
           {tttActive && <div className={styles.tttOverlay} />}
           <div
             ref={tttCardRef}
-            className={`${styles.bentoCard} ${styles.ticTacToeCard} ${tttActive ? styles.ticTacToeCardActive : ""} ${styles.animateItem} ${styles.animateDelay2}`}
-            onClick={() => { if (!tttActive) setTttActive(true) }}
+            className={`${styles.bentoCard} ${styles.ticTacToeCard} ${tttActive ? styles.ticTacToeCardActive : ""} ${styles.bentoAnimate2}`}
+            onMouseDown={startDrag('ttt', tttActive)}
+            onClick={() => {
+              if (wasDragged.current) { wasDragged.current = false; return }
+              if (!tttActive) setTttActive(true)
+            }}
+            style={dp('ttt')}
           >
             {!tttActive && (
               <>
@@ -702,10 +747,7 @@ useEffect(() => {
               </span>
             </div>
 
-            {/* Tagline */}
-            <p className={styles.tagline} style={{ maxWidth: '100%', textAlign: 'left' }}>
-              I'm an architect of scales, grids, systems, and smooth interactions.
-            </p>
+
             <div className={styles.buttonsection}>
               <button className={styles.outlinedButton}
               onClick={() => window.open("https://www.linkedin.com/in/noefalahmed", "_blank")}>
@@ -724,58 +766,67 @@ useEffect(() => {
           {noteActive && <div className={styles.noteOverlay} />}
           <div
             ref={noteCardRef}
-            className={`${styles.bentoCard} ${styles.noteCard} ${noteActive ? styles.noteCardActive : ""} ${styles.animateItem} ${styles.animateDelay6}`}
+            className={`${styles.noteCardWrapper} ${styles.bentoAnimate5}`}
+            onMouseDown={startDrag('note', noteActive)}
+            style={{ ...dp('note'), zIndex: noteActive ? 100 : undefined }}
           >
-            <span className={styles.noteCardTitle}>Write me a note</span>
-            <div className={styles.noteInputArea}>
-              <div className={`${styles.noteEmailRow} ${noteActive ? styles.noteEmailRowVisible : ""}`}>
-                <input
-                  type="email"
-                  className={styles.noteEmailInput}
-                  placeholder="your email"
-                  value={noteEmail}
+            <div
+              className={`${styles.bentoCard} ${styles.noteCard} ${noteActive ? styles.noteCardActive : ""}`}
+              onClick={() => { if (!wasDragged.current) setNoteActive(true) }}
+            >
+              <div className={styles.noteInner}>
+                <div className={`${styles.noteEmailRow} ${noteActive ? styles.noteEmailRowVisible : ""}`}>
+                  <input
+                    type="email"
+                    className={styles.noteEmailInput}
+                    placeholder="FROM:"
+                    value={noteEmail}
+                    onChange={(e) => {
+                      setNoteEmail(e.target.value)
+                      if (noteError) setNoteError("")
+                    }}
+                    aria-label="Your email address"
+                  />
+                  <div className={styles.noteEmailDivider} />
+                </div>
+                <textarea
+                  className={styles.noteTextarea}
+                  placeholder="TYPE MESSAGE.."
+                  value={noteText}
                   onChange={(e) => {
-                    setNoteEmail(e.target.value)
+                    setNoteText(e.target.value)
                     if (noteError) setNoteError("")
                   }}
-                  aria-label="Your email address"
+                  onFocus={() => setNoteActive(true)}
+                  aria-label="Your message"
                 />
-                <div className={styles.noteEmailDivider} />
+                <button
+                  className={`${styles.noteSendBtn} ${noteStatus === "sent" ? styles.noteSendBtnSent : ""}`}
+                  onClick={handleSendNote}
+                  disabled={noteStatus === "sending" || noteStatus === "sent"}
+                  aria-label="Send note"
+                >
+                  {noteStatus === "sending" ? (
+                    <Loader2 size={14} className={styles.spinIcon} />
+                  ) : noteStatus === "sent" ? (
+                    <Check size={14} />
+                  ) : (
+                    <ArrowUp size={14} />
+                  )}
+                </button>
               </div>
-              <textarea
-                className={styles.noteTextarea}
-                placeholder=""
-                value={noteText}
-                onChange={(e) => {
-                  setNoteText(e.target.value)
-                  if (noteError) setNoteError("")
-                }}
-                onFocus={() => setNoteActive(true)}
-                aria-label="Your message"
-              />
-              <button
-                className={`${styles.noteSendBtn} ${noteStatus === "sent" ? styles.noteSendBtnSent : ""}`}
-                onClick={handleSendNote}
-                disabled={noteStatus === "sending" || noteStatus === "sent"}
-                aria-label="Send note"
-              >
-                {noteStatus === "sending" ? (
-                  <Loader2 size={14} className={styles.spinIcon} />
-                ) : noteStatus === "sent" ? (
-                  <Check size={14} />
-                ) : (
-                  <ArrowUp size={14} />
-                )}
-              </button>
             </div>
+            <span className={styles.cardLabel}>Write me a note</span>
             {noteError && <span className={styles.noteErrorText}>{noteError}</span>}
           </div>
 
           {/* Cornell Badge - Center */}
           <div
-            className={`${styles.bentoCard} ${styles.cornellBadge} ${styles.animateItem} ${styles.animateDelay7}`}
+            className={`${styles.bentoCard} ${styles.cornellBadge} ${styles.bentoAnimate4}`}
+            onMouseDown={startDrag('cornell')}
             onMouseEnter={() => { cornellTargetSpeed.current = 0.36 }}
             onMouseLeave={() => { cornellTargetSpeed.current = 0.024 }}
+            style={dp('cornell')}
           >
             <div className={styles.cornellTextWrapper} ref={cornellWrapperRef}>
               <div className={styles.cornellText}>
@@ -797,9 +848,13 @@ useEffect(() => {
           {/* Urdu Name Pronunciation - Bottom Right */}
           {isPlaying && <div className={styles.pronunciationOverlay} />}
           <button
-            onClick={handlePlayPronunciation}
-            className={`${styles.bentoCard} ${styles.pronunciationCard} ${isPlaying ? styles.pronunciationCardActive : ""} ${styles.animateItem} ${styles.animateDelay8}`}
-            style={{ '--audio-duration': `${audioDuration}s` } as React.CSSProperties}>
+            onMouseDown={startDrag('pronunciation', isPlaying)}
+            onClick={() => {
+              if (wasDragged.current) { wasDragged.current = false; return }
+              handlePlayPronunciation()
+            }}
+            className={`${styles.bentoCard} ${styles.pronunciationCard} ${isPlaying ? styles.pronunciationCardActive : ""} ${styles.bentoAnimate3}`}
+            style={{ '--audio-duration': `${audioDuration}s`, ...dp('pronunciation') } as React.CSSProperties}>
             <div className={styles.volumeIconWrapper}>
               <Volume2 size={20} className={styles.volumeIcon} />
             </div>
@@ -809,22 +864,19 @@ useEffect(() => {
 
         {/* Work Section */}
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Work</h2>
-          <p className={styles.sectionDescription}>
-            Projects that I've worked on across different companies.
-          </p>
+          <h2 className={styles.sectionTitle}>Featured Work</h2>
           <div className={styles.projectsGrid}>
-            <a href="/design-systems" ref={proj1Ref} className={`${styles.projectCard} ${styles.projectCardDisabled}`}>
+            <a href="/speech-coach" ref={proj1Ref} className={styles.projectCard}>
               <div className={styles.projectImageWrapper}>
-                <p className={styles.projectCaption}>CORNELL UNIVERSITY, SCHOOL OF ENGINEERING</p>
+                <p className={styles.projectCaption}>CORNELL UNIVERSITY</p>
                 <img
                   src="./assets/proj0.png"
-                  alt="design-systems"
+                  alt="Speech Coach"
                   className={`${styles.projectImage} ${proj1ImgVisible ? styles.projectImageVisible : ""}`}
                 />
               </div>
               <span className={styles.projectTitle}>
-                {"...work "}{proj1Text}
+                {"i built a speech-enabled leadership coach for "}{proj1Text}
                 {proj1Text.length > 0 && (proj1Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
               </span>
             </a>
@@ -868,20 +920,6 @@ useEffect(() => {
               <span className={styles.projectTitle}>
                 {"i created an accessibility framework for a project "}{proj4Text}
                 {proj4Text.length > 0 && (proj4Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
-              </span>
-            </a>
-            <a href="/speech-coach" ref={proj5Ref} className={styles.projectCard}>
-              <div className={styles.projectImageWrapper}>
-                <p className={styles.projectCaption}>CORNELL UNIVERSITY</p>
-                <img
-                  src="./assets/proj0.png"
-                  alt="Speech Coach"
-                  className={`${styles.projectImage} ${proj5ImgVisible ? styles.projectImageVisible : ""}`}
-                />
-              </div>
-              <span className={styles.projectTitle}>
-                {"i built a speech-enabled leadership coach for "}{proj5Text}
-                {proj5Text.length > 0 && (proj5Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
               </span>
             </a>
           </div>

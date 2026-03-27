@@ -1,0 +1,134 @@
+/* ── Wrapper — identical to ArchitectureDiagram ─────────────────────────── */
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: #FCFCFC;
+    background-image: url('/assets/layers/Texture.png');
+    background-repeat: repeat;
+    background-size: auto;
+    border-radius: 8px;
+    padding: 28px 0 52px 0;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
+/* ── Orbit rings ─────────────────────────────────────────────────────────── */
+.orbitWrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    opacity: 0;
+    transition: opacity 600ms ease;
+}
+
+.orbitVisible {
+    opacity: 1;
+}
+
+@keyframes orbitCW {
+    from { stroke-dashoffset: 0; }
+    to   { stroke-dashoffset: -800; }
+}
+
+@keyframes orbitCCW {
+    from { stroke-dashoffset: 0; }
+    to   { stroke-dashoffset: 800; }
+}
+
+.ring1 { animation: orbitCW  12s linear infinite; }
+.ring2 { animation: orbitCCW  8s linear infinite; }
+.ring3 { animation: orbitCW  10s linear infinite; }
+.ring4 { animation: orbitCCW 14s linear infinite; }
+
+/* ── Asterisk ────────────────────────────────────────────────────────────── */
+.asterisk {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ── Labels — identical rules to ArchitectureDiagram ────────────────────── */
+.labelBox {
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    opacity: 0;
+    transition: opacity 350ms ease, transform 350ms ease;
+    white-space: nowrap;
+}
+
+.labelRight {
+    flex-direction: row;
+    transform: translateX(14px);
+}
+
+.labelLeft {
+    flex-direction: row-reverse;
+    transform: translateX(-14px);
+}
+
+.labelVisible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.connectorSvg {
+    flex-shrink: 0;
+    display: block;
+}
+
+.labelContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.labelRight .labelContent {
+    align-items: flex-start;
+}
+
+.labelLeft .labelContent {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.labelTitle {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    background: #ffffff;
+    border: 1px solid #1a1a1a;
+    padding: 4px 8px;
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.labelItems {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.labelItems li {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    line-height: 1.9;
+}

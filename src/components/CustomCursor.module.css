@@ -2,13 +2,20 @@
   position: fixed;
   top: 0;
   left: 0;
-  transform-origin: center;
-  width: 24px;
-  height: 24px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: #6b6b6b;
+  background: #E8E3D5;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%) scale(0.8);
-  will-change: transform;
+  transform: translate(-50%, -50%);
+  will-change: left, top, width, height, border-radius;
+  transition: width 0.12s ease, height 0.12s ease, border-radius 0.12s ease;
+  opacity: 0;
+}
+
+.cursor.text {
+  width: 2px;
+  height: 20px;
+  border-radius: 1px;
 }

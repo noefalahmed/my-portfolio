@@ -8,7 +8,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background-color: #03070D;
+  background-color: #000309;
   transform: translateY(0);
   transition: transform 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease;
   height:fit-content;
