@@ -10,7 +10,7 @@ const accordionItems = [
             <p>Where competitors were delivering innovative digital experiences, ESR was a start-up that relied on dated community forums. Starting from scratch, creating a mobile app was only the tip of the iceberg. The team hoped to expand across web, in-store kiosks, and future digital touchpoints. 
                Without a cohesive design system, every new digital product would require rebuilt components, which would in turn waste design and engineering resources and risk visual inconsistencies.
       </p>
-            <img  src="./assets/ds2.png" className={`${styles.image} ${styles['image-large']} `} ></img>
+            <img data-zoom src="./assets/ds2.png" className={`${styles.image} ${styles['image-large']} `} />
         </div>
       
       </>
@@ -27,17 +27,17 @@ const accordionItems = [
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Atomicity</h2>
                                 <p className={styles.p1}>I built the component library as modular primitives and composed patterns. This structure made it faster to create new variants and scale the system efficiently.</p>
-                              <img src="./assets/ds3.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                              <img data-zoom src="./assets/ds3.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Salience</h2>
                                 <p className={styles.p1}>I organised components based on user priorities. This ensured that the interface hierarchy matched user intent and expected interaction patterns.</p>
-                                 <img src="./assets/ds4.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                 <img data-zoom src="./assets/ds4.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div>
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Scalability</h2>
                                 <p className={styles.p1}>I designed the component library around proven, cross-platform UI patterns and responsive constraints. This foundation supports expansion of ESR from mobile to desktop and beyond.</p>
-                                <img src="./assets/ds5.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                <img data-zoom src="./assets/ds5.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                     </div>    
         </div><br></br><br></br>
@@ -50,23 +50,23 @@ const accordionItems = [
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Color System</h2>
                                 <p className={styles.p1}>Per research in the Journal of Sensory Studies, warm colors (i.e. red, orange, yellow) stimulate appetite. I built ESR’s palette around warm primaries, supported by light/dark and neutral variants to ensure clear hierarchy and meet WCAG contrast requirements.</p>
-                                 <img src="./assets/ds6.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                 <img data-zoom src="./assets/ds6.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div>
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Typography</h2>
                                 <p className={styles.p1}>I chose Inter for its legibility and simplicity, ideal for users quickly scanning restaurant options. This type scale emphasizes readability at small sizes and stays consistent across screen sizes.</p>
-                                <img src="./assets/ds7.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                <img data-zoom src="./assets/ds7.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Iconography</h2>
                                 <p className={styles.p1}>Inspired by Airbnb's design language system, I developed an icon set that matched ESR's bold visual tone. Per Google's Material Design Guide, I leveraged a 24×24 grid with a 20×20 live area to keep sizing, alignment, and stroke decisions consistent.</p>
-                                <img src="./assets/ds8.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                <img data-zoom src="./assets/ds8.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Grid System</h2>
                                 <p className={styles.p1}>Aligned with Google’s Material Design layout guidance, I used an 8-pt (8dp) baseline grid for layout and spacing (with 4dp increments for finer-grain alignment), and kept gutters in consistent multiples of 8. This ensures that spacing and alignment are uniform across breakpoints and speeds up responsive layout work.</p>
-                                <img src="./assets/ds9.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
-                                <img src="./assets/ds91.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                <img data-zoom src="./assets/ds9.png" className={`${styles.image} ${styles['image-dynamic']}`} />
+                                <img data-zoom src="./assets/ds91.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                     </div>    
         </div><br></br><br></br>
@@ -76,17 +76,17 @@ const accordionItems = [
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Component Inventory</h2>
                                 <p className={styles.p1}>I catalogued necessary UI elements across key flows. This inventory became the roadmap that surfaced repeated patterns and redundancies at the offset, so components could be consolidated before scaling variants.</p>
-                                <img src="./assets/ds10.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                <img data-zoom src="./assets/ds10.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Construction Logic</h2>
                                 <p className={styles.p1}>Starting with essential primitive tokens (colors, fonts, spacing, corner-radius), I built out semantic tokens (styles) that could help me build components, allowing for efficient assembling of layouts in the long run.</p>
-                                 <img src="./assets/ds11.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                 <img data-zoom src="./assets/ds11.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div>
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Documentation</h2>
                                 <p className={styles.p1}>I documented each component directly in Figma with usage guidance, do’s/don’ts, and implementation notes. This made adoption self-serve and reduced back-and-forth on how components should be applied.</p>
-                                <img src="./assets/ds13.png" className={`${styles.image} ${styles['image-dynamic']}`}></img>
+                                <img data-zoom src="./assets/ds13.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                     </div>    
         </div><br></br><br></br>
@@ -100,7 +100,7 @@ const accordionItems = [
 
 <br></br><br></br>This groundwork enabled rapid scale. We moved from no digital presence to a cohesive, production-ready mobile platform in less than a month, with a maintainable foundation the team could extend as the product evolved.</div>
 <div className={styles.fullBleedWrapper}>
-  <img src="./assets/ds0.png" className={styles.fullBleedImage} />
+  <img data-zoom src="./assets/ds0.png" className={styles.fullBleedImage} />
 </div>
    </>
     },
@@ -140,7 +140,7 @@ const DesignSystems: React.FC = () => {
                     { label: "Skills", value: "Design Systems, UI, Product Design" },
                 ]}/>
             <div className={styles.contentcontainer}>
-            <img src="./assets/ds0.png" className={`${styles.image} ${styles['image-full']}`} ></img>
+            <img data-zoom src="./assets/ds0.png" className={`${styles.image} ${styles['image-full']}`} />
             <div className={styles.largetext}> Eat, Sleep, Repeat (ESR) connects food lovers with discounts and reviews for beloved and new restaurants.<br/><br/>Although ESR was a local favorite in Lahore’s food scene, it lacked a digital presence. To launch its first mobile app, the team needed a scalable design system and cohesive brand identity that made earning rewards feel effortless.<br/><br/>In 2020, I built a design system that that transformed their simple Facebook community forum into a contemporary mobile experience.</div>
               <Accordion items={accordionItems} />
             </div>

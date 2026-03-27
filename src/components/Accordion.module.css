@@ -17,9 +17,10 @@
 
 .stickyHeader {
   position: sticky;
-  background-color: #03070D;
+  background-color: #000309;
   z-index: 10;
   width: 100%;
+  transition: top 0.3s ease;
 }
 
 .dashedLine {

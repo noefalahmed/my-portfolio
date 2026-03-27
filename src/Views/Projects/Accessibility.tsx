@@ -63,13 +63,13 @@ const accordionItems = [
              <h2 className={styles.sh2}>User Need</h2>
               <p className={styles.p1}>
                 We need to view more data at once, without compromising readability.</p>
-             <img src="./assets/acc1.png" className={`${styles.image} ${styles['image-dynamic']}`} />
+             <img data-zoom src="./assets/acc1.png" className={`${styles.image} ${styles['image-dynamic']}`} />
             </div>
             <div className={styles.sub2section}>
                <h2 className={styles.sh2}>Proposed Solution</h2>
               <p className={styles.p1}>
                 I designed a density toggle that scales from comfortable to compact, adjusting row height, spacing, and truncation, but maintaining navigation, controls, and focus.</p>
-              <img src="./assets/acc2.png" className={`${styles.image} ${styles['image-dynamic']}`} />
+              <img data-zoom src="./assets/acc2.png" className={`${styles.image} ${styles['image-dynamic']}`} />
           </div>
           <div className={styles.sub2section}>
                <h2 className={styles.sh2}>Inclusive Design Considerations</h2>
@@ -84,7 +84,7 @@ const accordionItems = [
             <h2 className={styles.sh2}>Pain Point #2</h2>
               <p className={styles.p1}>
                We often compare multiple tables at the same time, but this can become visually dense, making the data difficult to parse and navigate.</p>
-                            <img src="./assets/acc3.png" className={`${styles.image} ${styles['image-dynamic']}`} />
+                            <img data-zoom src="./assets/acc3.png" className={`${styles.image} ${styles['image-dynamic']}`} />
 
             </div>
            <div className={styles.sub2section}>
@@ -95,7 +95,7 @@ const accordionItems = [
                <h2 className={styles.sh2}>Proposed Solution</h2>
               <p className={styles.p1}>
                 I leveraged a master-detail layout where the primary table stays dominant and supporting tables move into a side panel (or side-by-side view).</p>
-              <img src="./assets/acc4.png" className={`${styles.image} ${styles['image-dynamic']}`} />
+              <img data-zoom src="./assets/acc4.png" className={`${styles.image} ${styles['image-dynamic']}`} />
           </div>
       </div>
             <br></br><br></br><br></br>
@@ -106,7 +106,7 @@ const accordionItems = [
               <p className={styles.p1}>
                When tables have parent-child rows, we sometimes lose track of what level we are on and which rows belong together.</p>
             </div>
-                         <img src="./assets/acc4.5.png" className={`${styles.image} ${styles['image-dynamic']}`} />
+                         <img data-zoom src="./assets/acc4.5.png" className={`${styles.image} ${styles['image-dynamic']}`} />
 
            <div className={styles.sub2section}>
              <h2 className={styles.sh2}>User Need</h2>
@@ -117,8 +117,8 @@ const accordionItems = [
                <h2 className={styles.sh2}>Proposed Solution</h2>
               <p className={styles.p1}>
                 I designed expandable rows with clear hierarchy cues, namely indentation to show parent-child relationships and highlighted indicators to distinguish expanded sections. </p>
-              <img src="./assets/acc5.png" className={`${styles.image} ${styles['image-dynamic']}`} />
-              <img src="./assets/acc6.png" className={`${styles.image} ${styles['image-dynamic']}`} />
+              <img data-zoom src="./assets/acc5.png" className={`${styles.image} ${styles['image-dynamic']}`} />
+              <img data-zoom src="./assets/acc6.png" className={`${styles.image} ${styles['image-dynamic']}`} />
           </div>
       </div>
       </>
@@ -148,7 +148,7 @@ const accordionItems = [
             <p className={styles.p1}>
               The goal wasn’t perfection — it was intention. By treating accessibility as foundational rather than optional, ESR’s digital presence became more resilient, inclusive, and ready to scale.
             </p>
-              <img src="./assets/acc1.png" className={`${styles.image} ${styles['image-dynamic']}`} />
+              <img data-zoom src="./assets/acc1.png" className={`${styles.image} ${styles['image-dynamic']}`} />
 
           </div>
 
@@ -172,7 +172,7 @@ const Accessibility: React.FC = () => {
         ]}
       />
       <div className={styles.contentcontainer}>
-        <img src="./assets/acc0.png" className={`${styles.image} ${styles['image-full']}`} />
+        <img data-zoom src="./assets/acc0.png" className={`${styles.image} ${styles['image-full']}`} />
         <div className={styles.largetext}>
           Tables are the primary workspace on Upland’s PowerSteering platform. This is where project managers track the status of the projects they work on. When that workspace isn’t accessible, the product becomes harder to use and harder to buy. 
           <br></br><br></br>I led a tables-first effort aligned to WCAG 2.1 Level AA to redesign the highest-impact table patterns. 

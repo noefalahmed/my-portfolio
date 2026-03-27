@@ -1,0 +1,343 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 0;
+  margin-bottom: 32px;
+}
+
+.wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/sc-texture.png');
+  background-repeat: repeat;
+  background-size: auto;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transform-origin: calc(100% - 30px) calc(100% - 54px);
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.innerZoomed {
+  transform: translate(-17%, -12%) scale(2.5);
+}
+
+/* ── Chat area ── */
+.chatArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  height: 380px;
+  overflow: hidden;
+  padding-bottom: 16px;
+  transition: opacity 0.4s ease;
+}
+
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  width: 100%;
+}
+
+.rowGap {
+  margin-top: 48px;
+}
+
+.rowMe {
+  justify-content: flex-end;
+}
+
+.rowDrew {
+  justify-content: flex-start;
+}
+
+.bubbleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 42%;
+}
+
+.rowMe .bubbleGroup {
+  align-items: flex-end;
+}
+
+.rowDrew .bubbleGroup {
+  align-items: flex-start;
+}
+
+.label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.labelMe {
+  color: #b31b1b;
+}
+
+.labelDrew {
+  color: #222222;
+}
+
+.bubble {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.bubbleMe {
+  background-color: #b31b1b;
+  color: #f5f5f5;
+}
+
+.bubbleDrew {
+  background-color: #fcfcfc;
+  border: 1px solid #222222;
+  color: #222222;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background-color: #e0e0e0;
+}
+
+/* ── Bubble entrance animations ── */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animateSlideRight {
+  animation: slideInRight 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animateSlideLeft {
+  animation: slideInLeft 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Typing indicator ── */
+.typingBubble {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 18px;
+  min-width: 64px;
+}
+
+@keyframes dotBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30%            { transform: translateY(-6px); opacity: 1; }
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #555;
+  display: inline-block;
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ── Input bar ── */
+.inputBar {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+
+.chatAreaZoomed {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.normalBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px 10px 10px 16px;
+}
+
+.inputPlaceholder {
+  flex: 1;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 15px;
+  color: #aaa;
+}
+
+/* ── Send button ── */
+.sendBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #e8e8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Mic button ── */
+.micBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #b31b1b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+@keyframes micPulse {
+  0%   { box-shadow: 0 0 0 0px rgba(179, 27, 27, 0.5); }
+  70%  { box-shadow: 0 0 0 12px rgba(179, 27, 27, 0); }
+  100% { box-shadow: 0 0 0 0px rgba(179, 27, 27, 0); }
+}
+
+.micBtnPulsing {
+  animation: micPulse 1s ease-out infinite;
+}
+
+.micBtnActive {
+  animation: micPulse 0.8s ease-out infinite;
+}
+
+/* ── Recording bar ── */
+@keyframes recordingSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.recordingBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px 10px 10px 16px;
+  animation: recordingSlideIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Waveform ── */
+.waveform {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 28px;
+  overflow: hidden;
+}
+
+@keyframes waveTravel {
+  0%   { transform: scaleY(0.08); }
+  5%   { transform: scaleY(0.85); }
+  10%  { transform: scaleY(0.3); }
+  15%  { transform: scaleY(0.6); }
+  20%  { transform: scaleY(0.12); }
+  26%  { transform: scaleY(1.0); }
+  31%  { transform: scaleY(0.4); }
+  36%  { transform: scaleY(0.18); }
+  42%  { transform: scaleY(0.7); }
+  47%  { transform: scaleY(0.08); }
+  53%  { transform: scaleY(0.5); }
+  58%  { transform: scaleY(0.9); }
+  63%  { transform: scaleY(0.15); }
+  68%  { transform: scaleY(0.75); }
+  73%  { transform: scaleY(0.35); }
+  78%  { transform: scaleY(0.95); }
+  83%  { transform: scaleY(0.1); }
+  88%  { transform: scaleY(0.55); }
+  93%  { transform: scaleY(0.25); }
+  100% { transform: scaleY(0.08); }
+}
+
+.waveBar {
+  flex: 0 0 1px;
+  background-color: #b31b1b;
+  border-radius: 1px;
+  height: 100%;
+  transform-origin: center;
+  transform: scaleY(0.08);
+  animation: waveTravel 2.8s ease-in-out infinite;
+  animation-delay: calc((399 - var(--i)) * 0.007s);
+}
+
+.recordingTimer {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: #b31b1b;
+  font-weight: 500;
+  min-width: 42px;
+}
+
+/* ── Disclaimer ── */
+.disclaimer {
+  position: relative;
+  z-index: 1;
+  text-align: left;
+  padding-left: 24px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+  padding-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .inner {
+    padding: 24px 16px 16px;
+  }
+
+  .bubbleGroup {
+    max-width: 60%;
+  }
+
+  .bubble {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .chatArea {
+    max-height: 420px;
+  }
+}
