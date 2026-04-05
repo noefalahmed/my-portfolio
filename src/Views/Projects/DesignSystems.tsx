@@ -139,6 +139,7 @@ const DesignSystems: React.FC = () => {
                     { label: "Duration", value: "7 Months" },
                     { label: "Skills", value: "Design Systems, UI, Product Design" },
                 ]}/>
+
             <div className={styles.contentcontainer}>
             <img data-zoom src="./assets/ds0.png" className={`${styles.image} ${styles['image-full']}`} />
             <div className={styles.largetext}> Eat, Sleep, Repeat (ESR) connects food lovers with discounts and reviews for beloved and new restaurants.<br/><br/>Although ESR was a local favorite in Lahore’s food scene, it lacked a digital presence. To launch its first mobile app, the team needed a scalable design system and cohesive brand identity that made earning rewards feel effortless.<br/><br/>In 2020, I built a design system that that transformed their simple Facebook community forum into a contemporary mobile experience.</div>
