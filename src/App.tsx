@@ -18,9 +18,6 @@ import SpeechCoach from './Views/Projects/SpeechCoach.tsx';
 
 
 const App: React.FC = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
   useEffect(() => {
     let overlay = document.getElementById('zoom-overlay');
@@ -66,7 +63,6 @@ const App: React.FC = () => {
           <CustomCursor />
           <Navbar/>
           <Routes>
-            {/* Define routes to render specific components based on URL */}
             <Route path="/" element={<Home />} />
             <Route path="/design-systems" element={<DesignSystems />} />
             <Route path="/guide" element={<Guide />} />

@@ -3,6 +3,12 @@ import React, { useState, useEffect, useRef } from "react"
 import styles from "./Home.module.css"
 import { Volume2, ArrowUp, Check, Loader2, ArrowRight } from "lucide-react"
 import { FaLinkedin } from "react-icons/fa"
+import { motion } from "motion/react"
+
+const variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+}
 
 function startTyping(
   text: string,
@@ -714,6 +720,7 @@ useEffect(() => {
           </div>
 
           {/* Center Hero Section */}
+          <motion.div variants={variants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
           <div className={`${styles.heroSection} ${styles.animateSection}`}>
             {/* Profile Photo */}
             {/* <div className={`${styles.profilePhoto} ${styles.animateItem} ${styles.animateDelay1}`}>
@@ -761,6 +768,7 @@ useEffect(() => {
             </button>
             </div>
           </div>
+          </motion.div>
 
           {/* Write me a note Card - Bottom Left */}
           {noteActive && <div className={styles.noteOverlay} />}
@@ -821,7 +829,7 @@ useEffect(() => {
           </div>
 
           {/* Cornell Badge - Center */}
-          <div
+          {/* <div
             className={`${styles.bentoCard} ${styles.cornellBadge} ${styles.bentoAnimate4}`}
             onMouseDown={startDrag('cornell')}
             onMouseEnter={() => { cornellTargetSpeed.current = 0.36 }}
@@ -830,7 +838,7 @@ useEffect(() => {
           >
             <div className={styles.cornellTextWrapper} ref={cornellWrapperRef}>
               <div className={styles.cornellText}>
-                {/* Text arranged in a circle */}
+                {Text arranged in a circle}
                 {"Cornell University Cornell University ".split("").map((char, i) => (
                   <span
                     key={i}
@@ -843,7 +851,7 @@ useEffect(() => {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Urdu Name Pronunciation - Bottom Right */}
           {isPlaying && <div className={styles.pronunciationOverlay} />}
@@ -863,6 +871,7 @@ useEffect(() => {
         </main>
 
         {/* Work Section */}
+        <motion.div variants={variants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Featured Work</h2>
           <div className={styles.projectsGrid}>
@@ -924,8 +933,10 @@ useEffect(() => {
             </a>
           </div>
         </section>
+        </motion.div>
 
         {/* Playground Section */}
+        {/* <motion.div variants={variants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Playground</h2>
           <p className={styles.sectionDescription}>
@@ -934,43 +945,46 @@ useEffect(() => {
           <div className={styles.playgroundGrid}>
             <a href="/playground-1" className={styles.playgroundCard}>
               <div className={styles.playgroundImageWrapper}>
-                <img 
-                  src="/placeholder.svg?height=300&width=300&query=minimal white background" 
-                  alt="Experiment 1" 
+                <img
+                  src="/placeholder.svg?height=300&width=300&query=minimal white background"
+                  alt="Experiment 1"
                   className={styles.playgroundImage}
                 />
               </div>
             </a>
             <a href="/playground-2" className={styles.playgroundCard}>
               <div className={styles.playgroundImageWrapper}>
-                <img 
-                  src="/placeholder.svg?height=300&width=300&query=minimal white background" 
-                  alt="Experiment 2" 
+                <img
+                  src="/placeholder.svg?height=300&width=300&query=minimal white background"
+                  alt="Experiment 2"
                   className={styles.playgroundImage}
                 />
               </div>
             </a>
             <a href="/playground-3" className={styles.playgroundCard}>
               <div className={styles.playgroundImageWrapper}>
-                <img 
-                  src="/placeholder.svg?height=300&width=300&query=minimal white background" 
-                  alt="Experiment 3" 
+                <img
+                  src="/placeholder.svg?height=300&width=300&query=minimal white background"
+                  alt="Experiment 3"
                   className={styles.playgroundImage}
                 />
               </div>
             </a>
             <a href="/playground-4" className={styles.playgroundCard}>
               <div className={styles.playgroundImageWrapper}>
-                <img 
-                  src="/placeholder.svg?height=300&width=300&query=minimal white background" 
-                  alt="Experiment 4" 
+                <img
+                  src="/placeholder.svg?height=300&width=300&query=minimal white background"
+                  alt="Experiment 4"
                   className={styles.playgroundImage}
                 />
               </div>
             </a>
           </div>
         </section>
+        </motion.div> */}
+
         {/* about me */}
+        <motion.div variants={variants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
         <section className={styles.section}>
          
           <div ref={aboutRef} className={styles.about}>
@@ -1006,6 +1020,7 @@ useEffect(() => {
             </button>
           )}
         </section>
+        </motion.div>
      </div>
   </div>
   )
