@@ -3,9 +3,9 @@ import React, { useState, useEffect, useRef } from "react"
 import styles from "./Home.module.css"
 import { Volume2, ArrowUp, Check, Loader2, ArrowRight } from "lucide-react"
 import { FaLinkedin } from "react-icons/fa"
-import { motion } from "motion/react"
+import { motion, type Variants } from "motion/react"
 
-const variants = {
+const variants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
 }
