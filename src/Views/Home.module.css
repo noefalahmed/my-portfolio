@@ -1156,239 +1156,341 @@ text-wrap: nowrap;
 }
 
 
-/* Responsive */
-@media (max-width: 1024px) {
+/* Mobile-only elements: hidden on desktop */
+.mobileHeroSlide { display: none; }
+.mobileGridBg { display: none; }
+.mobileHeroContent { display: none; }
+.mobileBtnSection { display: none; }
+.mobileSlideIndicator { display: none; }
+.mobileSlidedot { display: none; }
+.mobileAboutSlide { display: none; }
+.mobileAboutText { display: none; }
+.mobileReadBtn { display: none; }
+.mobileFooterSlide { display: none; }
+.mobileFooterLink { display: none; }
+.mobileBackToTop { display: none; }
 
-  .heroSection {
- 
-    align-items: flex-start;
-    gap:8px;
-    top:44px;
-    left:32px;
-    transform: none;
-   
-  }
-  .heroTitle{
-    width:fit-content;
-  }
-
-  .skillPills{
-    flex-direction: column;
-    gap:0px;
-  }
-
-  .artworkCard {
-    top:55%;
-  }
-
-  .ticTacToeCard {
-    bottom: 24px;
-    left:30%;
-    top:auto;
-    right:auto;
-  }
-
-  .noteCardWrapper {
-    right:24px;
-    left:auto;
-  }
-
-  .cornellBadge {
-    bottom: 500px;
-  }
-
-  .pronunciationCard {
-    bottom: 24px;
-    left:24px;
-  }
-
-  .projectsGrid{
-   grid-template-columns: 1fr;  
-  }
-
-  /* Responsive breakpoint for tablets / smaller screens */
-    .playgroundGrid {
-      grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
-    }
-
-.about{
-  place-self: center;
-}
-}
-
-@media (max-width: 768px) {
-
-  .navbar {
-    padding: 16px 24px;
-  }
-
-  .contentContainer {
-  padding: 16px 16px;
-}
-
-  .bentoContainer{
-    min-height: 1200px;
-
-  }
-
-  .playgroundGrid,.projectsGrid{
-    gap:16px;
-  }
-
-  .ticTacToeCard {
-
-      left:24px;
-      right:auto;
-      bottom:188px;
-    }
-
-  .pronunciationCard{
-    top:50%;
-    bottom:10%;
-    left:60%;
-  }
-
-  .artworkCard{
-    top:40%;
-  }
-
-  .tagline{
-    text-wrap: wrap;
-    text-align: start;
-    line-height: 200%;
-    margin:0px;
-  }
-
-  .cornellBadge{
-    right: 10%;
-    left:auto;
-    top: 600px;
-    bottom:auto;
-  }
-   .about{
-      margin:0px;
-      gap: 32px;
-}
-
-  .aboutdescription{
-    padding:40px;    
-  }
-  /* Optional: even smaller screens (like phones) */
-    .playgroundGrid {
-      grid-template-columns: 1fr; /* 1 card per row */
-    }
-
-    .buttonsection{
-      flex-direction: column;
-      width:100%;
-      gap:0px;
-    }
-
-    .filledButton, .outlinedButton{
-      margin: 8px 0px;
-      
-    }
-
-
-
-}
-
+/* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 480px) {
 
-  .bentoContainer{
-    min-height: 1400px;
+  /* Remove navbar spacing */
+  .pageWrapper {
+    margin-top: 0;
   }
 
-  .ticTacToeCard {
-  right:16px;
-  top:55%;
-  left: auto;
-  }
-
-  .pronunciationCard{
-
-    left:24px;
-    top:64%;
-  }
-
-  .artworkCard{
-    top:35%;
-  }
-
-  .cornellBadge{
-    right:8px;
-    left:auto;
-    top:450px;
-  }
-
-  .noteCardWrapper{
-    max-width: 400px;
-  }
-
-  .heroSection{
-    left:20px;
-  }
-
+  /* Scroll-snap container */
   .contentContainer {
-  padding: 8px 16px;
-}
-
-
-  .projectsGrid {
-    grid-template-columns: 1fr; /* 1 card per row */
+    padding: 0;
+    margin-bottom: 0;
+    height: 100svh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
   }
 
-  .projectCard {
-    width: 100%;
-    aspect-ratio: 1 / 1; /* entire card is square */
+
+  /* ── Mobile hero slide ── */
+  .mobileHeroSlide {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* distributes space between image and text */
+    align-items: center;
+    justify-content: center;
+    height: 100svh;
+    scroll-snap-align: start;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .mobileGridBg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+    z-index: 0;
+  }
+
+  .mobileHeroContent {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 8px 170px;
+    width: 100%;
+  }
+
+  .mobileBtnSection {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 8px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 10;
+  }
+
+  /* Hide desktop hero on mobile */
+  .bentoContainer {
+    display: none;
+  }
+
+  /* Slide indicator */
+  .mobileSlideIndicator {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: fixed;
+    right: 16px;
+    top: 24px;
+    z-index: 100;
+  }
+
+  .mobileSlidedot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: background 0.3s ease;
+  }
+
+  .mobileSlideDotActive {
+    background: #ffffff;
+  }
+
+
+  .artworkCard,
+  .ticTacToeCard,
+  .noteCardWrapper,
+  .pronunciationCard {
+    display: none;
+  }
+
+  .heroSection {
+    position: static;
+    top: unset;
+    left: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    transform: none;
+    padding: 0 0 216px;
+  }
+
+  .heroTitle {
+    font-size: 56px;
+    letter-spacing: -0.07em;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .skillPills {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .skillPill {
+    justify-content: center;
+  }
+
+  .tagline {
+    font-size: 16px;
+    text-align: center !important;
+    margin: 4px 0;
+  }
+
+  .buttonsection {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 0 24px;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .filledButton,
+  .outlinedButton {
+    width: 100% !important;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    height: 42px;
+    padding: 0 24px;
+  }
+
+  /* ── Work section wrappers ── */
+  .section {
+    margin: 0;
+    padding: 0;
+  }
+
+  .sectionTitle {
+    display: none;
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* ── Project card slides ── */
+  .projectCard {
+    scroll-snap-align: start;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    background: #03060a;
+    border: none;
+    border-radius: 0;
+    padding: 24px 8px 0;
+  }
+
+  .projectCard::before {
+    content: "FEATURED WORK";
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    color: #d9d9d9;
+    letter-spacing: 0.05em;
+    margin-left: 10px;
   }
 
   .projectImageWrapper {
-    flex: 1; /* takes all remaining space proportionally */
-    width: 100%;
-    padding: 16px;
+    flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    gap:12px;
+    padding: 0;
+    gap: 12px;
   }
 
   .projectImage {
+    max-height: 45svh;
     width: 100%;
-    height: 100%;
-    object-fit: contain; /* scales image to fit wrapper without distortion */
-    padding: 32px;
-
+    object-fit: contain;
+    padding: 0;
   }
 
-  /* Title and caption take up their natural height */
-  .projectTitle,
+  .projectBottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 0 16px;
+    margin-top: auto;
+  }
+
   .projectCaption {
-    padding: 16px 16px; /* optional: reduce padding on mobile */
-    flex-shrink: 0; /* prevent shrinking */
-    
-  }
-  .projectCaption{
-    margin-bottom: 0px;
-        margin-top: 0px;
-
-
+    font-size: 12px;
+    color: #8c8c8c;
+    margin: 0;
+    padding: 0;
   }
 
-  .about{
-    gap:24px;
+  .projectTitle {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.3;
+    padding: 0;
+    color: #fff;
   }
 
-
-    .aboutdescription{
-    padding:20px;    
-
+  /* ── Footer slide ── */
+  .mobileFooterSlide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100svh;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    gap: 24px;
+    background: #03060a;
   }
-  
 
+  .mobileFooterLink {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 24px;
+    font-weight: 400;
+    color: #d8d8d8;
+    text-decoration: none;
+    text-align: center;
+    transition: color 0.3s ease;
+  }
+
+  .mobileBackToTop {
+    display: flex;
+    position: absolute;
+    bottom: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #3a3a3a;
+    background: transparent;
+    color: #d8d8d8;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  /* ── About slide ── */
+  .mobileAboutSlide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100svh;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    padding: 0 8px;
+    background: #03060a;
+  }
+
+  .mobileAboutText {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 17.5px;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.6;
+    overflow-y: auto;
+  }
+
+  /* Hide desktop about section on mobile */
+  .about {
+    display: none;
+  }
+
+  .mobileReadBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 42px;
+    padding: 0 24px;
+    background: #D4D4D4;
+    border-radius: 100px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    font-weight: 500;
+    color: #05090F;
+    text-transform: uppercase;
+    margin: 0 0 30px;
+  }
 
 }
