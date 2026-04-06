@@ -49,13 +49,8 @@
     }
 }
 @media(max-width: 480px){
-    .linksection{
-
-        flex-direction: column;
-        gap:24px;
-    }
-    .avatar{
-        display:none;
+    .footer {
+        display: none;
     }
 }
 .navButton {
