@@ -756,16 +756,16 @@ useEffect(() => {
 
 
             <div className={styles.buttonsection}>
+              <button className={styles.filledButton}
+              onClick={() => window.open("https://www.calendly.com/noefalahmed", "_blank")}>
+                Connect
+                <ArrowRight size={14} color="#05090F" />
+              </button>
               <button className={styles.outlinedButton}
               onClick={() => window.open("https://www.linkedin.com/in/noefalahmed", "_blank")}>
-              <FaLinkedin size={14} color="#ffffff" />
-              LinkedIn
-            </button>
-            <button className={styles.filledButton}
-            onClick={() => window.open("https://www.calendly.com/noefalahmed", "_blank")}>
-              Connect
-              <ArrowRight size={14} color="#05090F" />
-            </button>
+                LinkedIn
+                <FaLinkedin size={14} color="#ffffff" />
+              </button>
             </div>
           </div>
           </motion.div>

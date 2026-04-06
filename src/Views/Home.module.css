@@ -1156,239 +1156,114 @@ text-wrap: nowrap;
 }
 
 
-/* Responsive */
-@media (max-width: 1024px) {
-
-  .heroSection {
- 
-    align-items: flex-start;
-    gap:8px;
-    top:44px;
-    left:32px;
-    transform: none;
-   
-  }
-  .heroTitle{
-    width:fit-content;
-  }
-
-  .skillPills{
-    flex-direction: column;
-    gap:0px;
-  }
-
-  .artworkCard {
-    top:55%;
-  }
-
-  .ticTacToeCard {
-    bottom: 24px;
-    left:30%;
-    top:auto;
-    right:auto;
-  }
-
-  .noteCardWrapper {
-    right:24px;
-    left:auto;
-  }
-
-  .cornellBadge {
-    bottom: 500px;
-  }
-
-  .pronunciationCard {
-    bottom: 24px;
-    left:24px;
-  }
-
-  .projectsGrid{
-   grid-template-columns: 1fr;  
-  }
-
-  /* Responsive breakpoint for tablets / smaller screens */
-    .playgroundGrid {
-      grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
-    }
-
-.about{
-  place-self: center;
-}
-}
-
-@media (max-width: 768px) {
-
-  .navbar {
-    padding: 16px 24px;
-  }
-
-  .contentContainer {
-  padding: 16px 16px;
-}
-
-  .bentoContainer{
-    min-height: 1200px;
-
-  }
-
-  .playgroundGrid,.projectsGrid{
-    gap:16px;
-  }
-
-  .ticTacToeCard {
-
-      left:24px;
-      right:auto;
-      bottom:188px;
-    }
-
-  .pronunciationCard{
-    top:50%;
-    bottom:10%;
-    left:60%;
-  }
-
-  .artworkCard{
-    top:40%;
-  }
-
-  .tagline{
-    text-wrap: wrap;
-    text-align: start;
-    line-height: 200%;
-    margin:0px;
-  }
-
-  .cornellBadge{
-    right: 10%;
-    left:auto;
-    top: 600px;
-    bottom:auto;
-  }
-   .about{
-      margin:0px;
-      gap: 32px;
-}
-
-  .aboutdescription{
-    padding:40px;    
-  }
-  /* Optional: even smaller screens (like phones) */
-    .playgroundGrid {
-      grid-template-columns: 1fr; /* 1 card per row */
-    }
-
-    .buttonsection{
-      flex-direction: column;
-      width:100%;
-      gap:0px;
-    }
-
-    .filledButton, .outlinedButton{
-      margin: 8px 0px;
-      
-    }
-
-
-
-}
-
+/* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 480px) {
 
-  .bentoContainer{
-    min-height: 1400px;
-  }
-
-  .ticTacToeCard {
-  right:16px;
-  top:55%;
-  left: auto;
-  }
-
-  .pronunciationCard{
-
-    left:24px;
-    top:64%;
-  }
-
-  .artworkCard{
-    top:35%;
-  }
-
-  .cornellBadge{
-    right:8px;
-    left:auto;
-    top:450px;
-  }
-
-  .noteCardWrapper{
-    max-width: 400px;
-  }
-
-  .heroSection{
-    left:20px;
-  }
-
   .contentContainer {
-  padding: 8px 16px;
-}
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 
+  /* 2. Background grid covers full screen */
+  .bentoContainer {
+    height: 100svh;
+    min-height: unset;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .bentoImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100svh;
+    object-fit: cover;
+    transform: none !important;
+    transition: none;
+    z-index: 0;
+  }
+
+  /* Hide floating bento cards */
+  .artworkCard,
+  .ticTacToeCard,
+  .noteCardWrapper,
+  .pronunciationCard {
+    display: none;
+  }
+
+  /* 3. Hero centered */
+  .heroSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    transform: none;
+    padding: 0px 0 216px;
+  }
+
+  .heroTitle {
+    font-size: 56px;
+    letter-spacing: -0.07em;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  /* 4. Skill pills: 0px gap, 16px font */
+  .skillPills {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .skillPill {
+    justify-content: center;
+  }
+
+  .tagline {
+    font-size: 16px;
+    text-align: center !important;
+    margin: 4px 0;
+  }
+
+  /* Project cards: full width, stacked */
   .projectsGrid {
-    grid-template-columns: 1fr; /* 1 card per row */
+    grid-template-columns: 1fr;
   }
 
   .projectCard {
-    width: 100%;
-    aspect-ratio: 1 / 1; /* entire card is square */
-    display: flex;
+    height: 100svh;
+  }
+
+  /* 5. Buttons: full width, stacked, 16px gap, pinned to bottom */
+  .buttonsection {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 0 24px;
     flex-direction: column;
-    justify-content: space-between; /* distributes space between image and text */
-  }
-
-  .projectImageWrapper {
-    flex: 1; /* takes all remaining space proportionally */
+    gap: 16px;
     width: 100%;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    gap:12px;
   }
 
-  .projectImage {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* scales image to fit wrapper without distortion */
-    padding: 32px;
-
+  .filledButton,
+  .outlinedButton {
+    width: 100% !important;
+    margin: 0;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 14px 24px;
   }
-
-  /* Title and caption take up their natural height */
-  .projectTitle,
-  .projectCaption {
-    padding: 16px 16px; /* optional: reduce padding on mobile */
-    flex-shrink: 0; /* prevent shrinking */
-    
-  }
-  .projectCaption{
-    margin-bottom: 0px;
-        margin-top: 0px;
-
-
-  }
-
-  .about{
-    gap:24px;
-  }
-
-
-    .aboutdescription{
-    padding:20px;    
-
-  }
-  
-
 
 }
