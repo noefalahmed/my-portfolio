@@ -148,6 +148,7 @@ const Home: React.FC = () => {
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const [shouldType, setShouldType] = useState(false);
   const [typedText, setTypedText] = useState("");
+  const [mobileProjectSlide, setMobileProjectSlide] = useState<number | null>(null);
 
   const [proj1Text, setProj1Text] = useState("")
   const [proj2Text, setProj2Text] = useState("")
@@ -408,10 +409,12 @@ const Home: React.FC = () => {
   }, [])
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    })
+    const container = document.querySelector('[data-scroll-container]') as HTMLElement
+    if (container) {
+      container.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
 
@@ -551,6 +554,44 @@ useEffect(() => {
 }, [shouldType]);
 
 
+  // Mobile slide fade via IntersectionObserver
+  useEffect(() => {
+    if (window.innerWidth > 480) return
+    const container = document.querySelector('[data-scroll-container]') as HTMLElement
+    if (!container) return
+    const slides = Array.from(container.querySelectorAll('[data-slide]')) as HTMLElement[]
+
+    // Set all slides to invisible initially
+    slides.forEach(slide => {
+      slide.style.opacity = '0'
+      slide.style.transition = 'opacity 0.5s ease'
+    })
+    // Show first slide immediately
+    if (slides[0]) slides[0].style.opacity = '1'
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          ;(entry.target as HTMLElement).style.opacity = entry.isIntersecting ? '1' : '0'
+          if (entry.isIntersecting) {
+            const idx = slides.indexOf(entry.target as HTMLElement)
+            // idx 0 = hero, idx 1-4 = project cards, idx 5 = about
+            const el = entry.target as HTMLElement
+            const isProjectSlide = idx >= 1 && !el.hasAttribute('data-about') && !el.hasAttribute('data-footer')
+            setMobileProjectSlide(isProjectSlide ? idx - 1 : null)
+            if ((entry.target as HTMLElement).hasAttribute('data-about')) {
+              setShouldType(true)
+            }
+          }
+        })
+      },
+      { root: container, threshold: 0.5 }
+    )
+
+    slides.forEach(slide => observer.observe(slide))
+    return () => observer.disconnect()
+  }, [])
+
   useEffect(() => {
     const cards: { ref: React.RefObject<HTMLAnchorElement | null>, text: string, setter: React.Dispatch<React.SetStateAction<string>>, doneSetter: React.Dispatch<React.SetStateAction<boolean>>, imgSetter: React.Dispatch<React.SetStateAction<boolean>> }[] = [
       { ref: proj1Ref, text: "students.", setter: setProj1Text, doneSetter: setProj1Done, imgSetter: setProj1ImgVisible },
@@ -591,7 +632,56 @@ useEffect(() => {
       </nav> */}
 
       {/* Main Bento Grid Container */}
-      <div className={`${styles.contentContainer} ${isPageLoaded ? styles.pageLoaded : ""}`}>
+      <div
+        className={`${styles.contentContainer} ${isPageLoaded ? styles.pageLoaded : ""}`}
+        data-scroll-container
+      >
+        {/* Mobile slide indicator */}
+        {mobileProjectSlide !== null && (
+          <div className={styles.mobileSlideIndicator}>
+            {[0, 1, 2, 3].map(i => (
+              <div
+                key={i}
+                className={`${styles.mobileSlidedot} ${i === mobileProjectSlide ? styles.mobileSlideDotActive : ""}`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Mobile-only hero slide — bypasses Framer Motion */}
+        <div className={styles.mobileHeroSlide} data-slide>
+          <img src="./assets/bg-grid.png" className={styles.mobileGridBg} />
+          <div className={styles.mobileHeroContent}>
+            <h1 className={styles.heroTitle}>
+              <span ref={typingRef}>{greeting}</span>
+              <span className={styles.cursor}></span>
+            </h1>
+            <h1 className={styles.heroTitle}>i'm noefal.</h1>
+            <div className={styles.skillPills}>
+              <span className={styles.skillPill}>
+                <img src="/assets/a.svg" alt="" className={styles.skillIcon} />
+                <p className={styles.tagline}>Human-AI Interaction</p>
+              </span>
+              <span className={styles.skillPill}>
+                <img src="/assets/b.svg" alt="" className={styles.skillIcon} />
+                <p className={styles.tagline}>Product Design</p>
+              </span>
+              <span className={styles.skillPill}>
+                <img src="/assets/p.svg" alt="" className={styles.skillIcon} />
+                <p className={styles.tagline}>Systems Thinking</p>
+              </span>
+            </div>
+          </div>
+          <div className={styles.mobileBtnSection}>
+            <button className={styles.filledButton} onClick={() => window.open("https://www.calendly.com/noefalahmed", "_blank")}>
+              Connect <ArrowRight size={14} color="#05090F" />
+            </button>
+            <button className={styles.outlinedButton} onClick={() => window.open("https://www.linkedin.com/in/noefalahmed", "_blank")}>
+              LinkedIn <FaLinkedin size={14} color="#ffffff" />
+            </button>
+          </div>
+        </div>
+
         <main
           className={styles.bentoContainer}
           onMouseMove={(e) => {
@@ -756,16 +846,16 @@ useEffect(() => {
 
 
             <div className={styles.buttonsection}>
+              <button className={styles.filledButton}
+              onClick={() => window.open("https://www.calendly.com/noefalahmed", "_blank")}>
+                Connect
+                <ArrowRight size={14} color="#05090F" />
+              </button>
               <button className={styles.outlinedButton}
               onClick={() => window.open("https://www.linkedin.com/in/noefalahmed", "_blank")}>
-              <FaLinkedin size={14} color="#ffffff" />
-              LinkedIn
-            </button>
-            <button className={styles.filledButton}
-            onClick={() => window.open("https://www.calendly.com/noefalahmed", "_blank")}>
-              Connect
-              <ArrowRight size={14} color="#05090F" />
-            </button>
+                LinkedIn
+                <FaLinkedin size={14} color="#ffffff" />
+              </button>
             </div>
           </div>
           </motion.div>
@@ -875,61 +965,57 @@ useEffect(() => {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Featured Work</h2>
           <div className={styles.projectsGrid}>
-            <a href="/speech-coach" ref={proj1Ref} className={styles.projectCard}>
+            <a href="/speech-coach" ref={proj1Ref} className={styles.projectCard} data-slide>
               <div className={styles.projectImageWrapper}>
+                <img src="./assets/proj0.png" alt="Speech Coach" className={`${styles.projectImage} ${proj1ImgVisible ? styles.projectImageVisible : ""}`} />
+              </div>
+              <div className={styles.projectBottom}>
                 <p className={styles.projectCaption}>CORNELL UNIVERSITY</p>
-                <img
-                  src="./assets/proj0.png"
-                  alt="Speech Coach"
-                  className={`${styles.projectImage} ${proj1ImgVisible ? styles.projectImageVisible : ""}`}
-                />
+                <span className={styles.projectTitle}>
+                  {"i built a speech-enabled leadership coach for "}{proj1Text}
+                  {proj1Text.length > 0 && (proj1Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
+                </span>
               </div>
-              <span className={styles.projectTitle}>
-                {"i built a speech-enabled leadership coach for "}{proj1Text}
-                {proj1Text.length > 0 && (proj1Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
-              </span>
+              <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
             </a>
-            <a href="/design-thinking" ref={proj2Ref} className={styles.projectCard}>
+            <a href="/design-thinking" ref={proj2Ref} className={styles.projectCard} data-slide>
               <div className={styles.projectImageWrapper}>
+                <img src="./assets/proj3.png" alt="design-thinking" className={`${styles.projectImage} ${proj2ImgVisible ? styles.projectImageVisible : ""}`} />
+              </div>
+              <div className={styles.projectBottom}>
                 <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
-                <img
-                  src="./assets/proj3.png"
-                  alt="design-thinking"
-                  className={`${styles.projectImage} ${proj2ImgVisible ? styles.projectImageVisible : ""}`}
-                />
+                <span className={styles.projectTitle}>
+                  {"i redesigned a Dashboard for "}{proj2Text}
+                  {proj2Text.length > 0 && (proj2Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
+                </span>
               </div>
-              <span className={styles.projectTitle}>
-                {"i redesigned a Dashboard for "}{proj2Text}
-                {proj2Text.length > 0 && (proj2Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
-              </span>
+              <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
             </a>
-            <a href="/design-systems" ref={proj3Ref} className={styles.projectCard}>
+            <a href="/design-systems" ref={proj3Ref} className={styles.projectCard} data-slide>
               <div className={styles.projectImageWrapper}>
+                <img src="./assets/proj2.png" alt="Data Analytics" className={`${styles.projectImage} ${proj3ImgVisible ? styles.projectImageVisible : ""}`} />
+              </div>
+              <div className={styles.projectBottom}>
                 <p className={styles.projectCaption}>EAT SLEEP REPEAT</p>
-                <img
-                  src="./assets/proj2.png"
-                  alt="Data Analytics"
-                  className={`${styles.projectImage} ${proj3ImgVisible ? styles.projectImageVisible : ""}`}
-                />
+                <span className={styles.projectTitle}>
+                  {"i created a Design System for a "}{proj3Text}
+                  {proj3Text.length > 0 && (proj3Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
+                </span>
               </div>
-              <span className={styles.projectTitle}>
-                {"i created a Design System for a "}{proj3Text}
-                {proj3Text.length > 0 && (proj3Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
-              </span>
+              <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
             </a>
-            <a href="/accessibility" ref={proj4Ref} className={styles.projectCard}>
+            <a href="/accessibility" ref={proj4Ref} className={styles.projectCard} data-slide>
               <div className={styles.projectImageWrapper}>
-                <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
-                <img
-                  src="./assets/proj1.png"
-                  alt="Project Management"
-                  className={`${styles.projectImage} ${proj4ImgVisible ? styles.projectImageVisible : ""}`}
-                />
+                <img src="./assets/proj1.png" alt="Project Management" className={`${styles.projectImage} ${proj4ImgVisible ? styles.projectImageVisible : ""}`} />
               </div>
-              <span className={styles.projectTitle}>
-                {"i created an accessibility framework for a project "}{proj4Text}
-                {proj4Text.length > 0 && (proj4Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
-              </span>
+              <div className={styles.projectBottom}>
+                <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
+                <span className={styles.projectTitle}>
+                  {"i created an accessibility framework for a project "}{proj4Text}
+                  {proj4Text.length > 0 && (proj4Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
+                </span>
+              </div>
+              <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
             </a>
           </div>
         </section>
@@ -982,6 +1068,32 @@ useEffect(() => {
           </div>
         </section>
         </motion.div> */}
+
+        {/* Mobile-only about slide */}
+        <div className={styles.mobileAboutSlide} data-slide data-about>
+          <p className={styles.mobileAboutText}>
+            Hi Reader,
+            <br/><br/>
+            I'm a Design Engineer from 🇵🇰 Pakistan on a mission 🚀 to design experiences that impact people's lives. I've studied computer science, researched on AI, and designed various web and mobile products.
+            <br/><br/>
+            I work methodically. There are scales, guides, and procedures I live by to produce outcomes of the highest standards. I make sure I'm constantly in practice as not just a design-thinker but also a design-doer.
+            <br/><br/>
+            I'm currently researching, and building voice / speech enabled systems that solve for pain points across Human-AI Interaction, Computer Mediated Communication, and Cognitive Performance at Cornell University.
+            <br/><br/>
+            <span className={styles.signature}>
+              {typedText}
+              {shouldType && <span className={styles.cursor}></span>}
+            </span>
+          </p>
+        </div>
+
+        {/* Mobile-only footer slide */}
+        <div className={styles.mobileFooterSlide} data-slide data-footer>
+          <a href="https://linkedin.com/in/noefalahmed" target="_blank" rel="noopener noreferrer" className={styles.mobileFooterLink}>LinkedIn</a>
+          <a href="./assets/resume.pdf" download className={styles.mobileFooterLink}>Resume</a>
+          <a href="https://github.com/noefalahmed" target="_blank" rel="noopener noreferrer" className={styles.mobileFooterLink}>Github</a>
+          <button className={styles.mobileBackToTop} onClick={scrollToTop} aria-label="Back to top">↑</button>
+        </div>
 
         {/* about me */}
         <motion.div variants={variants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
