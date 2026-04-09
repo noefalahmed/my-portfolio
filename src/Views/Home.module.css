@@ -1420,6 +1420,7 @@ text-wrap: nowrap;
     flex-shrink: 0;
     gap: 24px;
     background: #03060a;
+    position: relative;
   }
 
   .mobileFooterLink {
