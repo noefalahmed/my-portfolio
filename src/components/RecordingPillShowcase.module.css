@@ -1,0 +1,269 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+/* ── Animation selector grid ── */
+.grid {
+  display: flex;
+  gap: 10px;
+}
+
+.card {
+  flex: 1;
+  background: #f7f7f7;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  padding: 16px 10px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.22s ease, background 0.22s ease;
+}
+
+.card:hover {
+  background: #f0f0f0;
+}
+
+.cardOn {
+  border-color: var(--c);
+  background: #f9f9f9;
+}
+
+.preview {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.22s ease;
+}
+
+/* ── Recording pill ── */
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  padding: 14px 18px;
+  min-height: 54px;
+}
+
+.iconArea {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.body {
+  flex: 1;
+  overflow: hidden;
+}
+
+.placeholder {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 15px;
+  color: #c0c0c0;
+}
+
+.transcript {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 15px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+}
+
+.processingText {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 15px;
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Word fade-in */
+@keyframes wordIn {
+  from { opacity: 0; transform: translateX(5px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.word {
+  display: inline;
+  animation: wordIn 0.18s ease forwards;
+}
+
+/* Disclaimer */
+.label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: #bbb;
+  margin: 0;
+}
+
+/* ── Animation base ── */
+.animBase {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animLarge {
+  width: 48px;
+  height: 48px;
+}
+
+.animInline {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── 1. Bars ── */
+@keyframes barBounce {
+  0%, 100% { transform: scaleY(0.18); opacity: 0.55; }
+  50%       { transform: scaleY(1);    opacity: 1; }
+}
+
+.barsWrap {
+  gap: 3px;
+}
+
+.animInline.barsWrap {
+  gap: 1.5px;
+}
+
+.bar {
+  background: var(--c);
+  border-radius: 2px;
+  transform-origin: center;
+  animation: barBounce 1.1s ease-in-out infinite;
+}
+
+.animLarge.barsWrap .bar {
+  width: 5px;
+  height: 34px;
+}
+
+.animInline.barsWrap .bar {
+  width: 2px;
+  height: 14px;
+}
+
+/* ── 2. Pulse ── */
+@keyframes pulseRing {
+  0%   { transform: scale(0.3); opacity: 0.9; }
+  100% { transform: scale(1);   opacity: 0; }
+}
+
+.pulse::before,
+.pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2.5px solid var(--c);
+  animation: pulseRing 1.5s ease-out infinite;
+}
+
+.pulse::after {
+  animation-delay: 0.75s;
+}
+
+.animInline.pulse::before,
+.animInline.pulse::after {
+  border-width: 1.5px;
+}
+
+/* ── 3. Orbit ── */
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.orbitCenter {
+  width: 28%;
+  height: 28%;
+  border-radius: 50%;
+  background: var(--c);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+}
+
+.orbitTrack {
+  position: absolute;
+  inset: 0;
+  animation: orbitSpin 1.1s linear infinite;
+}
+
+.orbitDot {
+  width: 22%;
+  height: 22%;
+  border-radius: 50%;
+  background: var(--c);
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.65;
+}
+
+/* ── 4. Ripple ── */
+@keyframes rippleExpand {
+  0%   { transform: scale(0.05); opacity: 0.85; }
+  100% { transform: scale(1);    opacity: 0; }
+}
+
+.rippleWrap {
+  border-radius: 50%;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--c);
+  animation: rippleExpand 1.65s ease-out infinite;
+}
+
+.animInline.rippleWrap .ring {
+  border-width: 1.5px;
+}
+
+/* ── 5. Spin ── */
+@keyframes spinRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spinner {
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--c);
+  border-right-color: var(--c);
+  animation: spinRotate 0.85s linear infinite;
+}
+
+.animInline.spinner {
+  border-width: 2px;
+}

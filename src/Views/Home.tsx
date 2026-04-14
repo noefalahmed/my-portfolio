@@ -966,11 +966,11 @@ useEffect(() => {
           <h2 className={styles.sectionTitle}>Featured Work</h2>
           <div className={styles.projectsGrid}>
             <a href="/speech-coach" ref={proj1Ref} className={styles.projectCard} data-slide>
+              <p className={styles.projectCaption}>CORNELL UNIVERSITY</p>
               <div className={styles.projectImageWrapper}>
                 <img src="./assets/proj0.png" alt="Speech Coach" className={`${styles.projectImage} ${proj1ImgVisible ? styles.projectImageVisible : ""}`} />
               </div>
               <div className={styles.projectBottom}>
-                <p className={styles.projectCaption}>CORNELL UNIVERSITY</p>
                 <span className={styles.projectTitle}>
                   {"i built a speech-enabled leadership coach for "}{proj1Text}
                   {proj1Text.length > 0 && (proj1Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
@@ -979,11 +979,11 @@ useEffect(() => {
               <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
             </a>
             <a href="/design-thinking" ref={proj2Ref} className={styles.projectCard} data-slide>
+              <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
               <div className={styles.projectImageWrapper}>
                 <img src="./assets/proj3.png" alt="design-thinking" className={`${styles.projectImage} ${proj2ImgVisible ? styles.projectImageVisible : ""}`} />
               </div>
               <div className={styles.projectBottom}>
-                <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
                 <span className={styles.projectTitle}>
                   {"i redesigned a Dashboard for "}{proj2Text}
                   {proj2Text.length > 0 && (proj2Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
@@ -992,11 +992,11 @@ useEffect(() => {
               <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
             </a>
             <a href="/design-systems" ref={proj3Ref} className={styles.projectCard} data-slide>
+              <p className={styles.projectCaption}>EAT SLEEP REPEAT</p>
               <div className={styles.projectImageWrapper}>
                 <img src="./assets/proj2.png" alt="Data Analytics" className={`${styles.projectImage} ${proj3ImgVisible ? styles.projectImageVisible : ""}`} />
               </div>
               <div className={styles.projectBottom}>
-                <p className={styles.projectCaption}>EAT SLEEP REPEAT</p>
                 <span className={styles.projectTitle}>
                   {"i created a Design System for a "}{proj3Text}
                   {proj3Text.length > 0 && (proj3Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
@@ -1005,11 +1005,11 @@ useEffect(() => {
               <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
             </a>
             <a href="/accessibility" ref={proj4Ref} className={styles.projectCard} data-slide>
+              <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
               <div className={styles.projectImageWrapper}>
                 <img src="./assets/proj1.png" alt="Project Management" className={`${styles.projectImage} ${proj4ImgVisible ? styles.projectImageVisible : ""}`} />
               </div>
               <div className={styles.projectBottom}>
-                <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
                 <span className={styles.projectTitle}>
                   {"i created an accessibility framework for a project "}{proj4Text}
                   {proj4Text.length > 0 && (proj4Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}

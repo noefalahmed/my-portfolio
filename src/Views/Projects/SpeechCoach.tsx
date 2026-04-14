@@ -101,7 +101,7 @@ const accordionItems = [
                     </div>
                 </div>
                 <img data-zoom src="./assets/sc-sysarch2.png" className={`${styles.image} ${styles['image-dynamic']}`} />
-                <p className={styles.p1}>So, we switched from GPT-4o Realtime to ElevenLabs — our first strategic shift. At first, this was exploratory, but the problems we had encountered actually decreased, so we chose to roll with it. Latency improved, the agents became distinct and autonomous, and difficulty was felt more concretely in the interactions.</p>
+                <p className={styles.p1}>So, we switched from GPT-4o Realtime to ElevenLabs — our first strategic shift. At first, this was exploratory, but the problems we had encountered actually decreased, so we chose to roll with it. Latency improved, the agents felt distinct and autonomous, and difficulty was felt more concretely in the interactions.</p>
             </div>
             <br /><br />
             <div className={styles.subsection}>
@@ -127,8 +127,23 @@ const accordionItems = [
                     </div>
                     <div className={styles.sub2section}>
                         <h2 className={styles.sh2}>Microinteractions</h2>
-                        <p className={styles.p1}>The mic animating while the student speaks, the processing state, the AI's voice coming back while its words appear on screen — all of it needed to be felt, not specced. Building it quickly let us confirm where latency was and wasn't a problem in a way no wireframe could.</p>
-                        <InteractionShowcase />
+                        <video
+                    src="./assets/sc-anims.mov"
+                    className={`${styles.image} ${styles['image-dynamic']}`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                />
+                        <video
+                    src="./assets/microanim.mov"
+                    className={`${styles.image} ${styles['image-dynamic']}`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                />
+                        <p className={styles.p1}>The mic animating while the student speaks, the processing state, the AI's voice coming back while its words appear on screen; all of it needed to be felt, not specced. So, I built a system with a list of all the animations we could plug and play. Building it and using this system quickly let us confirm where latency was and wasn't a problem in a way no wireframe could.</p>
                     </div>
                     <div className={styles.sub2section}>
                         <h2 className={styles.sh2}>Automating the Process</h2>
@@ -188,7 +203,23 @@ const SpeechCoach: React.FC = () => {
                     { label: "Skills", value: "Voice UX, Conversation Design, Rapid Prototyping" },
                 ]}
             />
-            <ConversationSnippet />
+            <div className={styles.conversationRow}>
+                <img
+                    data-zoom
+                    src="./assets/sc-conversation-ui.png"
+                    alt="Speech coach conversation UI"
+                    className={styles.conversationSideImage}
+                />
+                <div className={styles.conversationSnippetRow}>
+                    <ConversationSnippet />
+                    <img
+                        data-zoom
+                        src="./assets/sc-progress-dashboard.png"
+                        alt="Progress dashboard"
+                        className={styles.conversationPlaceholder}
+                    />
+                </div>
+            </div>
             <div className={styles.contentcontainer}>
                 <div className={styles.largetext}>
                     Engineering students are trained to solve hard problems, but nobody teaches them how to tell a teammate their work isn't good enough.<br /><br />Cornell's Duffield College of Engineering, home to over 3,000 undergraduates, needed a way to build that muscle before students hit the real world. So I designed and built a speech-enabled AI coach that lets students practice the uncomfortable conversations, delivers feedback on how they handled it, and gets more valuable the more they use it.

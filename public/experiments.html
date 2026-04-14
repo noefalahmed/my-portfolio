@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experiments — Speech Coach</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #030608;
+      min-height: 100vh;
+      font-family: "IBM Plex Mono", monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      padding: 32px;
+    }
+
+    .mode-group {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      display: flex;
+      gap: 2px;
+      z-index: 100;
+      background: rgba(255,255,255,0.03);
+      border: 0.5px solid #272727;
+      border-radius: 999px;
+      padding: 3px;
+    }
+
+    .mode-group input { display: none; }
+
+    .mode-group label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #3a3a3a;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+      user-select: none;
+    }
+
+    .mode-group input:checked + label {
+      background: #1e1e1e;
+      color: #d8d8d8;
+    }
+
+    /* Mono mode */
+    body.mono .grid { filter: grayscale(1); }
+
+    /* Light mode */
+    body.light { background: #eeece9; }
+    body.light .container {
+      background: rgba(0,0,0,0.04);
+      border-color: rgba(0,0,0,0.1);
+    }
+    body.light .label { color: #aaa; }
+    body.light .mode-group {
+      background: rgba(0,0,0,0.04);
+      border-color: rgba(0,0,0,0.1);
+    }
+    body.light .mode-group input:checked + label {
+      background: rgba(0,0,0,0.08);
+      color: #111;
+    }
+    body.light .mode-group label { color: #bbb; }
+    body.light .container > * { filter: brightness(0); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 200px);
+      gap: 16px;
+    }
+
+    .cell {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .label {
+      color: #3a3a3a;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      height: 200px;
+      border-radius: 16px;
+      border: 0.5px solid #272727;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* ── Waveform ── */
+    .waveform {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 36px;
+    }
+
+    .bar {
+      width: 2.5px;
+      border-radius: 999px;
+      transform-origin: center;
+      animation: wave 1.1s ease-in-out infinite;
+    }
+
+    .bar:nth-child(1) { height: 14px; background: #FFB922; animation-delay: 0s; }
+    .bar:nth-child(2) { height: 26px; background: #FF7575; animation-delay: 0.10s; }
+    .bar:nth-child(3) { height: 26px; background: #6183FF; animation-delay: 0.20s; }
+    .bar:nth-child(4) { height: 26px; background: #498CFF; animation-delay: 0.30s; }
+    .bar:nth-child(5) { height: 18px; background: #29D4FF; animation-delay: 0.40s; }
+
+    @keyframes wave {
+      0%   { transform: scaleY(0.35); }
+      50%  { transform: scaleY(1); }
+      100% { transform: scaleY(0.35); }
+    }
+
+    /* ── Star animation ── */
+    .star-arms {
+      transform-origin: 29px 29px;
+      animation: star-rotate 4s ease-in-out infinite;
+    }
+
+    .arm-h {
+      transform-origin: 29px 29px;
+      animation: arm-h-pulse 4s ease-in-out infinite;
+    }
+
+    .arm-v {
+      transform-origin: 29px 29px;
+      animation: arm-v-pulse 4s ease-in-out infinite;
+    }
+
+    .arm-d1, .arm-d2 {
+      transform-origin: 29px 29px;
+      animation: arm-d-pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes star-rotate {
+      0%   { transform: rotate(0deg); }
+      35%  { transform: rotate(0deg); }
+      50%  { transform: rotate(90deg); }
+      85%  { transform: rotate(90deg); }
+      100% { transform: rotate(180deg); }
+    }
+
+    @keyframes arm-h-pulse {
+      0%   { transform: scaleX(1); }
+      10%  { transform: scaleX(0.45); }
+      25%  { transform: scaleX(1.15); }
+      35%  { transform: scaleX(1); }
+      50%  { transform: scaleX(1); }
+      60%  { transform: scaleX(0.45); }
+      75%  { transform: scaleX(1.15); }
+      85%  { transform: scaleX(1); }
+      100% { transform: scaleX(1); }
+    }
+
+    @keyframes arm-v-pulse {
+      0%   { transform: scaleY(1); }
+      10%  { transform: scaleY(0.45); }
+      25%  { transform: scaleY(1.15); }
+      35%  { transform: scaleY(1); }
+      50%  { transform: scaleY(1); }
+      60%  { transform: scaleY(0.45); }
+      75%  { transform: scaleY(1.15); }
+      85%  { transform: scaleY(1); }
+      100% { transform: scaleY(1); }
+    }
+
+    @keyframes arm-d-pulse {
+      0%   { transform: scale(1); }
+      10%  { transform: scale(0.45); }
+      25%  { transform: scale(1.15); }
+      35%  { transform: scale(1); }
+      50%  { transform: scale(1); }
+      60%  { transform: scale(0.45); }
+      75%  { transform: scale(1.15); }
+      85%  { transform: scale(1); }
+      100% { transform: scale(1); }
+    }
+
+    /* ── Dots animation ── */
+    .dot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 3px);
+      gap: 8px;
+    }
+
+    .dot-cell {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    /* ── Bar graph animation ── */
+    .bar-graph {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      height: 36px;
+    }
+
+    .bg-bar {
+      width: 2.5px;
+      border-radius: 999px;
+      transform-origin: bottom;
+      animation: bar-graph 3s ease-in-out infinite backwards;
+    }
+
+    .bg-bar-1 { height: 14px; background: #FFB922; animation-delay: 0s; }
+    .bg-bar-2 { height: 26px; background: #FF7575; animation-delay: 0.2s; }
+    .bg-bar-3 { height: 22px; background: #6183FF; animation-delay: 0.4s; }
+    .bg-bar-4 { height: 18px; background: #498CFF; animation-delay: 0.6s; }
+    .bg-bar-5 { height: 26px; background: #29D4FF; animation-delay: 0.8s; }
+
+    @keyframes bar-graph {
+      0%   { transform: scaleY(0); }
+      18%  { transform: scaleY(1); }
+      50%  { transform: scaleY(1); }
+      68%  { transform: scaleY(0); }
+      100% { transform: scaleY(0); }
+    }
+
+    /* ── 12 Oval Orbit ── */
+    .oval-comet {
+      animation: oval-orbit 2s linear infinite;
+    }
+    @keyframes oval-orbit {
+      from { stroke-dashoffset: 0; }
+      to   { stroke-dashoffset: -94; }
+    }
+
+    /* ── 07 Orbit ── */
+    .orbit-trail { animation: orbit-spin 2s linear infinite; transform-origin: 29px 29px; }
+    .orbit-dot   { animation: orbit-spin 2s linear infinite; transform-origin: 29px 29px; }
+    @keyframes orbit-spin { to { transform: rotate(360deg); } }
+
+    /* ── 08 Pulse Ring ── */
+    .pulse-ring { transform-origin: 29px 29px; }
+    .pulse-ring-1 { animation: pulse-out 2s ease-out infinite; }
+    .pulse-ring-2 { animation: pulse-out 2s ease-out 1s infinite; }
+    @keyframes pulse-out {
+      0%   { r: 4;  opacity: 1; stroke-width: 1.5; }
+      100% { r: 18; opacity: 0; stroke-width: 0.5; }
+    }
+
+    /* ── 09 Arc ── */
+    .arc-fill { animation: arc-fill 2s ease-in-out infinite; }
+    @keyframes arc-fill {
+      0%   { stroke-dasharray: 0 88; }
+      70%  { stroke-dasharray: 88 0; }
+      100% { stroke-dasharray: 88 0; }
+    }
+
+    /* ── 10 Morph ── */
+    .morph-g  { transform-origin: 29px 29px; }
+    .morph-h  { transform-origin: 29px 29px; animation: morph-h  3s ease-in-out infinite; }
+    .morph-v  { transform-origin: 29px 29px; animation: morph-v  3s ease-in-out infinite; }
+    .morph-d1 { transform-origin: 29px 29px; animation: morph-d1 3s ease-in-out infinite; }
+    .morph-d2 { transform-origin: 29px 29px; animation: morph-d2 3s ease-in-out infinite; }
+    @keyframes morph-h  { 0%,100%{ transform:scaleX(1) }  45%,55%{ transform:scaleX(0) } }
+    @keyframes morph-v  { 0%,100%{ transform:scaleY(1) }  45%,55%{ transform:scaleY(0) } }
+    @keyframes morph-d1 { 0%,40%{ transform:scale(0) } 50%,90%{ transform:scale(1) } 100%{ transform:scale(0) } }
+    @keyframes morph-d2 { 0%,40%{ transform:scale(0) } 50%,90%{ transform:scale(1) } 100%{ transform:scale(0) } }
+
+    /* ── 11 Breathe ── */
+    .breathe-row { display:flex; align-items:center; gap:6px; }
+    .breathe-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--c);
+      animation: breathe 1.4s ease-in-out var(--d) infinite;
+    }
+    @keyframes breathe {
+      0%,100% { opacity: 0.15; transform: scale(0.6); }
+      50%     { opacity: 1;    transform: scale(1); }
+    }
+
+    /* ── Container interactions ── */
+    .container {
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+    .container:hover { border-color: rgba(255,255,255,0.12); }
+    .container.anim-selected { border-color: rgba(255,255,255,0.28); }
+    body.light .container:hover { border-color: rgba(0,0,0,0.18); }
+    body.light .container.anim-selected { border-color: rgba(0,0,0,0.28); }
+
+    .page-content {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* ── Recording pill section ── */
+    .pill-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .recording-pill {
+      display: flex;
+      width: 100%;
+      height: 58px;
+      padding: 4.994px 4.994px 4.994px 13.318px;
+      align-items: center;
+      border-radius: 13.318px;
+      border: 0.416px solid #A4A4A4;
+      background: #FFF;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .pill-content {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+      overflow: hidden;
+      transition: opacity 0.28s ease;
+    }
+
+    .pill-icon {
+      width: 28px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .pill-body {
+      flex: 1;
+      overflow: hidden;
+      line-height: 1;
+    }
+
+    .pill-placeholder,
+    .pill-processing {
+      color: #222;
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 16.647px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 25.97px;
+    }
+    .pill-transcript {
+      color: #848080;
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 16.647px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 25.97px;
+      white-space: nowrap;
+      overflow: hidden;
+      display: block;
+    }
+
+    @keyframes wordIn {
+      from { opacity: 0; transform: translateX(5px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .pill-word { display: inline; animation: wordIn 0.18s ease forwards; }
+
+    /* ── Swirl animation ── */
+    #swirl-path {
+      animation: swirl-draw 2.2s ease-in-out infinite;
+    }
+
+    @keyframes swirl-draw {
+      0%   { stroke-dashoffset: var(--swirl-len); }
+      70%  { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    /* ── Draw animation ── */
+    #draw-path {
+      stroke-dashoffset: var(--path-len, 999);
+      stroke-dasharray: var(--path-len, 999);
+      animation: draw-path 1.6s ease-in-out infinite;
+    }
+
+    @keyframes draw-path {
+      0%   { stroke-dashoffset: var(--path-len, 999); }
+      75%  { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mode-group">
+    <input type="radio" name="mode" id="mode-color" value="color" checked/>
+    <label for="mode-color">Color</label>
+    <input type="radio" name="mode" id="mode-mono" value="mono"/>
+    <label for="mode-mono">Mono</label>
+    <input type="radio" name="mode" id="mode-light" value="light"/>
+    <label for="mode-light">Light</label>
+  </div>
+
+  <div class="page-content">
+  <div class="grid">
+
+    <div class="cell">
+      <span class="label">01</span>
+      <div class="container">
+        <div class="waveform">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <span class="label">02</span>
+      <div class="container">
+        <svg id="draw-svg" viewBox="0 0 58 58" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="drawGrad" x1="16" y1="0" x2="42" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%"    stop-color="#FFB922"/>
+              <stop offset="23%"  stop-color="#FF7575"/>
+              <stop offset="52%"  stop-color="#6183FF"/>
+              <stop offset="79%"  stop-color="#498CFF"/>
+              <stop offset="100%" stop-color="#29D4FF"/>
+            </linearGradient>
+          </defs>
+          <path id="draw-path"
+            d="M16 22.1176V39.3235C16 40.8017 17.1983 42 18.6765 42C20.1546 42 21.3529 40.8017 21.3529 39.3235V18.6765C21.3529 17.1983 22.5512 16 24.0294 16C25.5076 16 26.7059 17.1983 26.7059 18.6765V39.5147C26.7059 40.8873 27.8186 42 29.1912 42C30.5638 42 31.6765 40.8873 31.6765 39.5147V18.4853C31.6765 17.1127 32.7892 16 34.1618 16C35.5344 16 36.6471 17.1127 36.6471 18.4853V39.3235C36.6471 40.8017 37.8454 42 39.3235 42C40.8017 42 42 40.8064 42 39.3282C42 37.8247 42 35.4753 42 31.8039"
+            stroke="url(#drawGrad)" stroke-width="2.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="cell">
+      <span class="label">03</span>
+      <div class="container">
+        <svg viewBox="0 0 58 58" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="starGrad" x1="16" y1="29" x2="42" y2="29" gradientUnits="userSpaceOnUse">
+              <stop offset="0%"    stop-color="#FFB922"/>
+              <stop offset="23%"  stop-color="#FF7575"/>
+              <stop offset="52%"  stop-color="#6183FF"/>
+              <stop offset="79%"  stop-color="#49FFF3"/>
+              <stop offset="100%" stop-color="#29D4FF"/>
+            </linearGradient>
+          </defs>
+          <!-- rotation on the group -->
+          <g class="star-arms">
+            <line class="arm-h"  x1="16"   y1="29"   x2="42"   y2="29"   stroke="url(#starGrad)" stroke-width="2" stroke-linecap="round"/>
+            <line class="arm-v"  x1="29"   y1="16"   x2="29"   y2="42"   stroke="url(#starGrad)" stroke-width="2" stroke-linecap="round"/>
+            <line class="arm-d1" x1="22.5" y1="22.5" x2="35.5" y2="35.5" stroke="url(#starGrad)" stroke-width="2" stroke-linecap="round"/>
+            <line class="arm-d2" x1="35.5" y1="22.5" x2="22.5" y2="35.5" stroke="url(#starGrad)" stroke-width="2" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="cell">
+      <span class="label">04</span>
+      <div class="container">
+        <svg id="swirl-svg" viewBox="0 0 58 58" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="swirlGrad" x1="7" y1="7" x2="51" y2="51" gradientUnits="userSpaceOnUse">
+              <stop offset="0%"   stop-color="#FFB922"/>
+              <stop offset="23%"  stop-color="#FF7575"/>
+              <stop offset="52%"  stop-color="#6183FF"/>
+              <stop offset="79%"  stop-color="#49FFF3"/>
+              <stop offset="100%" stop-color="#29D4FF"/>
+            </linearGradient>
+          </defs>
+          <path id="swirl-path" stroke="url(#swirlGrad)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="cell">
+      <span class="label">05</span>
+      <div class="container">
+        <div class="bar-graph">
+          <div class="bg-bar bg-bar-1"></div>
+          <div class="bg-bar bg-bar-2"></div>
+          <div class="bg-bar bg-bar-3"></div>
+          <div class="bg-bar bg-bar-4"></div>
+          <div class="bg-bar bg-bar-5"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <span class="label">06</span>
+      <div class="container">
+        <div class="dot-grid" id="dot-grid">
+          <div class="dot-cell"></div>
+          <div class="dot-cell"></div>
+          <div class="dot-cell"></div>
+          <div class="dot-cell"></div>
+          <div class="dot-cell"></div>
+          <div class="dot-cell"></div>
+          <div class="dot-cell"></div>
+          <div class="dot-cell"></div>
+          <div class="dot-cell"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 — Orbit -->
+    <div class="cell">
+      <span class="label">07</span>
+      <div class="container">
+        <svg viewBox="0 0 58 58" width="56" height="56" fill="none" overflow="visible">
+          <defs>
+            <linearGradient id="orbitGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+              <stop offset="0%"   stop-color="#FFB922"/>
+              <stop offset="100%" stop-color="#29D4FF"/>
+            </linearGradient>
+          </defs>
+          <!-- orbit ring -->
+          <circle cx="29" cy="29" r="14" stroke="#272727" stroke-width="1" fill="none"/>
+          <!-- trailing arc -->
+          <circle class="orbit-trail" cx="29" cy="29" r="14" stroke="url(#orbitGrad)" stroke-width="1.5" fill="none"
+            stroke-linecap="round" stroke-dasharray="22 66"/>
+          <!-- dot -->
+          <circle class="orbit-dot" cx="29" cy="15" r="2.5" fill="#29D4FF"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 08 — Pulse Ring -->
+    <div class="cell">
+      <span class="label">08</span>
+      <div class="container">
+        <svg viewBox="0 0 58 58" width="56" height="56" fill="none">
+          <defs>
+            <linearGradient id="pulseGrad" x1="0" y1="0" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+              <stop offset="0%"   stop-color="#FFB922"/>
+              <stop offset="100%" stop-color="#29D4FF"/>
+            </linearGradient>
+          </defs>
+          <circle class="pulse-ring pulse-ring-1" cx="29" cy="29" r="4" stroke="url(#pulseGrad)" stroke-width="1.5" fill="none"/>
+          <circle class="pulse-ring pulse-ring-2" cx="29" cy="29" r="4" stroke="url(#pulseGrad)" stroke-width="1.5" fill="none"/>
+          <circle cx="29" cy="29" r="3" fill="#6183FF"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 09 — Progress Arc -->
+    <div class="cell">
+      <span class="label">09</span>
+      <div class="container">
+        <svg viewBox="0 0 58 58" width="56" height="56" fill="none">
+          <defs>
+            <linearGradient id="arcGrad" x1="29" y1="0" x2="29" y2="58" gradientUnits="userSpaceOnUse">
+              <stop offset="0%"   stop-color="#FFB922"/>
+              <stop offset="50%"  stop-color="#6183FF"/>
+              <stop offset="100%" stop-color="#29D4FF"/>
+            </linearGradient>
+          </defs>
+          <circle cx="29" cy="29" r="14" stroke="#272727" stroke-width="1.5" fill="none"/>
+          <circle id="arc-path" cx="29" cy="29" r="14"
+            stroke="url(#arcGrad)" stroke-width="1.5" fill="none"
+            stroke-linecap="round" class="arc-fill"
+            transform="rotate(-90 29 29)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 10 — Morph -->
+    <div class="cell">
+      <span class="label">10</span>
+      <div class="container">
+        <svg viewBox="0 0 58 58" width="56" height="56" fill="none">
+          <defs>
+            <linearGradient id="morphGrad" x1="16" y1="29" x2="42" y2="29" gradientUnits="userSpaceOnUse">
+              <stop offset="0%"   stop-color="#FFB922"/>
+              <stop offset="50%"  stop-color="#6183FF"/>
+              <stop offset="100%" stop-color="#29D4FF"/>
+            </linearGradient>
+          </defs>
+          <g class="morph-g">
+            <line class="morph-h"  x1="16" y1="29" x2="42" y2="29" stroke="url(#morphGrad)" stroke-width="2" stroke-linecap="round"/>
+            <line class="morph-v"  x1="29" y1="16" x2="29" y2="42" stroke="url(#morphGrad)" stroke-width="2" stroke-linecap="round"/>
+            <line class="morph-d1" x1="22.5" y1="22.5" x2="35.5" y2="35.5" stroke="url(#morphGrad)" stroke-width="2" stroke-linecap="round"/>
+            <line class="morph-d2" x1="35.5" y1="22.5" x2="22.5" y2="35.5" stroke="url(#morphGrad)" stroke-width="2" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 11 — Stagger Fade -->
+    <div class="cell">
+      <span class="label">11</span>
+      <div class="container">
+        <div class="breathe-row">
+          <div class="breathe-dot" style="--c:#FFB922; --d:0s"></div>
+          <div class="breathe-dot" style="--c:#FF7575; --d:0.12s"></div>
+          <div class="breathe-dot" style="--c:#6183FF; --d:0.24s"></div>
+          <div class="breathe-dot" style="--c:#498CFF; --d:0.36s"></div>
+          <div class="breathe-dot" style="--c:#29D4FF; --d:0.48s"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 — Orbit Oval -->
+    <div class="cell">
+      <span class="label">12</span>
+      <div class="container">
+        <svg viewBox="0 0 58 58" width="56" height="56" fill="none">
+          <defs>
+            <linearGradient id="ovalGrad" x1="10" y1="29" x2="48" y2="29" gradientUnits="userSpaceOnUse">
+              <stop offset="0%"   stop-color="#FFB922"/>
+              <stop offset="23%"  stop-color="#FF7575"/>
+              <stop offset="52%"  stop-color="#6183FF"/>
+              <stop offset="79%"  stop-color="#49FFF3"/>
+              <stop offset="100%" stop-color="#29D4FF"/>
+            </linearGradient>
+          </defs>
+          <!-- dim track -->
+          <rect x="10" y="20" width="38" height="18" rx="9" stroke="#272727" stroke-width="1.5" fill="none"/>
+          <!-- orbiting comet -->
+          <rect class="oval-comet" x="10" y="20" width="38" height="18" rx="9"
+            stroke="url(#ovalGrad)" stroke-width="1.5" fill="none"
+            stroke-dasharray="26 68" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Recording Pill -->
+  <div class="pill-section">
+    <span class="label">Recording Pill</span>
+    <div class="recording-pill" id="recording-pill">
+      <div class="pill-content" id="pill-content">
+        <div class="pill-icon" id="pill-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#222" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+          </svg>
+        </div>
+        <div class="pill-body" id="pill-body">
+          <span class="pill-placeholder">Start Speaking..</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<script>
+  // Monochrome toggle
+  document.querySelectorAll('input[name="mode"]').forEach(radio => {
+    radio.addEventListener('change', e => {
+      document.body.classList.remove('mono', 'light');
+      if (e.target.value !== 'color') document.body.classList.add(e.target.value);
+    });
+  });
+
+  // Animation 02 — draw path
+  const path = document.getElementById('draw-path');
+  const len = path.getTotalLength();
+  path.style.setProperty('--path-len', len);
+  path.style.strokeDasharray = len;
+  path.style.strokeDashoffset = len;
+
+  // Animation 06 — 3×3 dot grid, sequential appear then disappear
+  const dotColors = ['#FFB922','#FF7575','#6183FF','#498CFF','#29D4FF','#FFB922','#FF7575','#6183FF','#498CFF'];
+  const dotCells = document.querySelectorAll('.dot-cell');
+  dotCells.forEach((cell, i) => cell.style.background = dotColors[i]);
+
+  const STEP = 140;   // ms between each dot
+  const PAUSE = 300;  // ms pause after all visible / all hidden
+
+  function runDots() {
+    // appear one by one
+    dotCells.forEach((dot, i) => {
+      setTimeout(() => {
+        dot.style.opacity = '1';
+        dot.style.transform = 'scale(1)';
+      }, i * STEP);
+    });
+    // disappear one by one after all visible
+    dotCells.forEach((dot, i) => {
+      setTimeout(() => {
+        dot.style.opacity = '0';
+        dot.style.transform = 'scale(0)';
+      }, 9 * STEP + PAUSE + i * STEP);
+    });
+    // restart
+    setTimeout(runDots, 9 * STEP + PAUSE + 9 * STEP + PAUSE);
+  }
+  runDots();
+
+  // Animation 04 — swirl (spiral from outside inward)
+  const swirlPath = document.getElementById('swirl-path');
+  const cx = 29, cy = 29;
+  const outerR = 18, innerR = 1.5;
+  const turns = 2.5;
+  const segments = 150;
+  const totalAngle = turns * 2 * Math.PI;
+  const pts = [];
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const angle = t * totalAngle - Math.PI / 2; // start at top
+    const r = outerR - (outerR - innerR) * t;
+    pts.push([cx + r * Math.cos(angle), cy + r * Math.sin(angle)]);
+  }
+  let d = `M ${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`;
+  for (let i = 1; i < pts.length; i++) {
+    d += ` L ${pts[i][0].toFixed(2)} ${pts[i][1].toFixed(2)}`;
+  }
+  swirlPath.setAttribute('d', d);
+  const swirlLen = swirlPath.getTotalLength();
+  swirlPath.style.setProperty('--swirl-len', swirlLen);
+  swirlPath.style.strokeDasharray = swirlLen;
+  swirlPath.style.strokeDashoffset = swirlLen;
+
+  // ── Recording Pill ──
+  const WORDS = [
+    'I','know,','but','we','needed','your','branch',
+    'merged','before','the','build','and','we','had',
+    'to','work','around','it','last','minute.'
+  ];
+  const WORD_MS    = 210;
+  const DEFAULT_MS = 1800;
+  const PROC_MS    = 2800;
+  const FADE_MS    = 280;
+
+  const pillContent = document.getElementById('pill-content');
+  const pillIcon    = document.getElementById('pill-icon');
+  const pillBody    = document.getElementById('pill-body');
+  const containers  = document.querySelectorAll('.container');
+
+  const micSVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#222" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+  </svg>`;
+
+  const micMutedSVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="#848080" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+  </svg>`;
+
+  // Default selection = first container
+  let selectedContainer = containers[0];
+  selectedContainer.classList.add('anim-selected');
+
+  containers.forEach(c => {
+    c.addEventListener('click', () => {
+      selectedContainer.classList.remove('anim-selected');
+      selectedContainer = c;
+      c.classList.add('anim-selected');
+    });
+  });
+
+  function getMiniAnim() {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'width:40px; height:44px; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;';
+
+    const source = selectedContainer.firstElementChild;
+    if (!source) return wrap;
+    const clone = source.cloneNode(true);
+
+    if (clone.tagName && clone.tagName.toLowerCase() === 'svg') {
+      clone.setAttribute('width', '40');
+      clone.setAttribute('height', '40');
+      wrap.appendChild(clone);
+    } else {
+      const scaler = document.createElement('div');
+      scaler.style.cssText = 'transform:scale(1); transform-origin:center; display:flex; align-items:center; justify-content:center;';
+      scaler.appendChild(clone);
+      wrap.appendChild(scaler);
+    }
+
+    return wrap;
+  }
+
+  const SLIDE_MS = 200;
+
+  function slideTransition(fn) {
+    pillBody.style.transition = `transform ${SLIDE_MS}ms cubic-bezier(0.4,0,0.2,1), opacity ${SLIDE_MS}ms ease`;
+    pillBody.style.transform = 'translateY(-100%)';
+    pillBody.style.opacity = '0';
+    pillIcon.style.transition = `opacity ${SLIDE_MS}ms ease`;
+    pillIcon.style.opacity = '0';
+
+    setTimeout(() => {
+      fn();
+      pillBody.style.transition = 'none';
+      pillBody.style.transform = 'translateY(100%)';
+      pillBody.style.opacity = '1';
+      void pillBody.offsetWidth;
+      pillBody.style.transition = `transform ${SLIDE_MS}ms cubic-bezier(0.4,0,0.2,1)`;
+      pillBody.style.transform = 'translateY(0)';
+      pillIcon.style.transition = `opacity ${SLIDE_MS}ms ease`;
+      pillIcon.style.opacity = '1';
+    }, SLIDE_MS);
+  }
+
+  let loopTimers = [];
+  function clearLoop() { loopTimers.forEach(clearTimeout); loopTimers = []; }
+  function after(fn, ms) { const id = setTimeout(fn, ms); loopTimers.push(id); return id; }
+
+  function runPillLoop() {
+    clearLoop();
+
+    // Default state
+    pillContent.style.opacity = '1';
+    pillIcon.style.width = '28px';
+    pillIcon.style.opacity = '1';
+    pillContent.style.gap = '16px';
+    pillBody.style.transition = 'none';
+    pillBody.style.transform = 'translateY(0)';
+    pillBody.style.opacity = '1';
+    pillIcon.innerHTML = micSVG;
+    pillBody.innerHTML = '<span class="pill-placeholder">Start Speaking..</span>';
+
+    // → Recording (abrupt)
+    after(() => {
+      pillIcon.innerHTML = micMutedSVG;
+      pillBody.innerHTML = '<span class="pill-transcript" id="transcript"></span>';
+      let shown = 0;
+      const transcript = document.getElementById('transcript');
+      const wordTimer = setInterval(() => {
+        if (!transcript || shown >= WORDS.length) { clearInterval(wordTimer); return; }
+        const span = document.createElement('span');
+        span.className = 'pill-word';
+        span.textContent = WORDS[shown] + ' ';
+        transcript.appendChild(span);
+        shown++;
+      }, WORD_MS);
+      loopTimers.push(wordTimer);
+    }, DEFAULT_MS);
+
+    // → Processing
+    const t2 = DEFAULT_MS + WORDS.length * WORD_MS + 500;
+    after(() => slideTransition(() => {
+      pillIcon.style.width = '40px';
+      pillContent.style.gap = '4px';
+      pillIcon.innerHTML = '';
+      pillIcon.appendChild(getMiniAnim());
+      pillBody.innerHTML = '<span class="pill-processing">Just a Second..</span>';
+    }), t2);
+
+    // → Default (loop)
+    const t3 = t2 + SLIDE_MS + PROC_MS;
+    after(() => slideTransition(() => {
+      pillIcon.style.width = '28px';
+      pillContent.style.gap = '16px';
+      pillIcon.innerHTML = micSVG;
+      pillBody.innerHTML = '<span class="pill-placeholder">Start Speaking..</span>';
+    }), t3);
+
+    after(runPillLoop, t3 + SLIDE_MS + 400);
+  }
+
+  runPillLoop();
+</script>
+</body>
+</html>
