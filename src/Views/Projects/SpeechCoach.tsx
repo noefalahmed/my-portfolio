@@ -3,7 +3,6 @@ import styles from './Projects.module.css'
 import Header from '../../components/Header'
 import Accordion from '../../components/Accordion'
 import ConversationSnippet from '../../components/ConversationSnippet'
-import InteractionShowcase from '../../components/InteractionShowcase'
 import ArchitectureDiagram from '../../components/ArchitectureDiagram'
 import AsteriskDiagram from '../../components/AsteriskDiagram'
 
