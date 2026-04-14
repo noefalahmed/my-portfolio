@@ -16,6 +16,39 @@
     to   { opacity: 1; transform: translateY(0); }
 }
 
+.conversationRow {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.conversationSnippetRow {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.conversationSnippetRow > * {
+    flex: 1;
+    min-width: 0;
+    margin-top: 0 !important;
+}
+
+.conversationPlaceholder {
+    border-radius: 10px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.conversationSideImage {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-top: 24px;
+}
+
 .contentcontainer{
     display: flex;
     padding: 0px 240px;

@@ -106,14 +106,13 @@ const Accordion: React.FC<AccordionProps> = ({ items }) => {
     if (isOpening) {
       // Wait for the previous accordion to begin closing and layout to shift
       setTimeout(() => {
-        const content = contentRefs.current[index]
-        if (!content) return
+        const header = headerRefs.current[index]
+        if (!header) return
         const navbar = document.querySelector('nav')
         const currentNavbarBottom = navbar ? Math.max(0, navbar.getBoundingClientRect().bottom) : 0
-        const stickyOffset = currentNavbarBottom + HEADER_HEIGHT
-        const rect = content.getBoundingClientRect()
+        const rect = header.getBoundingClientRect()
         window.scrollTo({
-          top: window.scrollY + rect.top - stickyOffset + 32,
+          top: window.scrollY + rect.top - currentNavbarBottom,
           behavior: 'smooth',
         })
       }, 400)
