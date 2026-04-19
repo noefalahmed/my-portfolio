@@ -109,7 +109,7 @@
 }
 
 .animateSection {
-  animation: heroFadeIn 0.8s ease both 1.5s;
+  animation: heroFadeIn 0.8s ease both 0.7s;
 }
 
 .pageLoaded .animateItem {
