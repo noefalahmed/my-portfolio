@@ -187,42 +187,6 @@ const Home: React.FC = () => {
   })
   const wasDragged = useRef(false)
 
-  function _startDrag(key: CardKey, disabled = false) {
-    return (e: React.MouseEvent<HTMLElement>) => {
-      if (disabled) return
-      const tag = (e.target as HTMLElement).tagName
-      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'BUTTON') return
-      e.preventDefault()
-      const containerRect = bentoContainerRef.current!.getBoundingClientRect()
-      const cardRect = e.currentTarget.getBoundingClientRect()
-      const initLeft = cardRect.left - containerRect.left
-      const initTop = cardRect.top - containerRect.top
-      const sx = e.clientX, sy = e.clientY
-      let moved = false
-
-      function onMove(ev: MouseEvent) {
-        const dx = ev.clientX - sx, dy = ev.clientY - sy
-        if (!moved && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) { moved = true; wasDragged.current = true }
-        if (moved) {
-          setDragStyle(p => ({
-            ...p,
-            [key]: { left: initLeft + dx, top: initTop + dy, right: 'auto', bottom: 'auto' },
-          }))
-        }
-      }
-      function onUp() {
-        if (!moved) wasDragged.current = false
-        window.removeEventListener('mousemove', onMove)
-        window.removeEventListener('mouseup', onUp)
-      }
-      window.addEventListener('mousemove', onMove)
-      window.addEventListener('mouseup', onUp)
-    }
-  }
-
-  function _dp(key: CardKey): React.CSSProperties {
-    return { ...dragStyle[key], cursor: 'grab' }
-  }
 
   const typingRef = useRef<HTMLSpanElement>(null)
   const cornellWrapperRef = useRef<HTMLDivElement>(null)
@@ -235,56 +199,7 @@ const Home: React.FC = () => {
   const bentoImageRef = useRef<HTMLImageElement>(null)
   // const { setDotRef } = useWanderingDots(3)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const [_isPlaying, setIsPlaying] = useState(false)
-  const [_audioDuration, setAudioDuration] = useState(2)
-
   const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  const _handlePlayPronunciation = () => {
-    if (!audioRef.current) return
-    audioRef.current.currentTime = 0
-    const duration = audioRef.current.duration || 2
-    audioRef.current.play()
-    setIsPlaying(true)
-    setAudioDuration(duration)
-  }
-
-  const _handleSendNote = async () => {
-    setNoteError("")
-
-    if (!noteEmail || !isValidEmail(noteEmail)) {
-      setNoteError("Valid email required")
-      return
-    }
-    if (!noteText.trim()) {
-      setNoteError("Write something first")
-      return
-    }
-
-    setNoteStatus("sending")
-    try {
-      const res = await fetch("/api/send-note", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: noteEmail, message: noteText }),
-      })
-      const data = await res.json()
-      if (!res.ok) {
-        setNoteError(data.error || "Failed to send")
-        setNoteStatus("error")
-        return
-      }
-      setNoteStatus("sent")
-      setTimeout(() => {
-        setNoteText("")
-        setNoteEmail("")
-        setNoteStatus("idle")
-        setNoteActive(false)
-      }, 2000)
-    } catch {
-      setNoteError("Something went wrong")
-      setNoteStatus("error")
-    }
-  }
 
   // --- Tic Tac Toe Logic ---
   const winLines = [
@@ -343,45 +258,6 @@ const Home: React.FC = () => {
     return bestMove
   }
 
-  function _handleTttClick(index: number) {
-    if (tttBoard[index] || tttGameOver) return
-    const newBoard = [...tttBoard]
-    newBoard[index] = "X"
-
-    const winner = checkWinner(newBoard)
-    if (winner === "X") {
-      setTttBoard(newBoard)
-      setTttGameOver(true)
-      setTttResult("win")
-      return
-    }
-    if (newBoard.every(c => c !== null)) {
-      setTttBoard(newBoard)
-      setTttGameOver(true)
-      setTttResult("draw")
-      return
-    }
-
-    // AI move
-    const aiIdx = getAiMove(newBoard)
-    if (aiIdx !== -1) newBoard[aiIdx] = "O"
-
-    const aiWinner = checkWinner(newBoard)
-    if (aiWinner === "O") {
-      setTttBoard(newBoard)
-      setTttGameOver(true)
-      setTttResult("lose")
-      return
-    }
-    if (newBoard.every(c => c !== null)) {
-      setTttBoard(newBoard)
-      setTttGameOver(true)
-      setTttResult("draw")
-      return
-    }
-
-    setTttBoard(newBoard)
-  }
 
   function resetTtt() {
     setTttBoard(Array(9).fill(null))
