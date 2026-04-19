@@ -165,30 +165,14 @@ const Home: React.FC = () => {
   const proj4Ref = useRef<HTMLAnchorElement>(null)
 
 
-  // Tic Tac Toe state
-  type CellValue = null | "X" | "O"
-  const [tttActive, setTttActive] = useState(false)
-
-  const [artworkActive, setArtworkActive] = useState(false)
-  const artworkCardRef = useRef<HTMLDivElement>(null)
-
-
-
   const typingRef = useRef<HTMLSpanElement>(null)
   const cornellWrapperRef = useRef<HTMLDivElement>(null)
   const cornellAngle = useRef(0)
   const cornellSpeed = useRef(0.024)       // deg/ms at normal speed (~15s/rotation)
   const cornellTargetSpeed = useRef(0.024)
-  const noteCardRef = useRef<HTMLDivElement>(null)
-  const tttCardRef = useRef<HTMLDivElement>(null)
   const bentoContainerRef = useRef<HTMLElement>(null)
   const bentoImageRef = useRef<HTMLImageElement>(null)
   // const { setDotRef } = useWanderingDots(3)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
-
-  function closeTtt() {
-    setTttActive(false)
-  }
 
 
   //backto top
@@ -209,46 +193,6 @@ const Home: React.FC = () => {
   }
 
 
-
-  // Close tic tac toe when clicking outside
-  useEffect(() => {
-    if (!tttActive) return
-    function handleClickOutside(e: MouseEvent) {
-      if (tttCardRef.current && !tttCardRef.current.contains(e.target as Node)) {
-        closeTtt()
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [tttActive])
-
-  ///artwork
-  useEffect(() => {
-    if (!artworkActive) return
-
-    function handleClickOutside(e: MouseEvent) {
-      if (artworkCardRef.current && !artworkCardRef.current.contains(e.target as Node)) {
-        setArtworkActive(false)
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [artworkActive])
-
-  // Collapse note card when clicking outside
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (noteCardRef.current && !noteCardRef.current.contains(e.target as Node)) {
-        // Only collapse if not mid-send and fields are empty
-        if (noteStatus !== "sending" && !noteEmail && !noteText.trim()) {
-          setNoteActive(false)
-        }
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [noteStatus, noteEmail, noteText])
 
   const greetings = ["hi,", "bonjour,", "salam,", "こんにちは,", "hola,", "ciao,", "namaste,"]
 
@@ -298,12 +242,6 @@ const Home: React.FC = () => {
     }
     rafId = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(rafId)
-  }, [])
-
-  useEffect(() => {
-    audioRef.current = new Audio("/assets/noefal-pronounciation.mp3")
-    audioRef.current.preload = "auto"
-    audioRef.current.addEventListener("ended", () => {})
   }, [])
 
   useEffect(() => {
