@@ -2,15 +2,10 @@
 import React, { useState, useEffect, useRef } from "react"
 import styles from "./Home.module.css"
 import Footer from "../components/Footer"
-import { Volume2, ArrowUp, Check, Loader2, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+// @ts-ignore
 import AiSearch from '../components/AiSearch'
 import { FaLinkedin } from "react-icons/fa"
-import { motion, type Variants } from "motion/react"
-
-const variants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-}
 
 function startTyping(
   text: string,
@@ -145,8 +140,8 @@ const Home: React.FC = () => {
   const [noteText, setNoteText] = useState("")
   const [noteEmail, setNoteEmail] = useState("")
   const [noteStatus, setNoteStatus] = useState<"idle" | "sending" | "sent" | "error">("idle")
-  const [noteError, setNoteError] = useState("")
-  const [noteActive, setNoteActive] = useState(false)
+  const [_noteError, setNoteError] = useState("")
+  const [_noteActive, setNoteActive] = useState(false)
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const [shouldType, setShouldType] = useState(false);
   const [typedText, setTypedText] = useState("");
@@ -180,7 +175,7 @@ const Home: React.FC = () => {
   const [tttBoard, setTttBoard] = useState<CellValue[]>(Array(9).fill(null))
   const [tttActive, setTttActive] = useState(false)
   const [tttGameOver, setTttGameOver] = useState(false)
-  const [tttResult, setTttResult] = useState<"win" | "lose" | "draw" | null>(null)
+  const [_tttResult, setTttResult] = useState<"win" | "lose" | "draw" | null>(null)
 
   const [artworkActive, setArtworkActive] = useState(false)
   const artworkCardRef = useRef<HTMLDivElement>(null)
@@ -192,7 +187,7 @@ const Home: React.FC = () => {
   })
   const wasDragged = useRef(false)
 
-  function startDrag(key: CardKey, disabled = false) {
+  function _startDrag(key: CardKey, disabled = false) {
     return (e: React.MouseEvent<HTMLElement>) => {
       if (disabled) return
       const tag = (e.target as HTMLElement).tagName
@@ -225,7 +220,7 @@ const Home: React.FC = () => {
     }
   }
 
-  function dp(key: CardKey): React.CSSProperties {
+  function _dp(key: CardKey): React.CSSProperties {
     return { ...dragStyle[key], cursor: 'grab' }
   }
 
@@ -240,11 +235,11 @@ const Home: React.FC = () => {
   const bentoImageRef = useRef<HTMLImageElement>(null)
   // const { setDotRef } = useWanderingDots(3)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [audioDuration, setAudioDuration] = useState(2)
+  const [_isPlaying, setIsPlaying] = useState(false)
+  const [_audioDuration, setAudioDuration] = useState(2)
 
   const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  const handlePlayPronunciation = () => {
+  const _handlePlayPronunciation = () => {
     if (!audioRef.current) return
     audioRef.current.currentTime = 0
     const duration = audioRef.current.duration || 2
@@ -253,7 +248,7 @@ const Home: React.FC = () => {
     setAudioDuration(duration)
   }
 
-  const handleSendNote = async () => {
+  const _handleSendNote = async () => {
     setNoteError("")
 
     if (!noteEmail || !isValidEmail(noteEmail)) {
@@ -348,7 +343,7 @@ const Home: React.FC = () => {
     return bestMove
   }
 
-  function handleTttClick(index: number) {
+  function _handleTttClick(index: number) {
     if (tttBoard[index] || tttGameOver) return
     const newBoard = [...tttBoard]
     newBoard[index] = "X"
@@ -401,7 +396,7 @@ const Home: React.FC = () => {
 
 
   //backto top
-  const [visible, setVisible] = useState(false)
+  const [_visible, setVisible] = useState(false)
   useEffect(() => {
     const toggleVisibility = () => {
       setVisible(window.scrollY > 300)
