@@ -130,7 +130,7 @@ export default function AiSearch() {
           body: JSON.stringify({
             contents: [{ parts: [{ text: trimmed }] }],
             systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-            generationConfig: { maxOutputTokens: 500, temperature: 0.7 },
+            generationConfig: { maxOutputTokens: 500, temperature: 0.7, thinkingConfig: { thinkingBudget: 0 } },
           }),
         }
       )
