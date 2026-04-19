@@ -137,11 +137,6 @@ const Home: React.FC = () => {
   const [loopNum, setLoopNum] = useState(0)
   const [typingSpeed, setTypingSpeed] = useState(200)
   const [isPageLoaded, setIsPageLoaded] = useState(false)
-  const [noteText, setNoteText] = useState("")
-  const [noteEmail, setNoteEmail] = useState("")
-  const [noteStatus, setNoteStatus] = useState<"idle" | "sending" | "sent" | "error">("idle")
-  const [_noteError, setNoteError] = useState("")
-  const [_noteActive, setNoteActive] = useState(false)
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const [shouldType, setShouldType] = useState(false);
   const [typedText, setTypedText] = useState("");
@@ -172,20 +167,11 @@ const Home: React.FC = () => {
 
   // Tic Tac Toe state
   type CellValue = null | "X" | "O"
-  const [tttBoard, setTttBoard] = useState<CellValue[]>(Array(9).fill(null))
   const [tttActive, setTttActive] = useState(false)
-  const [tttGameOver, setTttGameOver] = useState(false)
-  const [_tttResult, setTttResult] = useState<"win" | "lose" | "draw" | null>(null)
 
   const [artworkActive, setArtworkActive] = useState(false)
   const artworkCardRef = useRef<HTMLDivElement>(null)
 
-  // Bento drag state
-  type CardKey = 'artwork' | 'ttt' | 'note' | 'cornell' | 'pronunciation'
-  const [dragStyle, setDragStyle] = useState<Record<CardKey, React.CSSProperties>>({
-    artwork: {}, ttt: {}, note: {}, cornell: {}, pronunciation: {},
-  })
-  const wasDragged = useRef(false)
 
 
   const typingRef = useRef<HTMLSpanElement>(null)
@@ -199,75 +185,9 @@ const Home: React.FC = () => {
   const bentoImageRef = useRef<HTMLImageElement>(null)
   // const { setDotRef } = useWanderingDots(3)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-
-  // --- Tic Tac Toe Logic ---
-  const winLines = [
-    [0,1,2],[3,4,5],[6,7,8],
-    [0,3,6],[1,4,7],[2,5,8],
-    [0,4,8],[2,4,6],
-  ]
-
-  function checkWinner(board: CellValue[]): CellValue {
-    for (const [a,b,c] of winLines) {
-      if (board[a] && board[a] === board[b] && board[a] === board[c]) return board[a]
-    }
-    return null
-  }
-
-  function minimax(board: CellValue[], isMax: boolean): number {
-    const winner = checkWinner(board)
-    if (winner === "O") return 10
-    if (winner === "X") return -10
-    if (board.every(c => c !== null)) return 0
-
-    if (isMax) {
-      let best = -Infinity
-      for (let i = 0; i < 9; i++) {
-        if (!board[i]) {
-          board[i] = "O"
-          best = Math.max(best, minimax(board, false))
-          board[i] = null
-        }
-      }
-      return best
-    } else {
-      let best = Infinity
-      for (let i = 0; i < 9; i++) {
-        if (!board[i]) {
-          board[i] = "X"
-          best = Math.min(best, minimax(board, true))
-          board[i] = null
-        }
-      }
-      return best
-    }
-  }
-
-  function getAiMove(board: CellValue[]): number {
-    let bestScore = -Infinity
-    let bestMove = -1
-    for (let i = 0; i < 9; i++) {
-      if (!board[i]) {
-        board[i] = "O"
-        const score = minimax(board, false)
-        board[i] = null
-        if (score > bestScore) { bestScore = score; bestMove = i }
-      }
-    }
-    return bestMove
-  }
-
-
-  function resetTtt() {
-    setTttBoard(Array(9).fill(null))
-    setTttGameOver(false)
-    setTttResult(null)
-  }
 
   function closeTtt() {
     setTttActive(false)
-    resetTtt()
   }
 
 
@@ -383,7 +303,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     audioRef.current = new Audio("/assets/noefal-pronounciation.mp3")
     audioRef.current.preload = "auto"
-    audioRef.current.addEventListener("ended", () => setIsPlaying(false))
+    audioRef.current.addEventListener("ended", () => {})
   }, [])
 
   useEffect(() => {
