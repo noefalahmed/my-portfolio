@@ -5,6 +5,7 @@ import Accordion from '../../components/Accordion'
 import ConversationSnippet from '../../components/ConversationSnippet'
 import ArchitectureDiagram from '../../components/ArchitectureDiagram'
 import AsteriskDiagram from '../../components/AsteriskDiagram'
+import Footer from '../../components/Footer'
 
 const IpadVideoPlayer: React.FC<{ src: string }> = ({ src }) => {
     const videoRef = useRef<HTMLVideoElement>(null)
@@ -191,40 +192,64 @@ const accordionItems = [
 const SpeechCoach: React.FC = () => {
     return (
         <div className={styles.page}>
-            <Header
-                title="i built a speech-enabled leadership coach for students."
-                imageSrc="./assets/proj0.png"
-                imageAlt="Speech-enabled leadership coach"
-                details={[
-                    { label: "Company", value: "Cornell University" },
-                    { label: "Role", value: "Lead Product Designer" },
-                    { label: "Duration", value: "Ongoing" },
-                    { label: "Skills", value: "Voice UX, Conversation Design, Rapid Prototyping" },
-                ]}
-            />
-            <div className={styles.conversationRow}>
-                <img
-                    data-zoom
-                    src="./assets/sc-conversation-ui.png"
-                    alt="Speech coach conversation UI"
-                    className={styles.conversationSideImage}
+
+            {/* Slide 1: Header */}
+            <div className={styles.projectSlide}>
+                <Header
+                    title="i built a speech-enabled leadership coach for students."
+                    imageSrc="./assets/proj0.png"
+                    imageAlt="Speech-enabled leadership coach"
+                    details={[
+                        { label: "Company", value: "Cornell University" },
+                        { label: "Role", value: "Lead Product Designer" },
+                        { label: "Duration", value: "Ongoing" },
+                        { label: "Skills", value: "Voice UX, Conversation Design, Rapid Prototyping" },
+                    ]}
                 />
-                <div className={styles.conversationSnippetRow}>
-                    <ConversationSnippet />
+            </div>
+
+            {/* Slide 2: Images */}
+            <div className={styles.projectSlideScroll}>
+                <div className={styles.conversationRow}>
                     <img
                         data-zoom
-                        src="./assets/sc-progress-dashboard.png"
-                        alt="Progress dashboard"
-                        className={styles.conversationPlaceholder}
+                        src="./assets/sc-conversation-ui.png"
+                        alt="Speech coach conversation UI"
+                        className={styles.conversationSideImage}
                     />
+                    <div className={styles.conversationSnippetRow}>
+                        <ConversationSnippet />
+                        <img
+                            data-zoom
+                            src="./assets/sc-progress-dashboard.png"
+                            alt="Progress dashboard"
+                            className={styles.conversationPlaceholder}
+                        />
+                    </div>
                 </div>
             </div>
-            <div className={styles.contentcontainer}>
-                <div className={styles.largetext}>
-                    Engineering students are trained to solve hard problems, but nobody teaches them how to tell a teammate their work isn't good enough.<br /><br />Cornell's Duffield College of Engineering, home to over 3,000 undergraduates, needed a way to build that muscle before students hit the real world. So I designed and built a speech-enabled AI coach that lets students practice the uncomfortable conversations, delivers feedback on how they handled it, and gets more valuable the more they use it.
+
+            {/* Slide 3: Large text */}
+            <div className={styles.projectSlide}>
+                <div className={styles.contentcontainer}>
+                    <div className={styles.largetext}>
+                        Engineering students are trained to solve hard problems, but nobody teaches them how to tell a teammate their work isn't good enough.<br /><br />Cornell's Duffield College of Engineering, home to over 3,000 undergraduates, needed a way to build that muscle before students hit the real world. So I designed and built a speech-enabled AI coach that lets students practice the uncomfortable conversations, delivers feedback on how they handled it, and gets more valuable the more they use it.
+                    </div>
                 </div>
-                <Accordion items={accordionItems} />
             </div>
+
+            {/* Slide 4: Accordion */}
+            <div className={styles.projectSlideAccordion}>
+                <div className={styles.contentcontainer}>
+                    <Accordion items={accordionItems} />
+                </div>
+            </div>
+
+            {/* Slide 5: Footer */}
+            <div className={styles.projectSlide}>
+                <Footer />
+            </div>
+
         </div>
     );
 };

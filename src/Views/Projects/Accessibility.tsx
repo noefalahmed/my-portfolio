@@ -1,6 +1,7 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
 import Accordion from "../../components/Accordion"
+import Footer from '../../components/Footer'
 
 const accordionItems = [
   {
@@ -9,7 +10,7 @@ const accordionItems = [
       <>
         <div className={styles.subsection}>
           <p>
-            For Upland PowerSteering, accessibility had become a procurement blocker. Because many of their customers’ products and services are subject to Section 255 accessibility requirements (to the extent it’s “readily achievable”), an external accessibility review flagging widespread failures created an immediate compliance risk. 
+            For Upland PowerSteering, accessibility had become a procurement blocker. Because many of their customers&apos; products and services are subject to Section 255 accessibility requirements (to the extent it&apos;s “readily achievable”), an external accessibility review flagging widespread failures created an immediate compliance risk. 
           </p>
           <div className={styles.sub2section}>
               <h2 className={styles.sh2}>1 in 4</h2>
@@ -29,12 +30,12 @@ const accordionItems = [
     content:
       <>
         <p>
-          I used WCAG 2.1 Level AA as the conformance target because it’s the most widely accepted baseline for digital accessibility in enterprise procurement.</p>
+          I used WCAG 2.1 Level AA as the conformance target because it&apos;s the most widely accepted baseline for digital accessibility in enterprise procurement.</p>
           <br></br>
         <div className={styles.sub2section}>
               <h2 className={styles.sh2}>Identify Core Workflows</h2>
               <p className={styles.p1}>
-                I focused on tables because they’re where users spend most of their time and where key actions happen (reviewing records, comparing values, and updating statuses). </p>
+                I focused on tables because they&apos;re where users spend most of their time and where key actions happen (reviewing records, comparing values, and updating statuses). </p>
         </div>
         <div className={styles.sub2section}>
               <h2 className={styles.sh2}>Audit the current experience</h2>
@@ -111,7 +112,7 @@ const accordionItems = [
            <div className={styles.sub2section}>
              <h2 className={styles.sh2}>User Need</h2>
               <p className={styles.p1}>
-               We need the hierarchy of multi-level tables to be scannable at a glance, so users can ‘drill down’ without losing orientation.</p>
+               We need the hierarchy of multi-level tables to be scannable at a glance, so users can &apos;drill down&apos; without losing orientation.</p>
             </div>
             <div className={styles.sub2section}>
                <h2 className={styles.sh2}>Proposed Solution</h2>
@@ -132,7 +133,7 @@ const accordionItems = [
           <div className={styles.sub2section}>
             <h2 className={styles.sh2}>Accessibility as Strategy</h2>
             <p className={styles.p1}>
-              Accessibility isn't a constraint — it’s a multiplier. Designing for edge cases improves clarity for everyone. Better contrast improves outdoor readability. Larger tap targets reduce friction. Clear hierarchy reduces cognitive load.
+              Accessibility isn't a constraint — it&apos;s a multiplier. Designing for edge cases improves clarity for everyone. Better contrast improves outdoor readability. Larger tap targets reduce friction. Clear hierarchy reduces cognitive load.
             </p>
           </div>
 
@@ -146,7 +147,7 @@ const accordionItems = [
           <div className={styles.sub2section}>
             <h2 className={styles.sh2}>Inclusive by Default</h2>
             <p className={styles.p1}>
-              The goal wasn’t perfection — it was intention. By treating accessibility as foundational rather than optional, ESR’s digital presence became more resilient, inclusive, and ready to scale.
+              The goal wasn&apos;t perfection — it was intention. By treating accessibility as foundational rather than optional, ESR&apos;s digital presence became more resilient, inclusive, and ready to scale.
             </p>
               <img data-zoom src="./assets/acc1.png" className={`${styles.image} ${styles['image-dynamic']}`} />
 
@@ -160,25 +161,51 @@ const accordionItems = [
 const Accessibility: React.FC = () => {
   return (
     <div className={styles.page}>
-      <Header
-        title="i created an accessibility framework for a project management software"
-        imageSrc="./assets/proj1.png"
-        imageAlt="Description of image"
-        details={[
-          { label: "Company", value: "Upland Software" },
-          { label: "Role", value: "Product Designer" },
-          { label: "Duration", value: "2 Months" },
-          { label: "Skills", value: "Accessibility, WCAG, Inclusive Design" },
-        ]}
-      />
-      <div className={styles.contentcontainer}>
-        <img data-zoom src="./assets/acc0.png" className={`${styles.image} ${styles['image-full']}`} />
-        <div className={styles.largetext}>
-          Tables are the primary workspace on Upland’s PowerSteering platform. This is where project managers track the status of the projects they work on. When that workspace isn’t accessible, the product becomes harder to use and harder to buy. 
-          <br></br><br></br>I led a tables-first effort aligned to WCAG 2.1 Level AA to redesign the highest-impact table patterns. 
-        </div>
-        <Accordion items={accordionItems} />
+
+      {/* Slide 1: Header */}
+      <div className={styles.projectSlide}>
+        <Header
+          title="i created an accessibility framework for a project management software"
+          imageSrc="./assets/proj1.png"
+          imageAlt="Description of image"
+          details={[
+            { label: "Company", value: "Upland Software" },
+            { label: "Role", value: "Product Designer" },
+            { label: "Duration", value: "2 Months" },
+            { label: "Skills", value: "Accessibility, WCAG, Inclusive Design" },
+          ]}
+        />
       </div>
+
+      {/* Slide 2: Images */}
+      <div className={styles.projectSlideScroll}>
+        <div className={styles.contentcontainer}>
+          <img data-zoom src="./assets/acc0.png" className={`${styles.image} ${styles['image-full']}`} />
+        </div>
+      </div>
+
+      {/* Slide 3: Large text */}
+      <div className={styles.projectSlide}>
+        <div className={styles.contentcontainer}>
+          <div className={styles.largetext}>
+            Tables are the primary workspace on Upland&apos;s PowerSteering platform. This is where project managers track the status of the projects they work on. When that workspace isn&apos;t accessible, the product becomes harder to use and harder to buy.
+            <br/><br/>I led a tables-first effort aligned to WCAG 2.1 Level AA to redesign the highest-impact table patterns.
+          </div>
+        </div>
+      </div>
+
+      {/* Slide 4: Accordion */}
+      <div className={styles.projectSlideAccordion}>
+        <div className={styles.contentcontainer}>
+          <Accordion items={accordionItems} />
+        </div>
+      </div>
+
+      {/* Slide 5: Footer */}
+      <div className={styles.projectSlide}>
+        <Footer />
+      </div>
+
     </div>
   );
 };

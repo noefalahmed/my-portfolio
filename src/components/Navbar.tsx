@@ -12,8 +12,9 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const THRESHOLD = 4
 
-    function onScroll() {
-      const y = window.scrollY
+    function onScroll(e: Event) {
+      const target = e.target as Element
+      const y = (target && 'scrollTop' in target) ? (target as Element).scrollTop : window.scrollY
       const delta = y - lastScrollY.current
 
       if (delta > THRESHOLD) {
@@ -26,8 +27,8 @@ const Navbar: React.FC = () => {
       lastScrollY.current = y
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
+    document.addEventListener("scroll", onScroll, { passive: true, capture: true })
+    return () => document.removeEventListener("scroll", onScroll, { capture: true })
   }, [])
 
   return (

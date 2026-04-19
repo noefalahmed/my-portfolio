@@ -15,7 +15,7 @@ const About: React.FC = () => {
         <div className={styles.content}>
           <div className={styles.textContent}>
             <p className={styles.description}>
-            I’m a Senior Product Designer from Pakistan on a mission 🚀 to design experiences that impact people’s lives. I’ve studied computer science, researched on AI, and designed various web and mobile products. I’m currently building Precisely for Figma to enhance design workflows.
+            I&apos;m a Senior Product Designer from Pakistan on a mission 🚀 to design experiences that impact people&apos;s lives. I&apos;ve studied computer science, researched on AI, and designed various web and mobile products. I&apos;m currently building Precisely for Figma to enhance design workflows.
             </p>
 
             <div className={styles.links}>
