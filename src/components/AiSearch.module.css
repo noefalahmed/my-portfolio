@@ -1,0 +1,212 @@
+/* ── Wrapper: column — bar on top, answer below ── */
+.wrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ── Search bar ── */
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 100px;
+  background: #D4D4D4;
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: text;
+}
+
+/* ── Ticker placeholder ── */
+.ticker {
+  position: absolute;
+  inset: 0;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.tickerItem {
+  position: absolute;
+  white-space: nowrap;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(5, 9, 15, 0.65);
+  animation: tickerEnter 0.35s ease both;
+}
+
+.tickerItem.exiting {
+  animation: tickerExit 0.35s ease both;
+}
+
+@keyframes tickerEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tickerExit {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-8px); }
+}
+
+/* ── Input ── */
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: #05090F;
+  caret-color: #05090F;
+  cursor: text;
+}
+
+.input::placeholder {
+  color: transparent;
+}
+
+/* ── Processing dots ── */
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #05090F;
+  animation: dotPulse 0.9s ease-in-out infinite;
+}
+
+.dot:nth-child(2) { animation-delay: 0.15s; }
+.dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.25; transform: scale(0.8); }
+  50%       { opacity: 1;    transform: scale(1); }
+}
+
+/* ── Answer block ── */
+.answer {
+  position: absolute;
+  top: calc(100% + 32px);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: left;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  animation: answerFadeIn 0.3s ease both;
+}
+
+@keyframes answerFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes answerFadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(6px); }
+}
+
+.answerExiting {
+  animation: answerFadeOut 0.3s ease both;
+}
+
+.clearButtonExiting {
+  animation: answerFadeOut 0.3s ease both;
+}
+
+.answerQuestion {
+  margin: 0 0 8px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  word-wrap: break-word;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.answerText {
+  margin: 0 0 16px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff;
+  word-wrap: break-word;
+  line-height: 1.6;
+}
+
+.answerLink {
+  display: inline-flex;
+  align-items: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.answerLink:hover {
+  opacity: 0.7;
+}
+
+/* ── Clear button ── */
+.clearButton {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  text-transform: uppercase;
+  line-height: 167%;
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 100;
+  white-space: nowrap;
+}
+
+.clearButton:hover {
+  opacity: 0.7;
+}
+
+/* ── Error ── */
+.error {
+  position: absolute;
+  top: calc(100% + 32px);
+  left: 0;
+  right: 0;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.45);
+  animation: answerFadeIn 0.3s ease both;
+}

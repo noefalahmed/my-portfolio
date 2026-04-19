@@ -1,6 +1,7 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
 import Accordion from "../../components/Accordion"
+import Footer from '../../components/Footer'
 const accordionItems = [
     {
       title: "The Problem",
@@ -49,7 +50,7 @@ const accordionItems = [
                                 <p className={styles.p1}>Researchers from Ghent University show that visual cues can meaningfully shape attention and motivation related to food choice. So at launch, ESR needed a lively, high-energy presence that stood out at a glance while keeping primary actions clear. I defined a bold visual identity, concise CTA copy and hierarchy, and intentional animations that reinforce state changes.</p>                            </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Color System</h2>
-                                <p className={styles.p1}>Per research in the Journal of Sensory Studies, warm colors (i.e. red, orange, yellow) stimulate appetite. I built ESR’s palette around warm primaries, supported by light/dark and neutral variants to ensure clear hierarchy and meet WCAG contrast requirements.</p>
+                                <p className={styles.p1}>Per research in the Journal of Sensory Studies, warm colors (i.e. red, orange, yellow) stimulate appetite. I built ESR&apos;s palette around warm primaries, supported by light/dark and neutral variants to ensure clear hierarchy and meet WCAG contrast requirements.</p>
                                  <img data-zoom src="./assets/ds6.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div>
                             <div className={styles.sub2section}>
@@ -64,7 +65,7 @@ const accordionItems = [
                             </div> 
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Grid System</h2>
-                                <p className={styles.p1}>Aligned with Google’s Material Design layout guidance, I used an 8-pt (8dp) baseline grid for layout and spacing (with 4dp increments for finer-grain alignment), and kept gutters in consistent multiples of 8. This ensures that spacing and alignment are uniform across breakpoints and speeds up responsive layout work.</p>
+                                <p className={styles.p1}>Aligned with Google&apos;s Material Design layout guidance, I used an 8-pt (8dp) baseline grid for layout and spacing (with 4dp increments for finer-grain alignment), and kept gutters in consistent multiples of 8. This ensures that spacing and alignment are uniform across breakpoints and speeds up responsive layout work.</p>
                                 <img data-zoom src="./assets/ds9.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                                 <img data-zoom src="./assets/ds91.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
@@ -85,7 +86,7 @@ const accordionItems = [
                             </div>
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2}>Documentation</h2>
-                                <p className={styles.p1}>I documented each component directly in Figma with usage guidance, do’s/don’ts, and implementation notes. This made adoption self-serve and reduced back-and-forth on how components should be applied.</p>
+                                <p className={styles.p1}>I documented each component directly in Figma with usage guidance, do&apos;s/don&apos;ts, and implementation notes. This made adoption self-serve and reduced back-and-forth on how components should be applied.</p>
                                 <img data-zoom src="./assets/ds13.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                     </div>    
@@ -129,22 +130,47 @@ const accordionItems = [
 const DesignSystems: React.FC = () => {
     return (
         <div className={styles.page}>
-            <Header
-                title="i created a design system for a Rewards app."
-                imageSrc="./assets/proj2.png"
-                imageAlt="Description of image"
-                details={[
-                    { label: "Company", value: "Eat Sleep Repeat" },
-                    { label: "Role", value: "UX Designer" },
-                    { label: "Duration", value: "7 Months" },
-                    { label: "Skills", value: "Design Systems, UI, Product Design" },
-                ]}/>
 
-            <div className={styles.contentcontainer}>
-            <img data-zoom src="./assets/ds0.png" className={`${styles.image} ${styles['image-full']}`} />
-            <div className={styles.largetext}> Eat, Sleep, Repeat (ESR) connects food lovers with discounts and reviews for beloved and new restaurants.<br/><br/>Although ESR was a local favorite in Lahore’s food scene, it lacked a digital presence. To launch its first mobile app, the team needed a scalable design system and cohesive brand identity that made earning rewards feel effortless.<br/><br/>In 2020, I built a design system that that transformed their simple Facebook community forum into a contemporary mobile experience.</div>
-              <Accordion items={accordionItems} />
+            {/* Slide 1: Header */}
+            <div className={styles.projectSlide}>
+                <Header
+                    title="i created a design system for a Rewards app."
+                    imageSrc="./assets/proj2.png"
+                    imageAlt="Description of image"
+                    details={[
+                        { label: "Company", value: "Eat Sleep Repeat" },
+                        { label: "Role", value: "UX Designer" },
+                        { label: "Duration", value: "7 Months" },
+                        { label: "Skills", value: "Design Systems, UI, Product Design" },
+                    ]}/>
             </div>
+
+            {/* Slide 2: Images */}
+            <div className={styles.projectSlideScroll}>
+                <div className={styles.contentcontainer}>
+                    <img data-zoom src="./assets/ds0.png" className={`${styles.image} ${styles['image-full']}`} />
+                </div>
+            </div>
+
+            {/* Slide 3: Large text */}
+            <div className={styles.projectSlide}>
+                <div className={styles.contentcontainer}>
+                    <div className={styles.largetext}>Eat, Sleep, Repeat (ESR) connects food lovers with discounts and reviews for beloved and new restaurants.<br/><br/>Although ESR was a local favorite in Lahore&apos;s food scene, it lacked a digital presence. To launch its first mobile app, the team needed a scalable design system and cohesive brand identity that made earning rewards feel effortless.<br/><br/>In 2020, I built a design system that that transformed their simple Facebook community forum into a contemporary mobile experience.</div>
+                </div>
+            </div>
+
+            {/* Slide 4: Accordion */}
+            <div className={styles.projectSlideAccordion}>
+                <div className={styles.contentcontainer}>
+                    <Accordion items={accordionItems} />
+                </div>
+            </div>
+
+            {/* Slide 5: Footer */}
+            <div className={styles.projectSlide}>
+                <Footer />
+            </div>
+
         </div>
     );
   };

@@ -1,20 +1,28 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 
 const Arine: React.FC = () => {
     return (
         <div className={styles.page}>
-            
+
+            {/* Slide 1: Header */}
+            <div className={styles.projectSlide}>
                 <Header
-                title="i created a design system for a Rewards app."
-                imageSrc="public/proj2.png"
-                imageAlt="Description of image"
-                details={[
-                    { label: "Company", value: "Eat Sleep Repeat" },
-                    { label: "Role", value: "UX Designer" },
-                    { label: "Duration", value: "7 Months" },
-                    { label: "Skills", value: "Design Systems, UI, Product Design" },
-                ]}/>            <div className={styles.contentcontainer}>
+                    title="i created a design system for a Rewards app."
+                    imageSrc="public/proj2.png"
+                    imageAlt="Description of image"
+                    details={[
+                        { label: "Company", value: "Eat Sleep Repeat" },
+                        { label: "Role", value: "UX Designer" },
+                        { label: "Duration", value: "7 Months" },
+                        { label: "Skills", value: "Design Systems, UI, Product Design" },
+                    ]}/>
+            </div>
+
+            {/* Slide 2: Content (scrollable) */}
+            <div className={styles.projectSlideScroll}>
+            <div className={styles.contentcontainer}>
                 <div className={styles.subsection}>
                     <h1 className={styles.sh1}>About</h1>
                     <p className={styles.p1}>Launched in late 2020, Arine is a one-stop shop for organic skin care in Pakistan. Since then, Arine has emerged from a growing venture into a monumental business in the skincare industry in Pakistan. As one of its founding members, I was trusted to lead design-centric efforts including brand, visual, and web design. </p>
@@ -83,6 +91,13 @@ const Arine: React.FC = () => {
                     </div>
                 </div>
             </div>
+            </div>
+
+            {/* Slide 3: Footer */}
+            <div className={styles.projectSlide}>
+                <Footer />
+            </div>
+
         </div>
     );
   };

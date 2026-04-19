@@ -1,20 +1,28 @@
 import type React from "react"
 import styles from "./Projects.module.css"
 import Header from "../../components/Header"
+import Footer from "../../components/Footer"
 
 const Precisely: React.FC = () => {
   return (
     <div className={styles.page}>
-      <Header
-                title="i created a design system for a Rewards app."
-                imageSrc="public/proj2.png"
-                imageAlt="Description of image"
-                details={[
-                    { label: "Company", value: "Eat Sleep Repeat" },
-                    { label: "Role", value: "UX Designer" },
-                    { label: "Duration", value: "7 Months" },
-                    { label: "Skills", value: "Design Systems, UI, Product Design" },
-                ]}/>
+
+      {/* Slide 1: Header */}
+      <div className={styles.projectSlide}>
+        <Header
+          title="i created a design system for a Rewards app."
+          imageSrc="public/proj2.png"
+          imageAlt="Description of image"
+          details={[
+            { label: "Company", value: "Eat Sleep Repeat" },
+            { label: "Role", value: "UX Designer" },
+            { label: "Duration", value: "7 Months" },
+            { label: "Skills", value: "Design Systems, UI, Product Design" },
+          ]}/>
+      </div>
+
+      {/* Slide 2: Content (scrollable) */}
+      <div className={styles.projectSlideScroll}>
       <div className={styles.contentcontainer}>
         <div className={styles.subsection}>
         <p
@@ -77,6 +85,13 @@ const Precisely: React.FC = () => {
           </div>
         </div>
       </div>
+      </div>
+
+      {/* Slide 3: Footer */}
+      <div className={styles.projectSlide}>
+        <Footer />
+      </div>
+
     </div>
   )
 }

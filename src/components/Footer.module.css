@@ -4,12 +4,10 @@
     flex-direction: row;
     align-items: center;
     gap: 64px;
-    background: #030708;
     place-content: center;
-    Height: 500px;
-    position:absolute;
-    width:100%;
-    bottom:0;
+    width: 100%;
+    padding: 24px 24px 0px;
+    margin-top: 0;
 }
 
 .linksection{

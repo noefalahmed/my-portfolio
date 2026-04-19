@@ -4,7 +4,6 @@ import Home from './Views/Home';
 import './App.css';
 import './index.css';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer.tsx';
 import CustomCursor from './components/CustomCursor'
 import Stars from './components/Stars'
 import DesignSystems from './Views/Projects/DesignSystems.tsx'
@@ -73,7 +72,6 @@ const App: React.FC = () => {
             <Route path="/accessibility" element={<Accessibility />} />
             <Route path="/speech-coach" element={<SpeechCoach />} />
           </Routes>
-          <Footer/>
         </div>
     </Router>
   );

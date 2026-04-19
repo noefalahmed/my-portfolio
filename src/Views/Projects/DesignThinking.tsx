@@ -1,6 +1,7 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
 import Accordion from "../../components/Accordion"
+import Footer from '../../components/Footer'
 
 const accordionItems = [
   {
@@ -8,16 +9,16 @@ const accordionItems = [
     content: (
         <div className={styles.subsection}>
             <p>
-             Account Managers use Cimpl’s Accounts Dashboard every single day. The data they handle here connects through every part of the platform...
+             Account Managers use Cimpl&apos;s Accounts Dashboard every single day. The data they handle here connects through every part of the platform...
             </p>
             <img data-zoom src="./assets/cimple-1.png" className={`${styles.image} ${styles['image-dynamic']} `} />
             <p>...but users were struggling.
                 <br></br><br></br>
                 In speaking to Account Managers, I understood that managing data was slow and frustrating. In evaluating their interface, I saw disorganized layouts and unclear hierarchy. But to get to the root of the problem, I knew I needed to trace daily workflows.
                 <br></br><br></br>
-                Using the 5 Whys Method, I guided 3 Account Managers in reflecting on their own pain points to surface the true source of their friction. Here’s what I found:
+                Using the 5 Whys Method, I guided 3 Account Managers in reflecting on their own pain points to surface the true source of their friction. Here&apos;s what I found:
                 <br></br><br></br>
-                The existing architecture didn’t reflect the relationships between accounts that mattered the most to users. Critical information was buried and disconnected, forcing overly-complicated mitigation and workarounds: spreadsheets, notes... anything except digging through Cimpl.
+                The existing architecture didn&apos;t reflect the relationships between accounts that mattered the most to users. Critical information was buried and disconnected, forcing overly-complicated mitigation and workarounds: spreadsheets, notes... anything except digging through Cimpl.
             </p>
         </div>
     ),
@@ -30,11 +31,11 @@ const accordionItems = [
             <p>I collaborated with the product team to structure our design process into focused, iterative sprints: aligning design, research, and development around weekly deliverable and measurable feedback loops. </p>
             <img data-zoom src="./assets/cimple-2.png" className={`${styles.image} ${styles['image-dynamic']} `} />
           <h1 className={styles.sh1}  style={{color: '#D78CF3'}} >Redefining the Architecture</h1>
-          <p>I rebuilt the experience that the UI was mapped on. To do this, I needed to understand how account managers thought about and did their work, then collaborate with cross-functional stakeholders to match the users’ priorities.</p>
+          <p>I rebuilt the experience that the UI was mapped on. To do this, I needed to understand how account managers thought about and did their work, then collaborate with cross-functional stakeholders to match the users&apos; priorities.</p>
           <div className={styles.sub1section}>
                             <div className={styles.sub2section}>
                                 <h2 className={styles.sh2} style={{color: '#D78CF3'}}>Creating the Taxonomy</h2>
-                                <p className={styles.p1}>Conducting interviews with Account Managers, we found that the existing account relationships were flat and needed parent-child relations to match users’ mental model.</p>
+                                <p className={styles.p1}>Conducting interviews with Account Managers, we found that the existing account relationships were flat and needed parent-child relations to match users&apos; mental model.</p>
                               <img data-zoom src="./assets/cimple-3.png" className={`${styles.image} ${styles['image-dynamic']}`} />
                             </div> 
                             <div className={styles.sub2section}>
@@ -82,7 +83,7 @@ const accordionItems = [
                             </div> 
             </div> 
             <h1 className={styles.sh1} style={{color: '#73A0F9'}}>Validation</h1>
-            <p>We ran internal guerrilla tests and A/B tests with account managers to choose between competing concepts. We corroborated design decisions based on users’ simple majority.
+            <p>We ran internal guerrilla tests and A/B tests with account managers to choose between competing concepts. We corroborated design decisions based on users&apos; simple majority.
             </p>
             <div className={styles.sub1section}>
                             <div className={styles.sub2section}>
@@ -148,28 +149,52 @@ const accordionItems = [
 const DesignThinking: React.FC = () => {
   return (
     <div className={styles.page}>
-      <Header
-        title="i redesigned a Dashboard for Account Managers"
-        imageSrc="./assets/proj3.png"
-        imageAlt="Description of image"
-        details={[
-          { label: "Company", value: "Upland Software" },
-          { label: "Role", value: "Product Designer II" },
-          { label: "Duration", value: "3 Months" },
-          { label: "Skills", value: "User Research, Information Architecture, Product Design" },
-        ]}
-      />
 
-      <div className={styles.contentcontainer}>
-        <img  src="./assets/cimple-17.png" className={`${styles.image} ${styles['image-full']} `} />
-        <div className={styles.largetext}>
-          When critical information is hard to find, it’s often a symptom of poor interface design, or worse, fundamentally disorganised architecture. Here, it was both. 
-          <br></br>
-          <br></br>
-          Over the course of 2 months, I restructured Upland Software’s Accounts Dashboard by rebuilding key workflows related to forms, settings, records and filters.  
-        </div>
-        <Accordion items={accordionItems} />
+      {/* Slide 1: Header */}
+      <div className={styles.projectSlide}>
+        <Header
+          title="i redesigned a Dashboard for Account Managers"
+          imageSrc="./assets/proj3.png"
+          imageAlt="Description of image"
+          details={[
+            { label: "Company", value: "Upland Software" },
+            { label: "Role", value: "Product Designer II" },
+            { label: "Duration", value: "3 Months" },
+            { label: "Skills", value: "User Research, Information Architecture, Product Design" },
+          ]}
+        />
       </div>
+
+      {/* Slide 2: Images */}
+      <div className={styles.projectSlideScroll}>
+        <div className={styles.contentcontainer}>
+          <img src="./assets/cimple-17.png" className={`${styles.image} ${styles['image-full']}`} />
+        </div>
+      </div>
+
+      {/* Slide 3: Large text */}
+      <div className={styles.projectSlide}>
+        <div className={styles.contentcontainer}>
+          <div className={styles.largetext}>
+            When critical information is hard to find, it&apos;s often a symptom of poor interface design, or worse, fundamentally disorganised architecture. Here, it was both.
+            <br/><br/>
+            Over the course of 2 months, I restructured Upland Software&apos;s Accounts Dashboard by rebuilding key workflows related to forms, settings, records and filters.
+          </div>
+        </div>
+      </div>
+
+      {/* Slide 4: Accordion */}
+      <div className={styles.projectSlideAccordion}>
+        <div className={styles.contentcontainer}>
+          <Accordion items={accordionItems} />
+        </div>
+      </div>
+
+      {/* Slide 5: Footer */}
+      <div className={styles.projectSlide}>
+        <Footer />
+      </div>
+
     </div>
   )
 }

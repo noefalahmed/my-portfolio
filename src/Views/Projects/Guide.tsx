@@ -1,20 +1,28 @@
 import styles from './Projects.module.css'
 import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 
 const Guide: React.FC = () => {
     return (
         <div className={styles.page}>
-            
-            <Header
-                title="i created a design system for a Rewards app."
-                imageSrc="public/proj2.png"
-                imageAlt="Description of image"
-                details={[
-                    { label: "Company", value: "Eat Sleep Repeat" },
-                    { label: "Role", value: "UX Designer" },
-                    { label: "Duration", value: "7 Months" },
-                    { label: "Skills", value: "Design Systems, UI, Product Design" },
-                ]}/>            <div className={styles.contentcontainer}>
+
+            {/* Slide 1: Header */}
+            <div className={styles.projectSlide}>
+                <Header
+                    title="i created a design system for a Rewards app."
+                    imageSrc="public/proj2.png"
+                    imageAlt="Description of image"
+                    details={[
+                        { label: "Company", value: "Eat Sleep Repeat" },
+                        { label: "Role", value: "UX Designer" },
+                        { label: "Duration", value: "7 Months" },
+                        { label: "Skills", value: "Design Systems, UI, Product Design" },
+                    ]}/>
+            </div>
+
+            {/* Slide 2: Content (scrollable) */}
+            <div className={styles.projectSlideScroll}>
+            <div className={styles.contentcontainer}>
                 <div className={styles.subsection}>
                         <h1 className={styles.sh1}>About</h1>
                         <p className={styles.p1}>Crafting complex, data-rich tables taught me the importance of deeply understanding user needs to truly meet their evolving preferences. Here are 3 User Needs and accompanying solutions I learned though turning complex data tables into dynamic, engaging user experiences. </p>
@@ -76,8 +84,15 @@ const Guide: React.FC = () => {
 
 
             </div>
+            </div>
+
+            {/* Slide 3: Footer */}
+            <div className={styles.projectSlide}>
+                <Footer />
+            </div>
+
         </div>
     );
   };
-  
+
  export default Guide; 

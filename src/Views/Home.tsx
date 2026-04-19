@@ -1,7 +1,9 @@
 "use client"
 import React, { useState, useEffect, useRef } from "react"
 import styles from "./Home.module.css"
+import Footer from "../components/Footer"
 import { Volume2, ArrowUp, Check, Loader2, ArrowRight } from "lucide-react"
+import AiSearch from '../components/AiSearch'
 import { FaLinkedin } from "react-icons/fa"
 import { motion, type Variants } from "motion/react"
 
@@ -149,6 +151,7 @@ const Home: React.FC = () => {
   const [shouldType, setShouldType] = useState(false);
   const [typedText, setTypedText] = useState("");
   const [mobileProjectSlide, setMobileProjectSlide] = useState<number | null>(null);
+
 
   const [proj1Text, setProj1Text] = useState("")
   const [proj2Text, setProj2Text] = useState("")
@@ -410,12 +413,10 @@ const Home: React.FC = () => {
 
   const scrollToTop = () => {
     const container = document.querySelector('[data-scroll-container]') as HTMLElement
-    if (container) {
-      container.scrollTo({ top: 0, behavior: 'smooth' })
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
+    if (container) container.scrollTo({ top: 0, behavior: 'smooth' })
+    else window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
 
 
   // Close tic tac toe when clicking outside
@@ -521,7 +522,7 @@ const Home: React.FC = () => {
         setShouldType(true);
       }
     },
-    { threshold: 0.6 } // plays when 60% visible
+    { threshold: 0.3 } // plays when 30% visible
   );
 
   if (aboutRef.current) {
@@ -648,9 +649,149 @@ useEffect(() => {
           </div>
         )}
 
-        {/* Mobile-only hero slide — bypasses Framer Motion */}
+        {/* Desktop Slide 1: Hero */}
+        <div className={styles.homeSlide}>
+          <main
+            className={styles.bentoContainer}
+            onMouseMove={(e) => {
+              const el = bentoContainerRef.current
+              const img = bentoImageRef.current
+              if (!el || !img) return
+              const rect = el.getBoundingClientRect()
+              const cx = rect.left + rect.width / 2
+              const cy = rect.top + rect.height / 2
+              const nx = (e.clientX - cx) / (rect.width / 2)
+              const ny = (e.clientY - cy) / (rect.height / 2)
+              img.style.transition = "transform 0.08s ease-out"
+              img.style.transform = `translate(${nx * 15}px, ${ny * 12}px)`
+            }}
+            onMouseLeave={() => {
+              const img = bentoImageRef.current
+              if (!img) return
+              img.style.transition = "transform 0.6s ease-out"
+              img.style.transform = "translate(0px, 0px)"
+            }}
+            ref={bentoContainerRef}
+          >
+            {/* <img src="./assets/bg-grid.png" className={styles.bentoImage} ref={bentoImageRef}/> */}
+            {/* Center Hero Section */}
+            <div className={`${styles.heroSection} ${styles.animateSection}`}>
+              <h1 className={`${styles.heroTitle} ${styles.animateItem} ${styles.animateDelay2}`}>
+                <span className={styles.typingText} ref={typingRef}>
+                  {greeting}
+                </span>
+                <span className={styles.cursor}></span>
+              </h1>
+              <h1 className={`${styles.heroTitle} ${styles.animateItem} ${styles.animateDelay3}`}>
+                i'm noefal.
+              </h1>
+              <div className={`${styles.skillPills} ${styles.animateItem} ${styles.animateDelay4}`}>
+                <span className={styles.skillPill}>
+                  <img src="/assets/a.svg" alt="" className={styles.skillIcon} />
+                  <p className={styles.tagline} style={{ textAlign: 'left' }}>Human-AI Interaction</p>
+                </span>
+                <span className={styles.skillPill}>
+                  <img src="/assets/b.svg" alt="" className={styles.skillIcon} />
+                  <p className={styles.tagline} style={{ textAlign: 'left' }}>Product Design</p>
+                </span>
+                <span className={styles.skillPill}>
+                  <img src="/assets/p.svg" alt="" className={styles.skillIcon} />
+                  <p className={styles.tagline} style={{ textAlign: 'left' }}>Systems Thinking</p>
+                </span>
+              </div>
+              <div className={styles.buttonsection}>
+                <AiSearch />
+                <button className={styles.outlinedButton}
+                  onClick={() => window.open("https://www.linkedin.com/in/noefalahmed", "_blank")}>
+                  LinkedIn
+                  <FaLinkedin size={14} color="#ffffff" />
+                </button>
+              </div>
+            </div>
+          </main>
+        </div>
+
+        {/* Desktop Slide 2: Featured Work */}
+        <div className={styles.homeSlideScroll}>
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Featured Work</h2>
+            <div className={styles.projectsGrid}>
+              <a href="/speech-coach"    ref={proj1Ref} className={styles.projectCard}>
+                <p className={styles.projectCaption}>CORNELL UNIVERSITY</p>
+                <div className={styles.projectImageWrapper}>
+                  <img src="./assets/proj0.png" alt="Speech Coach" className={`${styles.projectImage} ${proj1ImgVisible ? styles.projectImageVisible : ""}`} />
+                </div>
+                <div className={styles.projectBottom}>
+                  <span className={styles.projectTitle}>i built a speech-enabled leadership coach for {proj1Text}{proj1Text.length > 0 && (proj1Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}</span>
+                </div>
+              </a>
+              <a href="/design-thinking" ref={proj2Ref} className={styles.projectCard}>
+                <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
+                <div className={styles.projectImageWrapper}>
+                  <img src="./assets/proj3.png" alt="Design Thinking" className={`${styles.projectImage} ${proj2ImgVisible ? styles.projectImageVisible : ""}`} />
+                </div>
+                <div className={styles.projectBottom}>
+                  <span className={styles.projectTitle}>i redesigned a Dashboard for {proj2Text}{proj2Text.length > 0 && (proj2Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}</span>
+                </div>
+              </a>
+              <a href="/design-systems"  ref={proj3Ref} className={styles.projectCard}>
+                <p className={styles.projectCaption}>EAT SLEEP REPEAT</p>
+                <div className={styles.projectImageWrapper}>
+                  <img src="./assets/proj2.png" alt="Data Analytics" className={`${styles.projectImage} ${proj3ImgVisible ? styles.projectImageVisible : ""}`} />
+                </div>
+                <div className={styles.projectBottom}>
+                  <span className={styles.projectTitle}>i created a Design System for a {proj3Text}{proj3Text.length > 0 && (proj3Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}</span>
+                </div>
+              </a>
+              <a href="/accessibility"   ref={proj4Ref} className={styles.projectCard}>
+                <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
+                <div className={styles.projectImageWrapper}>
+                  <img src="./assets/proj1.png" alt="Project Management" className={`${styles.projectImage} ${proj4ImgVisible ? styles.projectImageVisible : ""}`} />
+                </div>
+                <div className={styles.projectBottom}>
+                  <span className={styles.projectTitle}>i created an accessibility framework for a project {proj4Text}{proj4Text.length > 0 && (proj4Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}</span>
+                </div>
+              </a>
+            </div>
+          </section>
+        </div>
+
+        {/* Desktop Slide 3: About */}
+        <div className={styles.homeSlide} style={{ alignItems: 'stretch', overflow: 'hidden' }}>
+          <section className={styles.section} style={{ width: '100%', height: '100%', overflow: 'auto', display: 'flex', alignItems: 'center' }}>
+            <div ref={aboutRef} className={styles.about}>
+              <div className={styles.rect1}></div>
+              <div className={styles.rect2}></div>
+              <div className={styles.rect3}></div>
+              <div className={styles.rect4}></div>
+              <div className={styles.aboutheader}></div>
+              <p className={styles.aboutdescription}>
+                Hi Reader,
+                        <br></br><br></br>
+                        I'm a Design Engineer from 🇵🇰 Pakistan on a mission 🚀 to design experiences that impact people's lives. I've studied computer science, researched on AI, and designed various web and mobile products.
+                        <br></br><br></br>
+                        I work methodically. There are scales, guides, and procedures I live by to produce outcomes of the highest standards. I make sure I'm constantly in practice as not just a design-thinker but also a design-doer.
+                        <br></br><br></br>I'm currently building voice / speech enabled systems that solve for human-centered pain points. Oh, and I'm currently researching across Human-AI Interaction, Computer Mediated Communication, and Cognitive Performance at Cornell University.
+                        <br></br><br></br>
+                <span className={styles.signature}>
+                  {typedText}
+                  {shouldType  &&
+                    <span className={styles.cursor}></span>
+                  }
+                </span>
+              </p>
+            </div>
+          </section>
+        </div>
+
+        {/* Desktop Slide 4: Footer */}
+        <div className={styles.homeSlide}>
+          <Footer />
+        </div>
+
+        {/* Mobile-only hero slide */}
         <div className={styles.mobileHeroSlide} data-slide>
-          <img src="./assets/bg-grid.png" className={styles.mobileGridBg} />
+          {/* <img src="./assets/bg-grid.png" className={styles.mobileGridBg} /> */}
           <div className={styles.mobileHeroContent}>
             <h1 className={styles.heroTitle}>
               <span ref={typingRef}>{greeting}</span>
@@ -682,393 +823,6 @@ useEffect(() => {
           </div>
         </div>
 
-        <main
-          className={styles.bentoContainer}
-          onMouseMove={(e) => {
-            const el = bentoContainerRef.current
-            const img = bentoImageRef.current
-            if (!el || !img) return
-            const rect = el.getBoundingClientRect()
-            const cx = rect.left + rect.width / 2
-            const cy = rect.top + rect.height / 2
-            const nx = (e.clientX - cx) / (rect.width / 2)
-            const ny = (e.clientY - cy) / (rect.height / 2)
-            img.style.transition = "transform 0.08s ease-out"
-            img.style.transform = `translate(${nx * 15}px, ${ny * 12}px)`
-          }}
-          onMouseLeave={() => {
-            const img = bentoImageRef.current
-            if (!img) return
-            img.style.transition = "transform 0.6s ease-out"
-            img.style.transform = "translate(0px, 0px)"
-          }}
-          ref={bentoContainerRef}
-        >
-          <img src="./assets/bg-grid.png" className={styles.bentoImage} ref={bentoImageRef}/>
-          {/* Decorative wandering dots */}
-          {/* <div ref={setDotRef(0)} className={styles.decorativeDot} style={{ left: '35%', top: '30%' }} />
-          <div ref={setDotRef(1)} className={styles.decorativeDot} style={{ left: '18%', top: '50%' }} />
-          <div ref={setDotRef(2)} className={styles.decorativeDot} style={{ left: '88%', top: '55%' }} /> */}
-
-          {/* My Artwork Card - Top Left */}
-            {artworkActive && <div className={styles.artworkOverlay} />}
-
-            <div
-              ref={artworkCardRef}
-              className={`${styles.bentoCard} ${styles.artworkCard} ${artworkActive ? styles.artworkCardActive : ""} ${styles.bentoAnimate1}`}
-              onMouseDown={startDrag('artwork', artworkActive)}
-              onClick={() => {
-                if (wasDragged.current) { wasDragged.current = false; return }
-                if (!artworkActive) setArtworkActive(true)
-              }}
-              style={dp('artwork')}
-            >
-              {!artworkActive && (
-                <>
-                  <div className={styles.artworkStack}>
-                    <div className={`${styles.artworkTile} ${styles.artworkTile3}`}>
-                      <img src="./assets/Birds.JPG" alt="Artwork 3" />
-                    </div>
-                    <div className={`${styles.artworkTile} ${styles.artworkTile2}`}>
-                      <img src="./assets/SunDay.png" alt="Artwork 2" />
-                    </div>
-                    <div className={`${styles.artworkTile} ${styles.artworkTile1}`}>
-                      <img src="./assets/nightshade.png" alt="Artwork 1" />
-                    </div>
-                  </div>
-                  <span className={styles.cardLabel}>My Artwork</span>
-                </>
-              )}
-
-              {artworkActive && (
-                <div className={styles.artworkGallery}>
-                  <img src="./assets/Birds.JPG" alt="Artwork 3" />
-                  <img src="./assets/SunDay.png" alt="Artwork 2" />
-                  <img src="./assets/nightshade.png" alt="Artwork 1" />
-                </div>
-              )}
-            </div>
-
-
-          {/* Tic Tac Toe Card - Top Right */}
-          {tttActive && <div className={styles.tttOverlay} />}
-          <div
-            ref={tttCardRef}
-            className={`${styles.bentoCard} ${styles.ticTacToeCard} ${tttActive ? styles.ticTacToeCardActive : ""} ${styles.bentoAnimate2}`}
-            onMouseDown={startDrag('ttt', tttActive)}
-            onClick={() => {
-              if (wasDragged.current) { wasDragged.current = false; return }
-              if (!tttActive) setTttActive(true)
-            }}
-            style={dp('ttt')}
-          >
-            {!tttActive && (
-              <>
-                <div className={styles.ticTacToeGrid}>
-                  <div className={styles.ticTacToeCell}><div className={styles.redDot} /></div>
-                  <div className={styles.ticTacToeCell} />
-                  <div className={styles.ticTacToeCell} />
-                  <div className={styles.ticTacToeCell} />
-                  <div className={styles.ticTacToeCell} />
-                  <div className={styles.ticTacToeCell} />
-                  <div className={styles.ticTacToeCell} />
-                  <div className={styles.ticTacToeCell} />
-                  <div className={styles.ticTacToeCell} />
-                </div>
-                <span className={styles.cardLabel}>Play Tic Tac Toe</span>
-              </>
-            )}
-            {tttActive && (
-              <>
-                <div className={styles.ticTacToeGrid}>
-                  {tttBoard.map((cell, i) => (
-                    <div
-                      key={i}
-                      className={`${styles.ticTacToeCell} ${!cell && !tttGameOver ? styles.ticTacToeCellPlayable : ""}`}
-                      onClick={() => handleTttClick(i)}
-                    >
-                      {cell === "X" && <div className={styles.redDot} />}
-                      {cell === "O" && <div className={styles.blueDot} />}
-                    </div>
-                  ))}
-                </div>
-                {!tttGameOver && (
-                  <span className={styles.tttInstruction}>you go first. tap a cell.</span>
-                )}
-                {tttGameOver && (
-                  <div className={styles.tttEndState}>
-                    <span className={styles.tttResultText}>
-                      {tttResult === "win" ? "you won!" : tttResult === "lose" ? "you lost." : "it's a draw."}
-                    </span>
-                    <button className={styles.tttRestartBtn} onClick={(e) => { e.stopPropagation(); resetTtt() }}>
-                      play again
-                    </button>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-
-          {/* Center Hero Section */}
-          <motion.div variants={variants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
-          <div className={`${styles.heroSection} ${styles.animateSection}`}>
-            {/* Profile Photo */}
-            {/* <div className={`${styles.profilePhoto} ${styles.animateItem} ${styles.animateDelay1}`}>
-              <img src="public/Display.jpg" alt="Noefal" />
-            </div> */}
-
-            {/* Title with typing animation */}
-            <h1 className={`${styles.heroTitle} ${styles.animateItem} ${styles.animateDelay2}`}>
-              <span className={styles.typingText} ref={typingRef}>
-                {greeting}
-              </span>
-              <span className={styles.cursor}></span>
-            </h1>
-            <h1 className={`${styles.heroTitle} ${styles.animateItem} ${styles.animateDelay3}`}>
-              i'm noefal.
-            </h1>
-
-            {/* Skill Pills */}
-            <div className={`${styles.skillPills} ${styles.animateItem} ${styles.animateDelay4}`}>
-              <span className={styles.skillPill}>
-                <img src="/assets/a.svg" alt="" className={styles.skillIcon} />
-                <p className={styles.tagline} style={{ textAlign: 'left' }}>Human-AI Interaction</p>
-              </span>
-              <span className={styles.skillPill}>
-                <img src="/assets/b.svg" alt="" className={styles.skillIcon} />
-                <p className={styles.tagline} style={{ textAlign: 'left' }}>Product Design</p>
-              </span>
-              <span className={styles.skillPill}>
-                <img src="/assets/p.svg" alt="" className={styles.skillIcon} />
-                <p className={styles.tagline} style={{ textAlign: 'left' }}>Systems Thinking</p>
-              </span>
-            </div>
-
-
-            <div className={styles.buttonsection}>
-              <button className={styles.filledButton}
-              onClick={() => window.open("https://www.calendly.com/noefalahmed", "_blank")}>
-                Connect
-                <ArrowRight size={14} color="#05090F" />
-              </button>
-              <button className={styles.outlinedButton}
-              onClick={() => window.open("https://www.linkedin.com/in/noefalahmed", "_blank")}>
-                LinkedIn
-                <FaLinkedin size={14} color="#ffffff" />
-              </button>
-            </div>
-          </div>
-          </motion.div>
-
-          {/* Write me a note Card - Bottom Left */}
-          {noteActive && <div className={styles.noteOverlay} />}
-          <div
-            ref={noteCardRef}
-            className={`${styles.noteCardWrapper} ${styles.bentoAnimate5}`}
-            onMouseDown={startDrag('note', noteActive)}
-            style={{ ...dp('note'), zIndex: noteActive ? 100 : undefined }}
-          >
-            <div
-              className={`${styles.bentoCard} ${styles.noteCard} ${noteActive ? styles.noteCardActive : ""}`}
-              onClick={() => { if (!wasDragged.current) setNoteActive(true) }}
-            >
-              <div className={styles.noteInner}>
-                <div className={`${styles.noteEmailRow} ${noteActive ? styles.noteEmailRowVisible : ""}`}>
-                  <input
-                    type="email"
-                    className={styles.noteEmailInput}
-                    placeholder="FROM:"
-                    value={noteEmail}
-                    onChange={(e) => {
-                      setNoteEmail(e.target.value)
-                      if (noteError) setNoteError("")
-                    }}
-                    aria-label="Your email address"
-                  />
-                  <div className={styles.noteEmailDivider} />
-                </div>
-                <textarea
-                  className={styles.noteTextarea}
-                  placeholder="TYPE MESSAGE.."
-                  value={noteText}
-                  onChange={(e) => {
-                    setNoteText(e.target.value)
-                    if (noteError) setNoteError("")
-                  }}
-                  onFocus={() => setNoteActive(true)}
-                  aria-label="Your message"
-                />
-                <button
-                  className={`${styles.noteSendBtn} ${noteStatus === "sent" ? styles.noteSendBtnSent : ""}`}
-                  onClick={handleSendNote}
-                  disabled={noteStatus === "sending" || noteStatus === "sent"}
-                  aria-label="Send note"
-                >
-                  {noteStatus === "sending" ? (
-                    <Loader2 size={14} className={styles.spinIcon} />
-                  ) : noteStatus === "sent" ? (
-                    <Check size={14} />
-                  ) : (
-                    <ArrowUp size={14} />
-                  )}
-                </button>
-              </div>
-            </div>
-            <span className={styles.cardLabel}>Write me a note</span>
-            {noteError && <span className={styles.noteErrorText}>{noteError}</span>}
-          </div>
-
-          {/* Cornell Badge - Center */}
-          {/* <div
-            className={`${styles.bentoCard} ${styles.cornellBadge} ${styles.bentoAnimate4}`}
-            onMouseDown={startDrag('cornell')}
-            onMouseEnter={() => { cornellTargetSpeed.current = 0.36 }}
-            onMouseLeave={() => { cornellTargetSpeed.current = 0.024 }}
-            style={dp('cornell')}
-          >
-            <div className={styles.cornellTextWrapper} ref={cornellWrapperRef}>
-              <div className={styles.cornellText}>
-                {Text arranged in a circle}
-                {"Cornell University Cornell University ".split("").map((char, i) => (
-                  <span
-                    key={i}
-                    style={{
-                      transform: `rotate(${i * 9.5}deg)`,
-                    }}
-                  >
-                    {char}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div> */}
-
-          {/* Urdu Name Pronunciation - Bottom Right */}
-          {isPlaying && <div className={styles.pronunciationOverlay} />}
-          <button
-            onMouseDown={startDrag('pronunciation', isPlaying)}
-            onClick={() => {
-              if (wasDragged.current) { wasDragged.current = false; return }
-              handlePlayPronunciation()
-            }}
-            className={`${styles.bentoCard} ${styles.pronunciationCard} ${isPlaying ? styles.pronunciationCardActive : ""} ${styles.bentoAnimate3}`}
-            style={{ '--audio-duration': `${audioDuration}s`, ...dp('pronunciation') } as React.CSSProperties}>
-            <div className={styles.volumeIconWrapper}>
-              <Volume2 size={20} className={styles.volumeIcon} />
-            </div>
-            <span className={styles.arabicName}>نوفل</span>
-          </button>
-        </main>
-
-        {/* Work Section */}
-        <motion.div variants={variants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Featured Work</h2>
-          <div className={styles.projectsGrid}>
-            <a href="/speech-coach" ref={proj1Ref} className={styles.projectCard} data-slide>
-              <p className={styles.projectCaption}>CORNELL UNIVERSITY</p>
-              <div className={styles.projectImageWrapper}>
-                <img src="./assets/proj0.png" alt="Speech Coach" className={`${styles.projectImage} ${proj1ImgVisible ? styles.projectImageVisible : ""}`} />
-              </div>
-              <div className={styles.projectBottom}>
-                <span className={styles.projectTitle}>
-                  {"i built a speech-enabled leadership coach for "}{proj1Text}
-                  {proj1Text.length > 0 && (proj1Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
-                </span>
-              </div>
-              <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
-            </a>
-            <a href="/design-thinking" ref={proj2Ref} className={styles.projectCard} data-slide>
-              <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
-              <div className={styles.projectImageWrapper}>
-                <img src="./assets/proj3.png" alt="design-thinking" className={`${styles.projectImage} ${proj2ImgVisible ? styles.projectImageVisible : ""}`} />
-              </div>
-              <div className={styles.projectBottom}>
-                <span className={styles.projectTitle}>
-                  {"i redesigned a Dashboard for "}{proj2Text}
-                  {proj2Text.length > 0 && (proj2Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
-                </span>
-              </div>
-              <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
-            </a>
-            <a href="/design-systems" ref={proj3Ref} className={styles.projectCard} data-slide>
-              <p className={styles.projectCaption}>EAT SLEEP REPEAT</p>
-              <div className={styles.projectImageWrapper}>
-                <img src="./assets/proj2.png" alt="Data Analytics" className={`${styles.projectImage} ${proj3ImgVisible ? styles.projectImageVisible : ""}`} />
-              </div>
-              <div className={styles.projectBottom}>
-                <span className={styles.projectTitle}>
-                  {"i created a Design System for a "}{proj3Text}
-                  {proj3Text.length > 0 && (proj3Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
-                </span>
-              </div>
-              <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
-            </a>
-            <a href="/accessibility" ref={proj4Ref} className={styles.projectCard} data-slide>
-              <p className={styles.projectCaption}>UPLAND SOFTWARE</p>
-              <div className={styles.projectImageWrapper}>
-                <img src="./assets/proj1.png" alt="Project Management" className={`${styles.projectImage} ${proj4ImgVisible ? styles.projectImageVisible : ""}`} />
-              </div>
-              <div className={styles.projectBottom}>
-                <span className={styles.projectTitle}>
-                  {"i created an accessibility framework for a project "}{proj4Text}
-                  {proj4Text.length > 0 && (proj4Done ? <span className={styles.cursorFade} /> : <span className={styles.cursor} />)}
-                </span>
-              </div>
-              <span className={styles.mobileReadBtn}>READ <ArrowRight size={14} color="#05090F" /></span>
-            </a>
-          </div>
-        </section>
-        </motion.div>
-
-        {/* Playground Section */}
-        {/* <motion.div variants={variants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Playground</h2>
-          <p className={styles.sectionDescription}>
-            Experiments and mini projects.
-          </p>
-          <div className={styles.playgroundGrid}>
-            <a href="/playground-1" className={styles.playgroundCard}>
-              <div className={styles.playgroundImageWrapper}>
-                <img
-                  src="/placeholder.svg?height=300&width=300&query=minimal white background"
-                  alt="Experiment 1"
-                  className={styles.playgroundImage}
-                />
-              </div>
-            </a>
-            <a href="/playground-2" className={styles.playgroundCard}>
-              <div className={styles.playgroundImageWrapper}>
-                <img
-                  src="/placeholder.svg?height=300&width=300&query=minimal white background"
-                  alt="Experiment 2"
-                  className={styles.playgroundImage}
-                />
-              </div>
-            </a>
-            <a href="/playground-3" className={styles.playgroundCard}>
-              <div className={styles.playgroundImageWrapper}>
-                <img
-                  src="/placeholder.svg?height=300&width=300&query=minimal white background"
-                  alt="Experiment 3"
-                  className={styles.playgroundImage}
-                />
-              </div>
-            </a>
-            <a href="/playground-4" className={styles.playgroundCard}>
-              <div className={styles.playgroundImageWrapper}>
-                <img
-                  src="/placeholder.svg?height=300&width=300&query=minimal white background"
-                  alt="Experiment 4"
-                  className={styles.playgroundImage}
-                />
-              </div>
-            </a>
-          </div>
-        </section>
-        </motion.div> */}
-
         {/* Mobile-only about slide */}
         <div className={styles.mobileAboutSlide} data-slide data-about>
           <p className={styles.mobileAboutText}>
@@ -1094,45 +848,6 @@ useEffect(() => {
           <a href="https://github.com/noefalahmed" target="_blank" rel="noopener noreferrer" className={styles.mobileFooterLink}>Github</a>
           <button className={styles.mobileBackToTop} onClick={scrollToTop} aria-label="Back to top">↑</button>
         </div>
-
-        {/* about me */}
-        <motion.div variants={variants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
-        <section className={styles.section}>
-         
-          <div ref={aboutRef} className={styles.about}>
-            <div className={styles.rect1}></div>
-            <div className={styles.rect2}></div>
-            <div className={styles.rect3}></div>
-            <div className={styles.rect4}></div>
-            <div className={styles.aboutheader}></div>
-            <p className={styles.aboutdescription}>
-              Hi Reader, 
-                      <br></br><br></br>
-                      I'm a Design Engineer from 🇵🇰 Pakistan on a mission 🚀 to design experiences that impact people's lives. I've studied computer science, researched on AI, and designed various web and mobile products. 
-                      <br></br><br></br>
-                      I work methodically. There are scales, guides, and procedures I live by to produce outcomes of the highest standards. I make sure I'm constantly in practice as not just a design-thinker but also a design-doer. 
-                      <br></br><br></br>I'm currently building voice / speech enabled systems that solve for human-centered pain points. Oh, and I'm currently researching across Human-AI Interaction, Computer Mediated Communication, and Cognitive Performance at Cornell University. 
-                      <br></br><br></br>
-              <span className={styles.signature}>
-                {typedText}
-                {shouldType  &&
-                  <span className={styles.cursor}></span>
-                }
-              </span>
-            </p>
-          </div>
-          
-          {visible && (
-            <button
-              onClick={scrollToTop}
-              className={styles.backToTop}
-              aria-label="Back to top"
-            >
-              ↑
-            </button>
-          )}
-        </section>
-        </motion.div>
      </div>
   </div>
   )

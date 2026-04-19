@@ -81,22 +81,33 @@ const Accordion: React.FC<AccordionProps> = ({ items }) => {
   const contentRefs = useRef<(HTMLDivElement | null)[]>([])
   const lastScrollY = useRef(0)
 
+  function getScrollParent(el: HTMLElement): HTMLElement | Window {
+    let parent: HTMLElement | null = el.parentElement
+    while (parent) {
+      const style = getComputedStyle(parent)
+      if (/scroll|auto/.test(style.overflow + style.overflowY)) return parent
+      parent = parent.parentElement
+    }
+    return window
+  }
+
   useEffect(() => {
     const THRESHOLD = 4
-    const update = () => {
+    const update = (e?: Event) => {
       const navbar = document.querySelector('nav')
       const bottom = navbar ? Math.max(0, navbar.getBoundingClientRect().bottom) : 0
       setNavbarBottom(bottom)
 
-      const y = window.scrollY
+      const target = e?.target as Element | null
+      const y = (target && 'scrollTop' in target) ? (target as Element).scrollTop : window.scrollY
       const delta = y - lastScrollY.current
       if (delta > THRESHOLD) setHidden(true)
       else if (delta < -THRESHOLD) setHidden(false)
       lastScrollY.current = y
     }
     update()
-    window.addEventListener('scroll', update, { passive: true })
-    return () => window.removeEventListener('scroll', update)
+    document.addEventListener('scroll', update, { passive: true, capture: true })
+    return () => document.removeEventListener('scroll', update, { capture: true })
   }, [])
 
   const toggle = (index: number) => {
@@ -104,15 +115,18 @@ const Accordion: React.FC<AccordionProps> = ({ items }) => {
     setOpenIndex(openIndex === index ? null : index)
 
     if (isOpening) {
-      // Wait for the previous accordion to begin closing and layout to shift
       setTimeout(() => {
         const header = headerRefs.current[index]
         if (!header) return
         const navbar = document.querySelector('nav')
         const currentNavbarBottom = navbar ? Math.max(0, navbar.getBoundingClientRect().bottom) : 0
         const rect = header.getBoundingClientRect()
-        window.scrollTo({
-          top: window.scrollY + rect.top - currentNavbarBottom,
+        const scrollContainer = getScrollParent(header)
+        const currentTop = scrollContainer === window
+          ? window.scrollY
+          : (scrollContainer as HTMLElement).scrollTop
+        scrollContainer.scrollTo({
+          top: currentTop + rect.top - currentNavbarBottom,
           behavior: 'smooth',
         })
       }, 400)
