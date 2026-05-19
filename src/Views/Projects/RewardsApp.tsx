@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import styles from './RewardsApp.module.css'
 import Header from '../../components/Header'
-import Footer from '../../components/Footer'
 
 const CACHE_BUST = Date.now()
 
@@ -145,12 +144,6 @@ const BENTO_CELLS_3X3 = [
   { img: '/esr/styles.png'  }, { img: '/esr/buttons.png'   }, { img: '/esr/inputs.png' },
 ]
 
-const BENTO_ORIGINS = [
-  'top left',    'top center',    'top right',
-  'center left', 'center center', 'center right',
-  'bottom left', 'bottom center', 'bottom right',
-]
-
 const BentoGrid2x2 = ({ label, images, fit = 'cover', positions, fits, backgrounds }: { label?: string; images?: (string | null)[]; fit?: 'cover' | 'contain'; positions?: string[]; fits?: string[]; backgrounds?: (string | undefined)[] }) => {
   const [hovered, setHovered] = useState<number | null>(null)
 
@@ -248,7 +241,6 @@ const QUOTE_CHARS: CharDef[] = [
 ]
 // indices of characters after which to pause (the two sentence-ending periods)
 const PAUSE_AFTER = new Set([14, 32])
-const QUOTE_FULL = 'Built in Figma. Shipped in React. Validated with users.'
 
 // Offsets from slide center — centroid is exactly (0,0)
 const DOT_OFFSETS = [

@@ -599,9 +599,6 @@ const RedeemFlow = ({ onClose }: { onClose: () => void }) => {
     else onClose()
   }
 
-  // Progress line fills: between dot i and i+1, fill if step > i
-  const lineFill = (i: number) => step > i ? 1 : step === i ? 0 : 0
-
   if (done) return <CelebrationScreen onClose={onClose} />
 
   return (
