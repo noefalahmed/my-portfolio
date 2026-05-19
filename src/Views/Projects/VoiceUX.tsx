@@ -112,7 +112,7 @@ const MicroanimSlide: React.FC = () => {
                             <img src="./assets/microanim-figma.png" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', borderRadius: 12, background: '#111' }} />
                         )}
                         {view === 'v2' && (
-                            <video src="./assets/microanim-v2.mov" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', margin: 0 }} autoPlay muted loop playsInline />
+                            <video src="./assets/microanim-v2.mp4" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', margin: 0 }} autoPlay muted loop playsInline />
                         )}
                         {view === 'prompt' && (
                             <pre style={{
@@ -439,7 +439,7 @@ const VoiceUX: React.FC = () => {
                 <div className={styles.contentcontainer}>
                     <div className={styles.subsection}>
                         <span style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 600, color: '#fff', lineHeight: 1.6 }}>Microinteractions</span>
-                        <video src="./assets/sc-anims.mov" className={`${styles.image} ${styles['image-dynamic']}`} autoPlay muted loop playsInline />
+                        <video src="./assets/sc-anims.mp4" className={`${styles.image} ${styles['image-dynamic']}`} autoPlay muted loop playsInline />
                     </div>
                 </div>
             </div>

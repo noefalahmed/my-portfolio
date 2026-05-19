@@ -279,7 +279,7 @@ const CARD_DATA: CardData[] = [
         date: 'March 14',
         text: 'Best biryani in the city. The portion sizes are generous and every dish came out exactly as described. Will definitely be back.',
         score: '9/10',
-        media: { type: 'video', src: '/esr/review2.mov' },
+        media: { type: 'video', src: '/esr/review2.mp4' },
     },
     {
         dotColor: '#2da87e',
@@ -289,7 +289,7 @@ const CARD_DATA: CardData[] = [
         date: 'Feb 3',
         text: 'Really loved the ambiance and the staff was so friendly. The lamb karahi was rich and perfectly spiced. A hidden gem.',
         score: '8/10',
-        media: { type: 'video', src: '/esr/review3.mov' },
+        media: { type: 'video', src: '/esr/review3.mp4' },
     },
 ]
 
@@ -769,7 +769,7 @@ const RewardsApp: React.FC = () => {
                                 </div>
                             </div>
                             <div style={{ flex: 0.75, background: '#111214', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
-                                <video src={`/esr/screen-recording.mov?v=${CACHE_BUST}`} autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                                <video src={`/esr/screen-recording.mp4?v=${CACHE_BUST}`} autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                             </div>
                         </div>
                         <div style={{ width: '100%' }}>

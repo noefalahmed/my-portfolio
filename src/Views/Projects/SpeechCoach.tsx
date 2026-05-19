@@ -128,7 +128,7 @@ const accordionItems = [
                     <div className={styles.sub2section}>
                         <h2 className={styles.sh2}>Microinteractions</h2>
                         <video
-                    src="./assets/sc-anims.mov"
+                    src="./assets/sc-anims.mp4"
                     className={`${styles.image} ${styles['image-dynamic']}`}
                     autoPlay
                     muted
