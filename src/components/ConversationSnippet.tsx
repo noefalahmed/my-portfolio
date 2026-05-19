@@ -27,7 +27,7 @@ const MESSAGES: Message[] = [
   {
     id: 'me-2',
     side: 'me',
-    text: 'I know, but we needed your branch merged before the build and we had to work around it last minute.',
+    text: 'I understand, but we needed your branch merged before the build and we had to work around it last minute.',
     audioSrc: '/assets/sc-audio-me-2.m4a',
   },
   {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './Views/Home';
 import './App.css';
 import './index.css';
@@ -14,7 +14,40 @@ import About from './Views/About.tsx';
 import Precisely from './Views/Projects/Precisely.tsx'
 import Accessibility from './Views/Projects/Accessibility.tsx';
 import SpeechCoach from './Views/Projects/SpeechCoach.tsx';
+import VoiceUX from './Views/Projects/VoiceUX.tsx';
+import RewardsApp from './Views/Projects/RewardsApp.tsx';
+import EitherOr from './Views/EitherOr.tsx';
+import RewardsExperiments from './Views/Projects/RewardsExperiments.tsx';
 
+
+const HIDDEN_NAV_ROUTES = ['/slides', '/voiceux', '/rewardsapp', '/rewardsexperiments']
+
+function AppContent() {
+  const location = useLocation()
+  const hideNav = HIDDEN_NAV_ROUTES.includes(location.pathname)
+
+  return (
+    <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+      <CustomCursor />
+      {!hideNav && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/design-systems" element={<DesignSystems />} />
+        <Route path="/guide" element={<Guide />} />
+        <Route path="/design-thinking" element={<DesignThinking />} />
+        <Route path="/arine" element={<Arine />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/Precisely" element={<Precisely />} />
+        <Route path="/accessibility" element={<Accessibility />} />
+        <Route path="/speech-coach" element={<SpeechCoach />} />
+        <Route path="/voiceux" element={<VoiceUX />} />
+        <Route path="/rewardsapp" element={<RewardsApp />} />
+        <Route path="/slides" element={<EitherOr />} />
+        <Route path="/rewardsexperiments" element={<RewardsExperiments />} />
+      </Routes>
+    </div>
+  )
+}
 
 const App: React.FC = () => {
 
@@ -57,22 +90,8 @@ const App: React.FC = () => {
 
   return (
     <Router>
-        <Stars />
-        <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
-          <CustomCursor />
-          <Navbar/>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/design-systems" element={<DesignSystems />} />
-            <Route path="/guide" element={<Guide />} />
-            <Route path="/design-thinking" element={<DesignThinking />} />
-            <Route path="/arine" element={<Arine />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/Precisely" element={<Precisely />} />
-            <Route path="/accessibility" element={<Accessibility />} />
-            <Route path="/speech-coach" element={<SpeechCoach />} />
-          </Routes>
-        </div>
+      <Stars />
+      <AppContent />
     </Router>
   );
 };

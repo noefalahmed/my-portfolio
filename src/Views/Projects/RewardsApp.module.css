@@ -1,0 +1,599 @@
+
+.page {
+    position: fixed;
+    inset: 0;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    animation: pageSlideUp 0.8s ease-out both;
+}
+
+.projectSlide {
+    height: 100vh;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.projectSlideScroll {
+    height: 100vh;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow-y: auto;
+    padding: 48px 24px;
+}
+
+.projectSlideAccordion {
+    min-height: 100vh;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    box-sizing: border-box;
+}
+
+@keyframes pageSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.conversationRow {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.conversationSnippetRow {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.conversationSnippetRow > * {
+    flex: 1;
+    min-width: 0;
+    margin-top: 0 !important;
+}
+
+.conversationPlaceholder {
+    border-radius: 10px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.conversationSideImage {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-top: 24px;
+}
+
+.contentcontainer{
+    display: flex;
+    padding: 0px 240px;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+    justify-content: flex-start;
+    position:relative;
+    max-width:1440px;
+    place-self: center;
+    width:100%;
+}
+
+
+.cardStack {
+    position: relative;
+    width: 696px;
+    height: 448px;
+}
+
+.stackCard {
+    position: absolute;
+    width: 648px;
+    height: 400px;
+    background: #ebebeb;
+    border: 1px solid #c8c8c8;
+    border-radius: 12px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                z-index 0s linear 0.25s;
+}
+
+.processDiagram {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+}
+
+@keyframes circleExpand {
+    from { transform: scale(0); }
+    to   { transform: scale(1); }
+}
+
+@keyframes diagramFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.circleAnimate {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: circleExpand 0.7s cubic-bezier(0.34, 1.1, 0.64, 1) both;
+}
+
+.circleHidden {
+    opacity: 0;
+}
+
+.diagramContent {
+    animation: diagramFadeIn 0.8s ease both;
+}
+
+.diagramContentHidden {
+    opacity: 0;
+}
+
+.quoteWrapper {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.quoteGhost {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1.7;
+    white-space: nowrap;
+    color: transparent;
+    pointer-events: none;
+    user-select: none;
+}
+
+.quoteTyped {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1.7;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.accordionTitleTag {
+    display: inline-block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 3px 8px;
+}
+
+.bigContainer {
+    width: 100%;
+    max-width: 960px;
+    height: calc((100vh - 64px) * 0.75);
+    background: #111214;
+    border: 1px solid #222428;
+    border-radius: 12px;
+    margin: 0 24px;
+    box-sizing: border-box;
+}
+
+.bentoGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, calc((100vh - 96px) * 0.75 / 3));
+    gap: 16px;
+    width: 100%;
+    max-width: 960px;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.bentoCell {
+    background: #111214;
+    border: 1px solid #222428;
+    border-radius: 12px;
+}
+
+.bentoCellWide {
+    grid-column: span 2;
+}
+
+.largeTextBlock {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.problemTag {
+    display: inline-block;
+    align-self: flex-start;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -0.03em;
+    color: #FFF;
+    margin-bottom: 32px;
+}
+
+.largeTextWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.largeTextGhost {
+    color: transparent;
+    font-family: "IBM Plex Sans";
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 189%;
+    width: 100%;
+    text-align: left;
+    pointer-events: none;
+    user-select: none;
+}
+
+.largeTextTyped {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: var(--Precisely-White-100, #D9D9D9);
+    font-family: "IBM Plex Sans";
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 189%;
+    text-align: left;
+}
+
+.projectSlideTop {
+    height: 100vh;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: calc(20vh - 200px);
+    box-sizing: border-box;
+}
+
+.largetext{
+    color: var(--Precisely-White-100, #D9D9D9);
+    font-family: "IBM Plex Sans";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 189%;
+    padding: 80px 0px;
+    width: 100%;
+    text-align: left;
+}
+
+.typedCursor {
+    display: inline-block;
+    width: 2px;
+    height: 0.85em;
+    background-color: #D9D9D9;
+    vertical-align: -0.1em;
+    margin-left: 4px;
+    animation: largeBlink 1.2s step-end infinite;
+}
+
+@keyframes largeBlink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+
+.subsection{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    justify-content: space-between;
+}
+
+.sub1section{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 48px;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+
+.sub2section{
+    display: flex;
+    flex-direction: column;
+    flex-direction: column;
+    align-items: flex-start;
+    place-content: center;
+    gap:16px;
+
+}
+.sub3section{
+    display: flex;
+    flex-direction: column;
+    width: 49%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    place-content: flex-start;
+}
+
+.rowcontent{
+    display:flex;
+    flex-direction: row;
+    place-content: flex-start;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width:100%;
+}
+
+.cardarrangement{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width:100%;
+    row-gap: 64px;
+    justify-content: space-between;
+}
+
+
+.image{
+    border-radius: 8px;
+    display:block;
+    border-color: var(--DarkElevation);
+    border-width: 1px;
+    border-style: solid;
+    object-fit: cover;
+    position:relative;
+    background-color: #000309;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+ .image-full{
+    height: 100%;
+    width: 100vw;
+    background-color: #000309;
+    display:block;
+    place-self: center;
+    place-content: center;
+    place-items: center;
+    align-self: center;
+    align-items: center;
+    align-content: center;
+    margin: 0;
+    padding: 24px;
+    border: none;
+ }
+
+ .image-bleed{
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    height: auto;
+    display: block;
+}
+
+.image-large{
+    height: auto;
+    width:100%;
+    background-color: #000309;
+}
+
+.image-small{
+    height: auto;
+    width:49%;
+    background-color: #000309;
+}
+
+.image-dynamic{
+    background-color: #000309;
+    height: auto;
+    width:100%;
+}
+
+.fullBleedWrapper {
+  position: relative;          /* stay in document flow */
+  width: 100vw;                /* full viewport width */
+  left: 50%;                   /* move to center of viewport */
+  margin-left: -50vw;          /* escape contentcontainer padding/max-width */
+  margin-right: -50vw;         /* optional */
+  box-sizing: border-box;      /* safe */
+  display:block;
+}
+
+.fullBleedImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: #000309;
+}
+
+.ipadShowcase {
+    width: calc(100vw - 48px);
+    margin-left: calc(50% - 50vw + 24px);
+    background: #f0f0f0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.ipadShowcase::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/assets/sc-texture.png');
+    background-repeat: repeat;
+    background-size: auto;
+    opacity: 1;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ipadShowcase > * {
+    position: relative;
+    z-index: 1;
+}
+
+.ipadFrame {
+    width: 70%;
+    aspect-ratio: 2672 / 1806;
+    border: 12px solid #000;
+    border-radius: 24px;
+    background: transparent;
+    overflow: hidden;
+}
+
+.ipadVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+
+.sh1{
+    color: --Light;
+    font-family: "IBM Plex Mono";
+    font-size: 38px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%; /* 54.516px */
+    letter-spacing: -1px;
+    text-transform: capitalize;
+    padding:0px;
+    margin:0px;
+}
+
+.sh2{
+    color: #fff;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin:0px;
+}
+
+.p1{
+    color: #d8d8d8;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-top:0px;
+    margin-bottom:16px;
+}
+
+@media(max-width: 1200px)
+{
+
+    /* .rowcontent
+    {
+        flex-direction: column;
+        align-items: flex-start;
+        width:100%;
+    } */
+
+    .contentcontainer{
+
+        padding-top:24px;
+        padding: 0px 64px;
+
+    }
+
+    /* .image-small{
+        height:auto;
+        width:100%;
+    }
+
+    .sub2section{
+        width:100%;
+    } */
+
+       .largetext{
+        padding:0px;
+        padding-bottom:32px;
+    }
+}
+
+
+@media (max-width:768px){
+
+    /* .cardarrangement{
+
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    .sub3section{
+
+        width: 100%;
+    }
+
+    .subsection{
+        gap: 16px;
+    } */
+
+    .image-full{
+    padding: 0px;
+
+ }
+
+    .contentcontainer{
+
+        padding-top:24px;
+        padding: 0px;
+        gap: 20px;
+    }
+
+    .page{
+    padding-left: 16px;
+    padding-right: 16px;
+    }
+
+}
+
+@media (max-width:480px){
+
+    /* .p1{
+        font-size:16px;
+    }
+    
+    .image-small{
+        height:auto;
+        padding:0px;
+    } */
+}

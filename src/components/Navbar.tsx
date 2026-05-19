@@ -39,9 +39,10 @@ const Navbar: React.FC = () => {
         <img src="/assets/Logo.svg" alt="Logo" width="24" height="24" />
       </a>
       <div className={styles.navLinks}>
+        <a href="/slides" className={styles.navLink}><span>Slides</span></a>
         <a href="./assets/resume.pdf" download className={styles.navLink}><span>Resume</span>  <Download size={16} strokeWidth={1.5} />
 </a>
-       {/*<a href="/about" className={styles.navLink}>About</a>*/} 
+       {/*<a href="/about" className={styles.navLink}>About</a>*/}
       </div>
     </nav>
   )

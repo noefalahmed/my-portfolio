@@ -11,6 +11,7 @@ interface AccordionItem {
 
 interface AccordionProps {
   items: AccordionItem[]
+  titleClassName?: string
 }
 
 const HEADER_HEIGHT = 57
@@ -73,7 +74,7 @@ const AccordionContent = React.forwardRef<HTMLDivElement, { content: React.React
   )
 })
 
-const Accordion: React.FC<AccordionProps> = ({ items }) => {
+const Accordion: React.FC<AccordionProps> = ({ items, titleClassName }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [navbarBottom, setNavbarBottom] = useState(0)
   const [hidden, setHidden] = useState(false)
@@ -148,7 +149,7 @@ const Accordion: React.FC<AccordionProps> = ({ items }) => {
               onClick={() => toggle(index)}
               aria-expanded={openIndex === index}
             >
-              <span className={styles.accordionTitle}>{item.title}</span>
+              <span className={titleClassName ?? styles.accordionTitle}>{item.title}</span>
               <ChevronDown
                 size={24}
                 className={`${styles.accordionArrow} ${openIndex === index ? styles.accordionArrowOpen : ""}`}

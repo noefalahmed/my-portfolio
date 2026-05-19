@@ -729,6 +729,210 @@ body { font-family: 'Inter', sans-serif; background: #F0F0F0; color: var(--charc
 
 /* misc */
 .section-divider { height: 1px; background: #E8E8E8; margin: 32px 0; }
+
+/* ══════════════════════════════
+   SCENARIO CARDS
+══════════════════════════════ */
+.sc-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+
+/* Shared base */
+.sc-card {
+  background: #fff;
+  border: 1px solid #EAEAEA;
+  border-radius: 14px;
+  padding: 18px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.sc-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sc-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  line-height: 1.3;
+}
+.sc-menu-btn {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: none; cursor: pointer; color: #aaa;
+  border-radius: 6px;
+}
+.sc-menu-btn:hover { background: #F3F3F3; color: #555; }
+.sc-meta-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+.sc-meta-cell { display: flex; flex-direction: column; gap: 4px; }
+.sc-meta-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #999;
+  letter-spacing: 0.04em;
+}
+.sc-meta-value {
+  font-size: 13px;
+  font-weight: 500;
+  color: #222;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sc-avatar {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #ddd;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.sc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.sc-score-wrap { margin-left: auto; flex-shrink: 0; }
+
+/* Score ring SVG */
+.sc-ring-track { stroke: #EAEAEA; }
+.sc-ring-fill  { stroke: #B31B1B; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
+.sc-ring-num   { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; fill: #111; }
+
+/* ── Variant B: Compact horizontal ── */
+.sc-card-b {
+  flex-direction: row;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 12px;
+}
+.sc-card-b-left { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.sc-card-b-title { font-size: 15px; font-weight: 600; color: #111; }
+.sc-card-b-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sc-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #F3F3F3; border: 1px solid #E8E8E8;
+  border-radius: 999px; padding: 3px 9px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #555;
+}
+.sc-score-pill {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 2px solid #B31B1B;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 15px; font-weight: 700; color: #B31B1B;
+  margin-left: 16px;
+}
+
+/* ── Variant C: Left accent border ── */
+.sc-card-c {
+  border-left: 4px solid #B31B1B;
+  border-radius: 12px;
+  padding-left: 14px;
+}
+
+/* ── Variant D: Dark ── */
+.sc-card-d {
+  background: #1a1a1a;
+  border-color: #2e2e2e;
+}
+.sc-card-d .sc-card-title { color: #f0f0f0; }
+.sc-card-d .sc-menu-btn { color: #555; }
+.sc-card-d .sc-menu-btn:hover { background: #2a2a2a; color: #aaa; }
+.sc-card-d .sc-meta-label { color: #555; }
+.sc-card-d .sc-meta-value { color: #ccc; }
+.sc-card-d .sc-ring-track { stroke: #2e2e2e; }
+.sc-card-d .sc-ring-num { fill: #f0f0f0; }
+
+/* ── Variant E: Minimal / ghost ── */
+.sc-card-e {
+  background: transparent;
+  border: 1.5px dashed #D0D0D0;
+  border-radius: 12px;
+}
+.sc-card-e .sc-card-title { font-size: 15px; font-weight: 500; }
+.sc-score-text { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+.sc-score-text-num { font-size: 22px; font-weight: 700; color: #B31B1B; line-height: 1; }
+.sc-score-text-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: #aaa; }
+
+/* ── View toggle ── */
+.sc-view-toggle {
+  display: flex;
+  gap: 2px;
+  background: #F3F3F3;
+  border: 1px solid #E8E8E8;
+  border-radius: 8px;
+  padding: 3px;
+}
+.sc-toggle-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  padding: 5px 16px;
+  border: none;
+  background: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #888;
+  transition: background 0.15s, color 0.15s;
+  letter-spacing: 0.04em;
+}
+.sc-toggle-btn.sc-active {
+  background: #fff;
+  color: #111;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* ── Data table ── */
+.sc-table-wrap { background: #fff; border: 1px solid #EAEAEA; border-radius: 12px; overflow: hidden; }
+.sc-table { width: 100%; border-collapse: collapse; }
+.sc-table thead tr { border-bottom: 1px solid #EAEAEA; background: #FAFAFA; }
+.sc-table th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #999;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 11px 16px;
+  text-align: left;
+  font-weight: 500;
+}
+.sc-table tbody tr { border-bottom: 1px solid #EAEAEA; transition: background 0.1s; }
+.sc-table tbody tr:last-child { border-bottom: none; }
+.sc-table tbody tr:hover { background: #FAFAFA; }
+.sc-table td { padding: 14px 16px; vertical-align: middle; }
+.sc-td-variant {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: #B31B1B;
+  background: #FEF2F2;
+  border: 1px solid #F5A5A5;
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+.sc-td-title { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 600; color: #111; }
+.sc-td-agent { display: flex; align-items: center; gap: 6px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: #222; }
+.sc-td-text { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: #555; }
+.sc-td-diff-chip {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #F3F3F3;
+  border: 1px solid #E8E8E8;
+  color: #555;
+}
+.sc-td-score-ring { display: flex; align-items: center; gap: 8px; }
+.sc-td-score-num { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 700; color: #B31B1B; }
 </style>
 </head>
 <body>
@@ -747,6 +951,7 @@ body { font-family: 'Inter', sans-serif; background: #F0F0F0; color: var(--charc
     <li><a href="#messages">Messages</a></li>
     <li><a href="#msg-anim">Message Animation</a></li>
     <li><a href="#cards">Cards & CTAs</a></li>
+    <li><a href="#scenario-cards">Scenario Cards</a></li>
     <li><a href="#recording">Recording Pill</a></li>
     <li><a href="#responsive">Responsive</a></li>
     <li><a href="#animations">Animations</a></li>
@@ -1612,7 +1817,410 @@ body { font-family: 'Inter', sans-serif; background: #F0F0F0; color: var(--charc
   </div>
 </section>
 
-<!-- ══ 10. RECORDING PILL ══ -->
+<!-- ══ 10. SCENARIO CARDS ══ -->
+<section class="section" id="scenario-cards">
+  <div class="section-title">10 — Components</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;padding-bottom:14px;border-bottom:2px solid #E0E0E0;">
+    <div class="section-heading" style="margin-bottom:0;padding-bottom:0;border-bottom:none;">Scenario Cards — Format Explorations</div>
+    <div class="sc-view-toggle" id="sc-toggle">
+      <button class="sc-toggle-btn sc-active" data-view="cards">Cards</button>
+      <button class="sc-toggle-btn" data-view="table">Table</button>
+    </div>
+  </div>
+
+  <div id="sc-cards-view">
+  <div class="sc-card-grid">
+
+    <!-- A: Reference — title + meta row + score ring -->
+    <div class="comp-card">
+      <div class="comp-card-label">A — Reference (title + meta + ring)</div>
+      <div class="sc-card">
+        <div class="sc-card-header">
+          <div class="sc-card-title">Underperforming Team Member</div>
+          <button class="sc-menu-btn" aria-label="More options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="13" r="1.2"/></svg>
+          </button>
+        </div>
+        <div class="sc-meta-row">
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Agent</span>
+            <span class="sc-meta-value">
+              <span class="sc-avatar">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E8D5C4"/><circle cx="10" cy="8" r="3.2" fill="#C4A882"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#C4A882"/></svg>
+              </span>
+              Alex
+            </span>
+          </div>
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Date</span>
+            <span class="sc-meta-value">Feb 12, 2025</span>
+          </div>
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Difficulty</span>
+            <span class="sc-meta-value">Defensive</span>
+          </div>
+          <div class="sc-score-wrap">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+              <circle class="sc-ring-track" cx="28" cy="28" r="22" stroke-width="3" fill="none"/>
+              <circle class="sc-ring-fill" cx="28" cy="28" r="22" stroke-width="3" fill="none"
+                stroke-dasharray="101 138" stroke-dashoffset="0"/>
+              <text class="sc-ring-num" x="28" y="33" text-anchor="middle" font-size="14">73</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B: Compact horizontal — tags + score pill -->
+    <div class="comp-card">
+      <div class="comp-card-label">B — Compact horizontal (tags + pill)</div>
+      <div class="sc-card sc-card-b">
+        <div class="sc-card-b-left">
+          <div class="sc-card-b-title">Underperforming Team Member</div>
+          <div class="sc-card-b-tags">
+            <span class="sc-tag">
+              <span class="sc-avatar" style="width:14px;height:14px;">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#E8D5C4"/><circle cx="7" cy="5.5" r="2.2" fill="#C4A882"/><ellipse cx="7" cy="11.5" rx="3.5" ry="2.5" fill="#C4A882"/></svg>
+              </span>
+              Alex
+            </span>
+            <span class="sc-tag">Feb 12, 2025</span>
+            <span class="sc-tag">Defensive</span>
+          </div>
+        </div>
+        <div class="sc-score-pill">73</div>
+      </div>
+    </div>
+
+    <!-- C: Left accent border -->
+    <div class="comp-card">
+      <div class="comp-card-label">C — Left accent border</div>
+      <div class="sc-card sc-card-c">
+        <div class="sc-card-header">
+          <div class="sc-card-title">Underperforming Team Member</div>
+          <button class="sc-menu-btn" aria-label="More options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="13" r="1.2"/></svg>
+          </button>
+        </div>
+        <div class="sc-meta-row">
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Agent</span>
+            <span class="sc-meta-value">
+              <span class="sc-avatar">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E8D5C4"/><circle cx="10" cy="8" r="3.2" fill="#C4A882"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#C4A882"/></svg>
+              </span>
+              Alex
+            </span>
+          </div>
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Date</span>
+            <span class="sc-meta-value">Feb 12, 2025</span>
+          </div>
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Difficulty</span>
+            <span class="sc-meta-value">Defensive</span>
+          </div>
+          <div class="sc-score-wrap">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+              <circle class="sc-ring-track" cx="28" cy="28" r="22" stroke-width="3" fill="none"/>
+              <circle class="sc-ring-fill" cx="28" cy="28" r="22" stroke-width="3" fill="none"
+                stroke-dasharray="101 138" stroke-dashoffset="0"/>
+              <text class="sc-ring-num" x="28" y="33" text-anchor="middle" font-size="14">73</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- D: Dark mode -->
+    <div class="comp-card">
+      <div class="comp-card-label">D — Dark surface</div>
+      <div class="sc-card sc-card-d">
+        <div class="sc-card-header">
+          <div class="sc-card-title">Underperforming Team Member</div>
+          <button class="sc-menu-btn" aria-label="More options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="13" r="1.2"/></svg>
+          </button>
+        </div>
+        <div class="sc-meta-row">
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Agent</span>
+            <span class="sc-meta-value">
+              <span class="sc-avatar" style="background:#333;">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#3a3a3a"/><circle cx="10" cy="8" r="3.2" fill="#555"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#555"/></svg>
+              </span>
+              Alex
+            </span>
+          </div>
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Date</span>
+            <span class="sc-meta-value">Feb 12, 2025</span>
+          </div>
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Difficulty</span>
+            <span class="sc-meta-value">Defensive</span>
+          </div>
+          <div class="sc-score-wrap">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+              <circle class="sc-ring-track" cx="28" cy="28" r="22" stroke-width="3" fill="none"/>
+              <circle class="sc-ring-fill" cx="28" cy="28" r="22" stroke-width="3" fill="none"
+                stroke-dasharray="101 138" stroke-dashoffset="0"/>
+              <text class="sc-ring-num" x="28" y="33" text-anchor="middle" font-size="14">73</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- E: Minimal / ghost — no ring, score as text -->
+    <div class="comp-card">
+      <div class="comp-card-label">E — Minimal / ghost (score as text)</div>
+      <div class="sc-card sc-card-e">
+        <div class="sc-card-header">
+          <div class="sc-card-title">Underperforming Team Member</div>
+          <div class="sc-score-text">
+            <span class="sc-score-text-num">73</span>
+            <span class="sc-score-text-label">score</span>
+          </div>
+        </div>
+        <div class="sc-meta-row">
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Agent</span>
+            <span class="sc-meta-value">
+              <span class="sc-avatar">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E8D5C4"/><circle cx="10" cy="8" r="3.2" fill="#C4A882"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#C4A882"/></svg>
+              </span>
+              Alex
+            </span>
+          </div>
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Date</span>
+            <span class="sc-meta-value">Feb 12, 2025</span>
+          </div>
+          <div class="sc-meta-cell">
+            <span class="sc-meta-label">Difficulty</span>
+            <span class="sc-meta-value">Defensive</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F: Difficulty badge inline with title -->
+    <div class="comp-card">
+      <div class="comp-card-label">F — Difficulty badge inline</div>
+      <div class="sc-card">
+        <div class="sc-card-header">
+          <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <div class="sc-card-title" style="font-size:15px;">Underperforming Team Member</div>
+              <span style="flex-shrink:0;background:#FEF2F2;border:1px solid #F5A5A5;border-radius:999px;padding:2px 9px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#B31B1B;font-weight:500;">Defensive</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <span class="sc-meta-value" style="font-size:12px;">
+                <span class="sc-avatar">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E8D5C4"/><circle cx="10" cy="8" r="3.2" fill="#C4A882"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#C4A882"/></svg>
+                </span>
+                Alex
+              </span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#999;">Feb 12, 2025</span>
+            </div>
+          </div>
+          <div class="sc-score-wrap">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+              <circle class="sc-ring-track" cx="28" cy="28" r="22" stroke-width="3" fill="none"/>
+              <circle class="sc-ring-fill" cx="28" cy="28" r="22" stroke-width="3" fill="none"
+                stroke-dasharray="101 138" stroke-dashoffset="0"/>
+              <text class="sc-ring-num" x="28" y="33" text-anchor="middle" font-size="14">73</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end sc-card-grid -->
+  </div><!-- end sc-cards-view -->
+
+  <div id="sc-table-view" style="display:none;">
+    <div class="sc-table-wrap">
+      <table class="sc-table">
+        <thead>
+          <tr>
+            <th>Format</th>
+            <th>Scenario</th>
+            <th>Agent</th>
+            <th>Date</th>
+            <th>Difficulty</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- A -->
+          <tr>
+            <td><span class="sc-td-variant">A</span></td>
+            <td class="sc-td-title">Underperforming Team Member</td>
+            <td>
+              <span class="sc-td-agent">
+                <span class="sc-avatar"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E8D5C4"/><circle cx="10" cy="8" r="3.2" fill="#C4A882"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#C4A882"/></svg></span>
+                Alex
+              </span>
+            </td>
+            <td class="sc-td-text">Feb 12, 2025</td>
+            <td><span class="sc-td-diff-chip">Defensive</span></td>
+            <td>
+              <div class="sc-td-score-ring">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="12" stroke="#EAEAEA" stroke-width="2.5" fill="none"/>
+                  <circle cx="16" cy="16" r="12" stroke="#B31B1B" stroke-width="2.5" fill="none" stroke-linecap="round"
+                    stroke-dasharray="55 75" transform="rotate(-90 16 16)"/>
+                </svg>
+                <span class="sc-td-score-num">73</span>
+              </div>
+            </td>
+          </tr>
+          <!-- B -->
+          <tr>
+            <td><span class="sc-td-variant">B</span></td>
+            <td class="sc-td-title">Underperforming Team Member</td>
+            <td>
+              <span class="sc-td-agent">
+                <span class="sc-avatar"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E8D5C4"/><circle cx="10" cy="8" r="3.2" fill="#C4A882"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#C4A882"/></svg></span>
+                Alex
+              </span>
+            </td>
+            <td class="sc-td-text">Feb 12, 2025</td>
+            <td><span class="sc-td-diff-chip">Defensive</span></td>
+            <td>
+              <div class="sc-td-score-ring">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="12" stroke="#EAEAEA" stroke-width="2.5" fill="none"/>
+                  <circle cx="16" cy="16" r="12" stroke="#B31B1B" stroke-width="2.5" fill="none" stroke-linecap="round"
+                    stroke-dasharray="55 75" transform="rotate(-90 16 16)"/>
+                </svg>
+                <span class="sc-td-score-num">73</span>
+              </div>
+            </td>
+          </tr>
+          <!-- C -->
+          <tr>
+            <td><span class="sc-td-variant">C</span></td>
+            <td class="sc-td-title">Underperforming Team Member</td>
+            <td>
+              <span class="sc-td-agent">
+                <span class="sc-avatar"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E8D5C4"/><circle cx="10" cy="8" r="3.2" fill="#C4A882"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#C4A882"/></svg></span>
+                Alex
+              </span>
+            </td>
+            <td class="sc-td-text">Feb 12, 2025</td>
+            <td><span class="sc-td-diff-chip">Defensive</span></td>
+            <td>
+              <div class="sc-td-score-ring">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="12" stroke="#EAEAEA" stroke-width="2.5" fill="none"/>
+                  <circle cx="16" cy="16" r="12" stroke="#B31B1B" stroke-width="2.5" fill="none" stroke-linecap="round"
+                    stroke-dasharray="55 75" transform="rotate(-90 16 16)"/>
+                </svg>
+                <span class="sc-td-score-num">73</span>
+              </div>
+            </td>
+          </tr>
+          <!-- D -->
+          <tr>
+            <td><span class="sc-td-variant">D</span></td>
+            <td class="sc-td-title">Underperforming Team Member</td>
+            <td>
+              <span class="sc-td-agent">
+                <span class="sc-avatar"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E8D5C4"/><circle cx="10" cy="8" r="3.2" fill="#C4A882"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#C4A882"/></svg></span>
+                Alex
+              </span>
+            </td>
+            <td class="sc-td-text">Feb 12, 2025</td>
+            <td><span class="sc-td-diff-chip">Defensive</span></td>
+            <td>
+              <div class="sc-td-score-ring">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="12" stroke="#EAEAEA" stroke-width="2.5" fill="none"/>
+                  <circle cx="16" cy="16" r="12" stroke="#B31B1B" stroke-width="2.5" fill="none" stroke-linecap="round"
+                    stroke-dasharray="55 75" transform="rotate(-90 16 16)"/>
+                </svg>
+                <span class="sc-td-score-num">73</span>
+              </div>
+            </td>
+          </tr>
+          <!-- E -->
+          <tr>
+            <td><span class="sc-td-variant">E</span></td>
+            <td class="sc-td-title">Underperforming Team Member</td>
+            <td>
+              <span class="sc-td-agent">
+                <span class="sc-avatar"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E8D5C4"/><circle cx="10" cy="8" r="3.2" fill="#C4A882"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#C4A882"/></svg></span>
+                Alex
+              </span>
+            </td>
+            <td class="sc-td-text">Feb 12, 2025</td>
+            <td><span class="sc-td-diff-chip">Defensive</span></td>
+            <td>
+              <div class="sc-td-score-ring">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="12" stroke="#EAEAEA" stroke-width="2.5" fill="none"/>
+                  <circle cx="16" cy="16" r="12" stroke="#B31B1B" stroke-width="2.5" fill="none" stroke-linecap="round"
+                    stroke-dasharray="55 75" transform="rotate(-90 16 16)"/>
+                </svg>
+                <span class="sc-td-score-num">73</span>
+              </div>
+            </td>
+          </tr>
+          <!-- F -->
+          <tr>
+            <td><span class="sc-td-variant">F</span></td>
+            <td class="sc-td-title">Underperforming Team Member</td>
+            <td>
+              <span class="sc-td-agent">
+                <span class="sc-avatar"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#E8D5C4"/><circle cx="10" cy="8" r="3.2" fill="#C4A882"/><ellipse cx="10" cy="16.5" rx="5.2" ry="3.5" fill="#C4A882"/></svg></span>
+                Alex
+              </span>
+            </td>
+            <td class="sc-td-text">Feb 12, 2025</td>
+            <td><span class="sc-td-diff-chip">Defensive</span></td>
+            <td>
+              <div class="sc-td-score-ring">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="12" stroke="#EAEAEA" stroke-width="2.5" fill="none"/>
+                  <circle cx="16" cy="16" r="12" stroke="#B31B1B" stroke-width="2.5" fill="none" stroke-linecap="round"
+                    stroke-dasharray="55 75" transform="rotate(-90 16 16)"/>
+                </svg>
+                <span class="sc-td-score-num">73</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var toggle = document.getElementById('sc-toggle');
+      var cardsView = document.getElementById('sc-cards-view');
+      var tableView = document.getElementById('sc-table-view');
+      toggle.addEventListener('click', function(e) {
+        var btn = e.target.closest('.sc-toggle-btn');
+        if (!btn) return;
+        toggle.querySelectorAll('.sc-toggle-btn').forEach(function(b) { b.classList.remove('sc-active'); });
+        btn.classList.add('sc-active');
+        if (btn.dataset.view === 'cards') {
+          cardsView.style.display = '';
+          tableView.style.display = 'none';
+        } else {
+          cardsView.style.display = 'none';
+          tableView.style.display = '';
+        }
+      });
+    })();
+  </script>
+
+</section>
+
+<!-- ══ 11. RECORDING PILL ══ -->
 <section class="section" id="recording">
   <div class="section-title">10 — Components</div>
   <div class="section-heading">Recording Pill — States</div>

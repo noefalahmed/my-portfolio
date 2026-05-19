@@ -1,0 +1,155 @@
+.presSlide {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0 64px 0;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scroll-margin-top: 57px;
+}
+
+.slideNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 0 8px;
+}
+
+.slideDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #444;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.slideDotActive {
+  background: #d8d8d8;
+}
+
+.slideArrow {
+  background: none;
+  border: 0.5px solid #444;
+  border-radius: 4px;
+  color: #888;
+  cursor: pointer;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s, border-color 0.2s;
+  line-height: 1;
+}
+
+.slideArrow:hover:not(:disabled) {
+  color: #fff;
+  border-color: #888;
+}
+
+.slideArrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.accordionContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+  gap:0px;
+  height:fit-content;
+
+}
+
+.accordionItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.stickyHeader {
+  position: sticky;
+  background-color: #000309;
+  z-index: 10;
+  width: 100%;
+  transition: top 0.3s ease;
+}
+
+.dashedLine {
+  width: 100%;
+  height: 1px;
+  border-top: 0.5px dashed #3A3A3A;
+  
+}
+
+.accordionHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  cursor: none;
+  transition: opacity 0.2s ease;
+}
+
+.accordionHeader:hover {
+  opacity: 0.8;
+}
+
+.accordionTitle {
+  color: #FFF;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.accordionArrow {
+  color: #d8d8d8;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.accordionArrowOpen {
+  transform: rotate(180deg);
+}
+
+.accordionContent {
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordionContentInner {
+  padding: 24px 0px 44px 0px;
+  color: #d8d8d8;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+
+  .accordionTitle {
+    font-size: 18px;
+  }
+
+  .accordionHeader {
+    padding: 20px 0;
+  }
+
+  .accordionContentInner {
+    font-size: 14px;
+  }
+}
