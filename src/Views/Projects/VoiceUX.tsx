@@ -512,7 +512,7 @@ const VoiceUX: React.FC = () => {
 
         {createPortal(
             <>
-                <a href="/eitheror?s=1" style={{ position: 'fixed', left: 24, top: 24, fontFamily: '"IBM Plex Mono", monospace', fontSize: 11, fontWeight: 400, color: '#fff', letterSpacing: '0.08em', textDecoration: 'none', zIndex: 9999, pointerEvents: 'auto', textTransform: 'uppercase' }}>
+                <a href="/slides?s=1" style={{ position: 'fixed', left: 24, top: 24, fontFamily: '"IBM Plex Mono", monospace', fontSize: 11, fontWeight: 400, color: '#fff', letterSpacing: '0.08em', textDecoration: 'none', zIndex: 9999, pointerEvents: 'auto', textTransform: 'uppercase' }}>
                     ‹ Cases
                 </a>
                 <div style={{ position: 'fixed', right: 24, top: '50%', transform: 'translateY(-50%)', display: 'flex', flexDirection: 'column', gap: 8, zIndex: 9999, pointerEvents: 'none' }}>
