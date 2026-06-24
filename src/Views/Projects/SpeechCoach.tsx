@@ -202,7 +202,6 @@ const SpeechCoach: React.FC = () => {
                     details={[
                         { label: "Company", value: "Cornell University" },
                         { label: "Role", value: "Lead Product Designer" },
-                        { label: "Duration", value: "Ongoing" },
                         { label: "Skills", value: "Voice UX, Conversation Design, Rapid Prototyping" },
                     ]}
                 />

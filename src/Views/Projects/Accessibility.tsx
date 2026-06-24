@@ -171,7 +171,6 @@ const Accessibility: React.FC = () => {
           details={[
             { label: "Company", value: "Upland Software" },
             { label: "Role", value: "Product Designer" },
-            { label: "Duration", value: "2 Months" },
             { label: "Skills", value: "Accessibility, WCAG, Inclusive Design" },
           ]}
         />

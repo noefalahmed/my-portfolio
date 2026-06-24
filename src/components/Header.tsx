@@ -50,7 +50,17 @@ const Header: React.FC<HeaderProps> = ({ title, imageSrc, imageAlt, details }) =
         {details.map((detail, index) => (
           <div key={index} className={styles.detailPair}>
             <span className={styles.detailLabel}>{detail.label}</span>
-            <span className={styles.detailValue}>{detail.value}</span>
+            {detail.label === 'Skills' ? (
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                {detail.value.split(',').map((skill, i, arr) => (
+                  <span key={i} className={styles.detailValue}>
+                    {skill.trim()}{i < arr.length - 1 ? ',' : ''}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <span className={styles.detailValue}>{detail.value}</span>
+            )}
           </div>
         ))}
       </div>

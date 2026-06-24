@@ -15,7 +15,6 @@ const Arine: React.FC = () => {
                     details={[
                         { label: "Company", value: "Eat Sleep Repeat" },
                         { label: "Role", value: "UX Designer" },
-                        { label: "Duration", value: "7 Months" },
                         { label: "Skills", value: "Design Systems, UI, Product Design" },
                     ]}/>
             </div>
