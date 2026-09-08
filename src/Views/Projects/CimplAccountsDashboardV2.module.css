@@ -1,0 +1,249 @@
+/* ── Filter Sidebar ── */
+.sidebar {
+  width: 360px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--color-quaternary);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--color-quaternary);
+  flex-shrink: 0;
+  background: white;
+}
+
+.sidebarTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: 'Open Sans', -apple-system, sans-serif;
+}
+
+.sidebarContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #FAFAFA;
+  scrollbar-color: #BFC6CE transparent;
+  scrollbar-width: thin;
+}
+
+.sidebarSectionLabel {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text);
+  font-family: 'Open Sans', -apple-system, sans-serif;
+  margin-bottom: 4px;
+}
+
+/* ── Filter card (matches screenshot: border, white bg, checkbox + name + value + chevron) ── */
+.filterCard {
+  background: white;
+  border: 1px solid var(--color-quaternary);
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.filterCard:hover {
+  border-color: var(--color-primary);
+}
+
+.filterCardOpen {
+  border: 2px solid var(--color-primary);
+}
+
+.filterCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  height: 74px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.filterCardBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.filterCardName {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text);
+  font-family: 'Open Sans', -apple-system, sans-serif;
+  margin-bottom: 2px;
+}
+
+.filterCardValue {
+  font-size: 12px;
+  color: var(--color-text);
+  font-family: 'Open Sans', -apple-system, sans-serif;
+}
+
+.filterCardOptions {
+  padding: 8px 16px 16px 24px;
+  border-top: 1px solid var(--color-quaternary);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filterOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  font-size: 14px;
+  font-family: 'Open Sans', -apple-system, sans-serif;
+  color: var(--color-text);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ── Column visibility dropdown ── */
+.colDropdown {
+  position: absolute;
+  top: calc(100% + 2px);
+  right: 6px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 1px 4px rgba(0, 0, 0, 0.1);
+  z-index: 200;
+  min-width: 220px;
+  max-height: 480px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.colDropdownHeader {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text);
+  font-family: 'Open Sans', -apple-system, sans-serif;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--color-quaternary);
+}
+
+.colDropdownSearch {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  position: relative;
+}
+
+
+.colDropdownDivider {
+  height: 1px;
+  background: var(--color-quaternary);
+}
+
+.colDropdownList {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  scrollbar-color: #BFC6CE transparent;
+  scrollbar-width: thin;
+}
+
+.colDropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 48px;
+  padding: 0;
+  font-size: 14px;
+  color: var(--color-text);
+  font-family: 'Open Sans', -apple-system, sans-serif;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.colDropdownCheckboxWrap {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.colDropdownItem:hover {
+  background: rgba(107, 119, 134, 0.08);
+}
+
+/* ── Activity V2 ── */
+.activityContainer {
+  max-width: 1008px; /* 256px nav + 752px content */
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+.activityNav {
+  width: 256px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-quaternary);
+  background: white;
+  padding: 8px 0;
+}
+
+.activityNavItem {
+  display: block;
+  width: 100%;
+  padding: 12px 24px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Open Sans', -apple-system, sans-serif;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.activityNavItem:hover {
+  background: rgba(107, 119, 134, 0.08);
+}
+
+.activityNavItemActive {
+  background: #E2EEFD;
+  color: #0C5CC5;
+}
+
+.activityNavItemActive:hover {
+  background: #E2EEFD;
+}
+
+/* ── Footer ── */
+.sidebarFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: 1px solid var(--color-quaternary);
+  flex-shrink: 0;
+  background: white;
+}

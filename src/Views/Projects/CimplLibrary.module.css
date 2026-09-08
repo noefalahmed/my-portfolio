@@ -1,0 +1,308 @@
+/* ── Page Shell ── */
+.page {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  color: #252B31;
+  background: #F1F3F3;
+}
+
+.topBar {
+  height: 56px;
+  background: #2574DB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.brand {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.brandDivider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.4);
+}
+
+.topBarTitle {
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+}
+
+.backLink {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+.backLink:hover { opacity: 1; }
+
+/* ── Body ── */
+.body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 224px;
+  background: white;
+  border-right: 1px solid #E0E0E0;
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding-bottom: 32px;
+  scrollbar-width: thin;
+  scrollbar-color: #BFC6CE transparent;
+}
+
+.sidebarCategory {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #9E9E9E;
+  padding: 20px 16px 6px;
+}
+
+.sidebarItem {
+  display: block;
+  width: 100%;
+  padding: 9px 16px 9px 20px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #424242;
+  text-align: left;
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.12s;
+}
+
+.sidebarItem:hover {
+  background: #F5F5F5;
+  color: #2574DB;
+}
+
+.sidebarItemActive {
+  background: #EEF4FC;
+  color: #2574DB;
+  font-weight: 600;
+  border-left-color: #2574DB;
+}
+
+/* ── Main ── */
+.main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: #BFC6CE transparent;
+}
+
+.compHeader {
+  background: white;
+  border-bottom: 1px solid #E0E0E0;
+  padding: 24px 40px 0;
+  flex-shrink: 0;
+}
+
+.compName {
+  font-size: 26px;
+  font-weight: 700;
+  color: #252B31;
+  margin: 0 0 6px;
+}
+
+.compDesc {
+  font-size: 14px;
+  color: #6B7786;
+  margin: 0 0 16px;
+  max-width: 600px;
+}
+
+.viewTabs {
+  display: flex;
+  gap: 0;
+}
+
+.viewTab {
+  padding: 0 20px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #6B7786;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.viewTab:hover { color: #252B31; }
+
+.viewTabActive {
+  color: #2574DB;
+  border-bottom-color: #2574DB;
+}
+
+/* ── Content Area ── */
+.compContent {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ── Preview Stage (shared) ── */
+.stageWrap {
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.07);
+  overflow: visible;
+}
+
+.stageLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #9E9E9E;
+  padding: 12px 20px;
+  border-bottom: 1px solid #F0F0F0;
+  background: #FAFAFA;
+  border-radius: 6px 6px 0 0;
+}
+
+.stage {
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  position: relative;
+}
+
+.stageFull {
+  padding: 0;
+  display: block;
+}
+
+/* ── Anatomy ── */
+.anatomyStage {
+  position: relative;
+}
+
+.anatomyLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: white;
+}
+
+.legendRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.legendRow:last-child { border-bottom: none; }
+
+.legendNum {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #7B4FBB;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.legendLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: #252B31;
+  margin-bottom: 2px;
+}
+
+.legendDesc {
+  font-size: 13px;
+  color: #6B7786;
+}
+
+/* ── Specs ── */
+
+.specsTable {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #E0E0E0;
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.specsTableRow {
+  display: contents;
+}
+
+.specsTableKey {
+  background: #FAFAFA;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6B7786;
+}
+
+.specsTableVal {
+  background: white;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #252B31;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ── Empty state ── */
+.emptyState {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #BFC6CE;
+  gap: 12px;
+  font-size: 16px;
+}

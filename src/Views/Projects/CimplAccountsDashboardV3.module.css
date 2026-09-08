@@ -1,0 +1,119 @@
+/* ── Checkbox column ── */
+.checkboxTh {
+  width: 38px;
+  padding-left: 16px;
+  box-sizing: border-box;
+}
+
+.checkboxTd {
+  padding-left: 16px;
+  box-sizing: border-box;
+}
+
+/* ── Chevron column ── */
+.chevronTh {
+  width: 48px;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+
+.chevronTd {
+  width: 48px;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+
+/* ── Chevron button (48x48 touch, 36x36 visual) ── */
+.chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.chevron:hover .chevronBox {
+  background: rgba(107, 119, 134, 0.1);
+}
+
+.chevronBox {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+/* ── Expanded parent row ── */
+.expandedParentRow td {
+  background: #E2EEFD;
+  border-top: 2px solid var(--color-quaternary);
+}
+
+/* Blue bar via inset box-shadow — never shifts layout, renders above background */
+.expandedParentRow td:first-child {
+  box-shadow: inset 4px 0 0 #0C5CC5;
+}
+
+/* ── Sub-section container (full-colspan td holding nested table) ── */
+/* Bar is a positioned ::before so it overlays without shifting layout */
+.subSection {
+  padding: 0 !important;
+  height: auto !important;
+  position: relative;
+}
+
+.subSection::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #0C5CC5;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Nested table — full width so borders span the full row */
+.subTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: white;
+}
+
+/* Spacer cell — holds the checkbox column offset so content starts at chevron position */
+.subSpacer {
+  width: 0px;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Checkbox cell inside nested table */
+.subCheckCell {
+  width: 54px;
+  padding-left: 16px;
+  box-sizing: border-box;
+}
+
+/* ── Sub-header row ── */
+.subHeaderRow {
+  border-bottom: 1px solid var(--color-quaternary);
+}
+
+.subHeaderCell {
+  height: 56px;
+  padding: 0 16px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text);
+  white-space: nowrap;
+  background: white;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--color-quaternary);
+}
