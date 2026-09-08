@@ -1,0 +1,96 @@
+.showcase {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 75% 15%, #F0C8C8 0%, #F8ECEC 45%, #EDE9E4 100%);
+    padding: 60px 6% 80px;
+    margin-top: 24px;
+}
+
+/* ── iPad wrapper — positioning context for phone overlay ── */
+.ipadWrapper {
+    position: relative;
+    width: 78%;
+    margin-left: 5%;
+}
+
+/* ── iPad frame ── */
+.ipadFrame {
+    width: 100%;
+    background: #1A1A1A;
+    border-radius: 30px;
+    padding: 10px;
+    overflow: hidden;
+    transform: translateZ(0);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+.ipadScreen {
+    border-radius: 22px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.desktopIframeContainer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.desktopIframe {
+    width: 1440px;
+    height: 860px;
+    border: none;
+    display: block;
+    transform-origin: top left;
+    pointer-events: none;
+}
+
+/* ── Phone wrapper — positions phone + corner mask together ── */
+.phoneWrapper {
+    position: absolute;
+    right: -20%;
+    top: 60%;
+    transform: translateY(-50%);
+    width: 30%;
+    z-index: 2;
+}
+
+/* ── Phone frame ── */
+.phoneFrame {
+    width: 100%;
+    background: #1A1A1A;
+    border-radius: 50px;
+    padding: 7px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* ── Corner mask — sibling of phoneFrame, always above iframe compositing layer ── */
+.phoneCornerMask {
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    box-shadow: inset 0 0 0 10px #1A1A1A;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.phoneScreen {
+    border-radius: 40px;
+    background: #fff;
+}
+
+.mobileIframeContainer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.mobileIframe {
+    width: 430px;
+    height: 932px;
+    border: none;
+    display: block;
+    transform-origin: top left;
+    pointer-events: none;
+}

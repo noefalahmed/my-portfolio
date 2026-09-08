@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef, forwardRef, useImperativeHandle } from 'react'
 import { createPortal } from 'react-dom'
 import styles from './RewardsApp.module.css'
 import Header from '../../components/Header'
@@ -74,28 +74,35 @@ const ObjectivesSlide = () => {
     return () => observer.disconnect()
   }, [])
 
+  const col6padding = 'calc(80px + (100vw - 240px) / 8)'
+  const col4padding = 'calc(96px + (100vw - 240px) / 4)'
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 48, width: '100%', alignItems: 'flex-start', marginTop: -48 }}>
-    <div ref={ref} style={{ position: 'relative', width: '100%' }}>
-      <img src={`/esr/objectives.svg?v=${CACHE_BUST}`} style={{ width: '100%', height: 'auto', display: 'block', background: 'transparent', border: 'none' }} />
-      {OBJECTIVE_BOXES.map((box, i) => (
-        <div
-          key={i}
-          style={{
-            position: 'absolute',
-            left: box.left,
-            top: box.top,
-            width: box.width,
-            height: box.height,
-            background: '#000309',
-            transformOrigin: 'right',
-            transform: revealed ? 'scaleX(0)' : 'scaleX(1)',
-            transition: `transform 0.5s cubic-bezier(0.4,0,0.2,1) ${revealed ? 0.3 + i * 0.15 : 0}s`,
-          }}
-        />
-      ))}
-    </div>
-      <div style={{ width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%', alignItems: 'flex-start' }}>
+      {/* Diagram — middle 6 columns */}
+      <div style={{ width: '100%', padding: `0 ${col6padding}`, boxSizing: 'border-box' }}>
+        <div ref={ref} style={{ position: 'relative', width: '100%' }}>
+          <img src={`/esr/objectives.svg?v=${CACHE_BUST}`} style={{ width: '100%', height: 'auto', display: 'block', background: 'transparent', border: 'none' }} />
+          {OBJECTIVE_BOXES.map((box, i) => (
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                left: box.left,
+                top: box.top,
+                width: box.width,
+                height: box.height,
+                background: '#000309',
+                transformOrigin: 'right',
+                transform: revealed ? 'scaleX(0)' : 'scaleX(1)',
+                transition: `transform 0.5s cubic-bezier(0.4,0,0.2,1) ${revealed ? 0.3 + i * 0.15 : 0}s`,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+      {/* Text — left edge of column 2 */}
+      <div style={{ width: '100%', paddingLeft: col6padding, boxSizing: 'border-box' }}>
         <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 600, lineHeight: 1.6, letterSpacing: 0, margin: 0, marginBottom: 4 }}>Objectives</h2>
         <ol style={{ color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 400, lineHeight: 1.6, margin: 0, paddingLeft: 32 }}>
           <li>Creating a design system from the ground up in Figma and React.</li>
@@ -114,11 +121,10 @@ const PRINCIPLE_CARDS = [
 const PrincipleCards = () => {
   const [hovered, setHovered] = useState<number | null>(null)
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%', marginTop: -20 }}>
-      <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 600, lineHeight: 1.6, margin: 0 }}>Principles</h2>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%' }}>
     <div style={{ display: 'flex', gap: 16, width: '100%', alignItems: 'center' }}>
       {PRINCIPLE_CARDS.map(({ label, src }, i) => {
-        const flexValue = hovered === null ? 1 : hovered === i ? 1.5 : 0.75
+        const flexValue = hovered === null ? 1 : hovered === i ? 2 : 1
         return (
           <div
             key={label}
@@ -126,7 +132,7 @@ const PrincipleCards = () => {
             onMouseEnter={() => setHovered(i)}
             onMouseLeave={() => setHovered(null)}
           >
-            <div style={{ background: '#111214', border: '1px solid #222428', borderRadius: 12, height: 320, overflow: 'hidden' }}>
+            <div style={{ background: '#111214', border: '1px solid #222428', borderRadius: 12, height: 'calc((100vw * 0.75 - 132px) / 3)', overflow: 'hidden' }}>
               <img src={`${src}?v=${CACHE_BUST}`} alt={label} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
             <span style={{ color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 400, lineHeight: 1.6, letterSpacing: 0 }}>{label}</span>
@@ -157,13 +163,12 @@ const BentoGrid2x2 = ({ label, images, fit = 'cover', positions, fits, backgroun
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
-      {label && <span style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 600, color: '#fff', lineHeight: 1.6, alignSelf: 'flex-start' }}>{label}</span>}
     <div style={{
       display: 'grid',
       gridTemplateColumns: cols,
       gridTemplateRows: rows,
-      gap: 12,
-      width: '68vw',
+      gap: 16,
+      width: 'calc(100vw * 0.75 - 100px)',
       height: '68vh',
       transition: 'grid-template-columns 400ms cubic-bezier(0.4,0,0.2,1), grid-template-rows 400ms cubic-bezier(0.4,0,0.2,1)',
     }}>
@@ -208,7 +213,7 @@ const TokensBentoGrid = () => {
 
   return (
     <div style={{ position: 'relative', width: '100%', height: 'calc(100vh - 100px)' }}>
-      <div style={{ position: 'absolute', top: 0, left: 'calc(50% - 50vw)', width: '100vw', height: '100%', display: 'grid', gridTemplateColumns: cols, gridTemplateRows: rows, gap: 12, padding: 24, boxSizing: 'border-box', transition: 'grid-template-columns 400ms cubic-bezier(0.4,0,0.2,1), grid-template-rows 400ms cubic-bezier(0.4,0,0.2,1)' }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'grid', gridTemplateColumns: cols, gridTemplateRows: rows, gap: 12, padding: '64px 64px 24px', boxSizing: 'border-box', transition: 'grid-template-columns 400ms cubic-bezier(0.4,0,0.2,1), grid-template-rows 400ms cubic-bezier(0.4,0,0.2,1)' }}>
         {BENTO_CELLS_3X3.map((cell, i) => (
           <div
             key={i}
@@ -411,93 +416,79 @@ const HowIWouldCards = () => {
     )
 }
 
-const RewardsApp: React.FC = () => {
+export const REWARDS_SLIDE_COUNT = 16
+
+export interface RewardsAppHandle { getSlideEl: (index: number) => HTMLElement | null }
+
+const RewardsApp = forwardRef<RewardsAppHandle, { slideIndex: number; onNavigate?: (globalSlide: number) => void; slideStart?: number }>(({ slideIndex, onNavigate, slideStart = 0 }, ref) => {
     const [typedText, setTypedText] = useState("")
     const [isTyping, setIsTyping] = useState(false)
-    const slideRef = useRef<HTMLDivElement>(null)
     const pageRef = useRef<HTMLDivElement>(null)
+    useImperativeHandle(ref, () => ({ getSlideEl: (i: number) => (pageRef.current?.children[i] as HTMLElement) ?? null }), [])
     const [diagramVisible, setDiagramVisible] = useState(false)
-    const diagramRef = useRef<HTMLDivElement>(null)
-    const [quoteVisible, setQuoteVisible] = useState(false)
-    const [typedQuote, setTypedQuote] = useState(0)
-    const quoteRef = useRef<HTMLDivElement>(null)
-    const [currentSlide, setCurrentSlide] = useState(0)
-    const [totalSlides, setTotalSlides] = useState(0)
+    const [hoverDot, setHoverDot] = useState<number | null>(null)
+    const dotRefs = useRef<Array<HTMLDivElement | null>>([])
+    const previewContainerRef = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
-        const handleKey = (e: KeyboardEvent) => {
-            if (!pageRef.current) return
-            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-                pageRef.current.scrollBy({ top: window.innerHeight })
-            }
-            if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-                pageRef.current.scrollBy({ top: -window.innerHeight })
-            }
-        }
-        window.addEventListener('keydown', handleKey)
-        return () => window.removeEventListener('keydown', handleKey)
-    }, [])
+    useLayoutEffect(() => {
+        const container = previewContainerRef.current
+        if (!container) return
+        while (container.firstChild) container.removeChild(container.firstChild)
+        if (hoverDot === null || !pageRef.current) return
+        const slideEl = pageRef.current.children[hoverDot] as HTMLElement
+        if (!slideEl) return
+        const clone = slideEl.cloneNode(true) as HTMLElement
+        clone.style.position = 'absolute'
+        clone.style.inset = '0'
+        clone.style.opacity = '1'
+        clone.style.pointerEvents = 'none'
+        clone.style.transform = 'none'
+        container.appendChild(clone)
+    }, [hoverDot])
 
+    const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+    // Show/hide slides based on slideIndex
     useEffect(() => {
         const el = pageRef.current
         if (!el) return
-        setTotalSlides(el.children.length)
-        const handleScroll = () => {
-            setCurrentSlide(Math.round(el.scrollTop / window.innerHeight))
-        }
-        el.addEventListener('scroll', handleScroll, { passive: true })
-        return () => el.removeEventListener('scroll', handleScroll)
-    }, [])
+        const slides = Array.from(el.children) as HTMLElement[]
+        slides.forEach((slide, i) => {
+            if (i === slideIndex) {
+                slide.style.opacity = ''  // let the CSS animation own opacity
+                slide.style.pointerEvents = 'auto'
+                slide.classList.remove(styles.slideExitUp)
+                // Re-trigger animation by removing and re-adding the class
+                slide.classList.remove(styles.slideEnter)
+                void (slide as HTMLElement).offsetWidth // force reflow
+                slide.classList.add(styles.slideEnter)
+            } else {
+                slide.style.opacity = '0'
+                slide.style.pointerEvents = 'none'
+                slide.classList.remove(styles.slideEnter)
+            }
+        })
+    }, [slideIndex])
 
+    // Trigger diagram animation on slide 3
     useEffect(() => {
-        const el = quoteRef.current
-        if (!el) return
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) setQuoteVisible(true) },
-            { threshold: 0.3 }
-        )
-        observer.observe(el)
-        return () => observer.disconnect()
-    }, [])
+        if (slideIndex === 3) setDiagramVisible(true)
+    }, [slideIndex])
 
+    // Trigger large text typing on slide 2
     useEffect(() => {
-        if (!quoteVisible || typedQuote >= QUOTE_CHARS.length) return
-        const delay = PAUSE_AFTER.has(typedQuote - 1) ? 700 : 38
-        const timer = setTimeout(() => setTypedQuote(prev => prev + 1), delay)
-        return () => clearTimeout(timer)
-    }, [quoteVisible, typedQuote])
-
-    useEffect(() => {
-        const el = diagramRef.current
-        if (!el) return
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) setDiagramVisible(true) },
-            { threshold: 0.3 }
-        )
-        observer.observe(el)
-        return () => observer.disconnect()
-    }, [])
-
-    useEffect(() => {
-        const el = slideRef.current
-        if (!el) return
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting && !isTyping) {
-                    setIsTyping(true)
-                    let i = 0
-                    const interval = setInterval(() => {
-                        i++
-                        setTypedText(LARGE_TEXT.slice(0, i))
-                        if (i >= LARGE_TEXT.length) clearInterval(interval)
-                    }, 30)
-                }
-            },
-            { threshold: 0.3 }
-        )
-        observer.observe(el)
-        return () => observer.disconnect()
-    }, [isTyping])
+        if (slideIndex !== 2) return
+        setIsTyping(true)
+        setTypedText("")
+        let i = 0
+        const interval = setInterval(() => {
+            i++
+            setTypedText(LARGE_TEXT.slice(0, i))
+            if (i >= LARGE_TEXT.length) clearInterval(interval)
+        }, 30)
+        return () => clearInterval(interval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [slideIndex])
 
     return (
         <>
@@ -506,31 +497,23 @@ const RewardsApp: React.FC = () => {
             {/* Slide 1: Header */}
             <div className={styles.projectSlide}>
                 <Header
-                    title="i designed the user experience for a Rewards App."
+                    title="i designed the user experience for a Rewards App"
                     imageSrc={`./assets/proj2.png?v=${CACHE_BUST}`}
                     imageAlt="Description of image"
                     details={[
                         { label: "Company", value: "Eat Sleep Repeat" },
-                        { label: "Role", value: "UX Designer" },
-                        { label: "Duration", value: "7 Months" },
-                        { label: "Skills", value: "Design Systems, UI, Product Design" },
+                        { label: "Role", value: "Visual Designer" },
+                        { label: "Skills", value: "UI\nDesign Systems\nFindability" },
                     ]}/>
             </div>
 
             {/* Slide 2: Images */}
-            <div className={styles.projectSlideScroll}>
-                <div className={styles.contentcontainer}>
-                    <img data-zoom src={`./assets/main2.png?v=${CACHE_BUST}`} className={`${styles.image} ${styles['image-full']}`} />
-                </div>
+            <div className={styles.projectSlideScroll} style={{ padding: '120px 64px 64px' }}>
+                <img data-zoom src={`./assets/main2.png?v=${CACHE_BUST}`} style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '8px', objectFit: 'cover', backgroundColor: '#000309' }} />
             </div>
 
-            {/* Slide 3: Floating persona dots */}
-            <div className={styles.projectSlide} style={{ overflow: 'visible' }}>
-                <FloatingDots />
-            </div>
-
-            {/* Slide 4: Large text */}
-            <div className={styles.projectSlideTop} ref={slideRef}>
+            {/* Slide 3: Problem Statement */}
+            <div className={styles.projectSlideTop}>
                 <div className={styles.contentcontainer}>
                     <div className={styles.largeTextBlock}>
                         <span className={styles.problemTag}>Problem Statement</span>
@@ -544,10 +527,10 @@ const RewardsApp: React.FC = () => {
                 </div>
             </div>
 
-            {/* Slide 5: Process diagram */}
-            <div className={styles.projectSlide} ref={diagramRef} style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-              <div className={styles.contentcontainer} style={{ gap: 48, alignItems: 'flex-start' }}>
-                <svg viewBox="-50 0 1100 600" className={styles.processDiagram} style={{ maxWidth: 'none', width: '120%', marginLeft: '-10%' }} xmlns="http://www.w3.org/2000/svg">
+            {/* Slide 4: Orb diagram */}
+            <div className={styles.projectSlide} style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+              <div style={{ width: '100%', padding: '0 calc(80px + (100vw - 240px) / 8)', boxSizing: 'border-box', flexShrink: 0 }}>
+              <svg viewBox="-50 0 1100 600" className={styles.processDiagram} style={{ maxWidth: 'none', width: '100%' }} xmlns="http://www.w3.org/2000/svg">
                     {/* Concentric circles — expand one after another from center */}
                     <circle cx="500" cy="300" r="265" fill="rgba(30,16,21,0.9)"
                         className={diagramVisible ? styles.circleAnimate : styles.circleHidden}
@@ -609,35 +592,31 @@ const RewardsApp: React.FC = () => {
 
                     </g>
                 </svg>
-                <div style={{ width: '100%' }}>
-                  <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 600, lineHeight: 1.6, letterSpacing: 0, margin: 0, marginBottom: 4 }}>My Role</h2>
-                  <p style={{ color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 400, lineHeight: 1.6, margin: 0 }}>I was the sole visual designer who owned the visual and interaction design end-to-end from the design system to the content experience built on top of it.</p>
-                </div>
+              </div>
+              <div style={{ width: '100%', padding: '0 calc(96px + (100vw - 240px) / 4)', boxSizing: 'border-box' }}>
+                <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 600, lineHeight: 1.6, letterSpacing: 0, margin: 0, marginBottom: 4 }}>My Role</h2>
+                <p style={{ color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 400, lineHeight: 1.6, margin: 0 }}>I was the sole visual designer who owned the visual and interaction design end-to-end from the design system to the content experience built on top of it.</p>
               </div>
             </div>
 
-            {/* ── THE PROCESS ── */}
-            <div className={styles.projectSlide}>
-                <div className={styles.contentcontainer}>
-                    <div style={{ width: '100%' }}>
-                        <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 56, fontWeight: 300, margin: 0, lineHeight: 1.1 }}>The Process</h2>
-                    </div>
-                </div>
+            {/* Slide 4: Objectives */}
+            <div className={styles.projectSlideAccordion}>
+                <ObjectivesSlide />
             </div>
 
-            <div className={styles.projectSlideAccordion}>
-                <div className={styles.contentcontainer}>
-                    <ObjectivesSlide />
-                </div>
-            </div>
+            {/* Slide 6: Floating persona dots */}
+            {/* <div className={styles.projectSlide} style={{ overflow: 'visible' }}>
+                <FloatingDots />
+            </div> */}
 
-            <div className={styles.projectSlideAccordion}>
-                <div className={styles.contentcontainer}>
+
+            <div className={styles.projectSlideAccordion} style={{ paddingLeft: 0, paddingRight: 0 }}>
+                <div style={{ width: '100%', maxWidth: '100%', padding: '0 calc(80px + (100vw - 240px) / 8)', boxSizing: 'border-box' }}>
                     <PrincipleCards />
                 </div>
             </div>
 
-            <div className={styles.projectSlideAccordion}>
+            {/* <div className={styles.projectSlideAccordion}>
                 <div className={styles.contentcontainer}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 64, width: '100%' }}>
                         <DSProcessSlide />
@@ -647,7 +626,7 @@ const RewardsApp: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className={styles.projectSlide}>
                 <TokensBentoGrid />
@@ -673,55 +652,36 @@ const RewardsApp: React.FC = () => {
                 <BentoGrid2x2 label="Components" images={['/esr/comp1.png', '/esr/comp2.png', '/esr/comp3.png', '/esr/comp4.png']} backgrounds={[undefined, undefined, undefined, '#fff']} />
             </div>
 
-            <div className={styles.projectSlideAccordion}>
-                <div className={styles.contentcontainer}>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', gap: 32 }}>
-                        <img src={`/esr/feed.png?v=${CACHE_BUST}`} alt="App feed screen" style={{ maxHeight: '72vh', maxWidth: '100%', width: 'auto', display: 'block', marginTop: '-40px' }} />
-                        <div style={{ width: '100%' }}>
-                            <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 600, lineHeight: 1.6, margin: 0 }}>Feed Architecture</h2>
-                            <p style={{ color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 400, lineHeight: 1.6, margin: 0 }}>The feed architecture needed to be optimised for findability, system status, and discovery.</p>
+            <div className={styles.projectSlideAccordion} style={{ paddingLeft: 0, paddingRight: 0 }}>
+                <div style={{ width: '100%', padding: '0 64px', boxSizing: 'border-box', display: 'flex', gap: 16, alignItems: 'center' }}>
+                    <div style={{ flex: 2, display: 'flex', flexDirection: 'column', gap: 16 }}>
+                        <p style={{ color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 400, lineHeight: 1.6, margin: 0 }}>Discovery + Findability</p>
+                    </div>
+                    <img src={`/esr/feed.png?v=${CACHE_BUST}`} alt="App feed screen" style={{ flex: 6, maxHeight: '80vh', width: 0, minWidth: 0, display: 'block', objectFit: 'contain' }} />
+                </div>
+            </div>
+
+            <div className={styles.projectSlide}>
+                <img src={`/esr/cards-1.png?v=${CACHE_BUST}`} alt="Restaurant cards" style={{ maxHeight: '80vh', maxWidth: '100%', width: 'auto', display: 'block', objectFit: 'contain' }} />
+            </div>
+
+            <div className={styles.projectSlide}>
+                <div style={{ display: 'flex', gap: 16, height: '80vh', width: 'calc((100vw - 240px) * 0.75 + 80px)', marginTop: 16 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, flex: 3, minWidth: 0 }}>
+                        <div style={{ flex: 1, background: '#fff', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
+                            <img src={`/esr/rating-cards-1.png?v=${CACHE_BUST}`} alt="Rating card explorations" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
                         </div>
+                        <div style={{ flex: 1, background: '#fff', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
+                            <img src={`/esr/rating-cards-2.png?v=${CACHE_BUST}`} alt="Review card explorations" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
+                        </div>
+                    </div>
+                    <div style={{ flex: 3, background: '#fff', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
+                        <img src={`/esr/rating-2.png?v=${CACHE_BUST}`} alt="Average ratings" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} />
                     </div>
                 </div>
             </div>
 
-            <div className={styles.projectSlideAccordion}>
-                <div className={styles.contentcontainer}>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', width: '100%', height: '100%', gap: 32 }}>
-                        <img src={`/esr/cards-1.png?v=${CACHE_BUST}`} alt="Restaurant cards" style={{ maxHeight: '72vh', maxWidth: '100%', width: 'auto', display: 'block', flex: 1, objectFit: 'contain' }} />
-                        <div style={{ width: '100%' }}>
-                            <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 600, lineHeight: 1.6, margin: 0 }}>Card Explorations: Offers</h2>
-                            <p style={{ color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 400, lineHeight: 1.6, margin: 0 }}>I designed card variants to assess which ones had the best rhythm, hierarchy, and content relevance.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.projectSlideAccordion}>
-                <div className={styles.contentcontainer}>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', width: '100%', height: '100%', gap: 32 }}>
-                        <div style={{ display: 'flex', gap: 16, flex: 1, minHeight: 0, width: '100%' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, flex: 1, minWidth: 0 }}>
-                                <div style={{ flex: 1, background: '#fff', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
-                                    <img src={`/esr/rating-cards-1.png?v=${CACHE_BUST}`} alt="Rating card explorations" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
-                                </div>
-                                <div style={{ flex: 1, background: '#fff', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
-                                    <img src={`/esr/rating-cards-2.png?v=${CACHE_BUST}`} alt="Review card explorations" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
-                                </div>
-                            </div>
-                            <div style={{ flex: 1, background: '#fff', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
-                                <img src={`/esr/rating-2.png?v=${CACHE_BUST}`} alt="Average ratings" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} />
-                            </div>
-                        </div>
-                        <div style={{ width: '100%' }}>
-                            <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 600, lineHeight: 1.6, margin: 0 }}>Card Explorations: Review</h2>
-                            <p style={{ color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 400, lineHeight: 1.6, margin: 0 }}>Reviews had to inform user decisions so I designed ways to surface important information.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.projectSlideAccordion}>
+            {/* <div className={styles.projectSlideAccordion}>
                 <div className={styles.contentcontainer}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%' }}>
                         <div style={{ display: 'flex', gap: 16, width: '100%', height: '56vh' }}>
@@ -754,42 +714,34 @@ const RewardsApp: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <div className={styles.projectSlideAccordion}>
-                <div className={styles.contentcontainer}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%' }}>
-                        <div style={{ display: 'flex', gap: 16, width: '100%', height: '70vh' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, flex: 1.5, minWidth: 0 }}>
-                                <div style={{ flex: 1, background: '#fff', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
-                                    <img src={`/esr/stepper-1.png?v=${CACHE_BUST}`} alt="Stepper exploration" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
-                                </div>
-                                <div style={{ flex: 1, background: '#fff', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
-                                    <img src={`/esr/stepper-2.png?v=${CACHE_BUST}`} alt="Stepper exploration 2" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
-                                </div>
-                            </div>
-                            <div style={{ flex: 0.75, background: '#111214', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
-                                <video src={`/esr/screen-recording.mp4?v=${CACHE_BUST}`} autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                            </div>
+            <div className={styles.projectSlide}>
+                <div style={{ display: 'flex', gap: 16, height: 'calc(100vh - 128px)', width: 'calc((100vw - 240px) * 0.75 + 80px)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, flex: 1.5, minWidth: 0 }}>
+                        <div style={{ flex: 1, background: '#fff', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
+                            <img src={`/esr/stepper-1.png?v=${CACHE_BUST}`} alt="Stepper exploration" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
                         </div>
-                        <div style={{ width: '100%' }}>
-                            <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 600, lineHeight: 1.6, margin: 0 }}>Discount Redemption Flow</h2>
-                            <p style={{ color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 18, fontWeight: 400, lineHeight: 1.6, margin: 0 }}>The problem I wanted to solve for was drop-off and abandonment and clarity of system status.</p>
+                        <div style={{ flex: 1, background: '#fff', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
+                            <img src={`/esr/stepper-2.png?v=${CACHE_BUST}`} alt="Stepper exploration 2" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
                         </div>
+                    </div>
+                    <div style={{ flex: 0.75, background: '#111214', border: '1px solid #222428', borderRadius: 12, overflow: 'hidden' }}>
+                        <video src={`/esr/screen-recording.mp4?v=${CACHE_BUST}`} autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                     </div>
                 </div>
             </div>
 
             {/* ── THE RESULT ── */}
-            <div className={styles.projectSlide}>
+            {/* <div className={styles.projectSlide}>
                 <div className={styles.contentcontainer}>
                     <div style={{ width: '100%' }}>
                         <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 56, fontWeight: 300, margin: 0, lineHeight: 1.1 }}>The Result</h2>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <div className={styles.projectSlide}>
+            {/* <div className={styles.projectSlide}>
                 <div className={styles.contentcontainer}>
                     <div style={{ display: 'flex', gap: 48, alignItems: 'flex-start', justifyContent: 'center', width: '100%' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 12, flex: 1, position: 'relative' }}>
@@ -820,10 +772,10 @@ const RewardsApp: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* ── HOW I WOULD DO THIS TODAY ── */}
-            <div className={styles.projectSlide}>
+            {/* <div className={styles.projectSlide}>
                 <div className={styles.contentcontainer}>
                     <div style={{ width: '100%' }}>
                         <h2 style={{ color: '#fff', fontFamily: '"IBM Plex Mono", monospace', fontSize: 56, fontWeight: 300, margin: 0, lineHeight: 1.1 }}>How I Would Do This Today</h2>
@@ -835,41 +787,59 @@ const RewardsApp: React.FC = () => {
                 <div className={styles.contentcontainer}>
                     <HowIWouldCards />
                 </div>
-            </div>
+            </div> */}
 
-            {/* End slide */}
-            <div className={styles.projectSlide}>
-                <div style={{ display: 'flex', gap: 16, padding: '0 240px', width: '100%', justifyContent: 'space-between', boxSizing: 'border-box' }}>
-                    <button onClick={() => { const page = document.querySelector('[class*="page"]') as HTMLElement; if (page) page.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ padding: '20px 48px', background: 'transparent', border: '1px solid #333', borderRadius: 999, color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 14, fontWeight: 400, cursor: 'pointer', letterSpacing: '0.04em' }}>
-                        ↑  BACK TO TOP
-                    </button>
-                    <a href="/voiceux" style={{ padding: '20px 48px', background: 'transparent', border: '1px solid #333', borderRadius: 999, color: '#d8d8d8', fontFamily: '"IBM Plex Mono", monospace', fontSize: 14, fontWeight: 400, cursor: 'pointer', letterSpacing: '0.04em', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-                        NEXT CASE  →
-                    </a>
-                </div>
-            </div>
 
         </div>
 
         {createPortal(
+            slideIndex >= 0 && slideIndex < REWARDS_SLIDE_COUNT ? (
             <>
-                <a href="/slides?s=1" style={{ position: 'fixed', left: 24, top: 24, fontFamily: '"IBM Plex Mono", monospace', fontSize: 11, fontWeight: 400, color: '#fff', letterSpacing: '0.08em', textDecoration: 'none', zIndex: 9999, pointerEvents: 'auto', textTransform: 'uppercase' }}>
-                    ‹ Cases
-                </a>
-                <div style={{ position: 'fixed', right: 24, top: '50%', transform: 'translateY(-50%)', display: 'flex', flexDirection: 'column', gap: 8, zIndex: 9999, pointerEvents: 'none' }}>
-                    {Array.from({ length: totalSlides }).map((_, i) => (
-                        <div key={i} style={{ width: 5, height: 5, borderRadius: '50%', background: i === currentSlide ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.2)', transform: i === currentSlide ? 'scale(1.4)' : 'scale(1)', transition: 'background 0.25s ease, transform 0.25s ease', alignSelf: 'center' }} />
-                    ))}
-                </div>
-                <div style={{ position: 'fixed', right: 24, bottom: 24, fontFamily: '"IBM Plex Mono", monospace', fontSize: 11, fontWeight: 400, color: '#fff', letterSpacing: '0.08em', zIndex: 9999, pointerEvents: 'none' }}>
-                    {String(currentSlide + 1).padStart(2, '0')}/{String(totalSlides).padStart(2, '0')}
-                </div>
-            </>,
+                {slideIndex > 0 && (
+                    <span style={{ position: 'fixed', top: 64, left: 64, fontFamily: '"IBM Plex Mono", monospace', fontSize: 14, fontWeight: 400, color: '#e8e8e8', letterSpacing: '0.02em', zIndex: 9999, pointerEvents: 'none' }}>
+                        {{
+                            5: 'ESR / Principles',
+                            6: 'ESR / Design System',
+                            7: 'ESR / Typography',
+                            8: 'ESR / Colour',
+                            9: 'ESR / Grid System',
+                            10: 'ESR / Iconography',
+                            11: 'ESR / Components',
+                            12: 'ESR / Feed Architecture',
+                            13: 'ESR / Card Explorations: Offers',
+                            14: 'ESR / Card Explorations: Review',
+                            15: 'ESR / Flow Design',
+                        }[slideIndex] ?? 'ESR / Rewards App'}
+                    </span>
+                )}
+                {hoverDot !== null && (() => {
+                    const dotEl = dotRefs.current[hoverDot]
+                    const dotRect = dotEl?.getBoundingClientRect()
+                    const previewW = 240
+                    const previewH = Math.round(240 * window.innerHeight / window.innerWidth)
+                    const scale = previewW / window.innerWidth
+                    const centerY = dotRect ? dotRect.top + dotRect.height / 2 : window.innerHeight / 2
+                    const top = Math.min(Math.max(centerY - previewH / 2, 16), window.innerHeight - previewH - 16)
+                    return (
+                        <div
+                            onMouseEnter={() => { if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current) }}
+                            onMouseLeave={() => { hoverTimeoutRef.current = setTimeout(() => setHoverDot(null), 150) }}
+                            onClick={() => onNavigate?.(slideStart + hoverDot)}
+                            style={{ position: 'fixed', right: 48, top, width: previewW, height: previewH, overflow: 'hidden', borderRadius: 8, border: '1px solid #2a2a2a', background: '#0d0d0d', zIndex: 9998, cursor: 'pointer', boxShadow: '0 8px 32px rgba(0,0,0,0.6)' }}
+                        >
+                            <div style={{ position: 'relative', width: window.innerWidth, height: window.innerHeight, transform: `scale(${scale})`, transformOrigin: 'top left', pointerEvents: 'none' }}>
+                                <div ref={previewContainerRef} style={{ position: 'absolute', inset: 0 }} />
+                            </div>
+                        </div>
+                    )
+                })()}
+            </>
+            ) : <></>,
             document.body
         )}
 
         </>
-    );
-  };
-  
-export default RewardsApp;
+    )
+})
+
+export default RewardsApp

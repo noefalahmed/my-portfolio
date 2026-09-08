@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mobile — Leadership Coach</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cornell-red: #B31B1B;
+  --charcoal:    #222222;
+  --light-border:#EAEAEA;
+  --surface:     #FCFCFC;
+}
+
+html, body {
+  width: 430px; height: 932px;
+  overflow: hidden;
+}
+
+/* ── Shell ── */
+.layout-shell {
+  position: relative;
+  width: 430px; height: 932px;
+  background: #fff;
+  background-image: url('./assets/sc-texture.png');
+  background-repeat: repeat;
+  background-size: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 54px;
+}
+
+/* ── Topbar ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 200;
+  background: none;
+  border-bottom: 1px solid transparent;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.topbar.scrolled {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Single unified glass layer covering status bar + topbar */
+.header-glass {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 115px; /* 59px iph-bar + 56px topbar */
+  z-index: 100;
+  pointer-events: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: backdrop-filter 0.2s ease, -webkit-backdrop-filter 0.2s ease;
+}
+.header-glass.scrolled {
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+}
+
+.tb-user-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  padding: 4px 12px 4px 4px;
+}
+.tb-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  object-fit: cover; object-position: top center;
+  flex-shrink: 0;
+}
+.tb-name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: var(--charcoal); line-height: 1;
+}
+.tb-status { display: flex; align-items: center; gap: 4px; }
+.tb-dot {
+  width: 6.66px; height: 6.66px;
+  border-radius: 50%; background: #22c55e; flex-shrink: 0;
+  transition: background 0.3s;
+}
+.tb-active {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 400; color: var(--charcoal);
+}
+
+/* Right side: timer only */
+.tb-timer-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  padding: 8px 12px;
+  height: 40px;
+}
+.tb-timer-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: var(--charcoal); white-space: nowrap;
+}
+
+/* ── Chat area ── */
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  padding-bottom: 8px;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.chat-area::-webkit-scrollbar { display: none; }
+.chat-area.dragging { cursor: grabbing; }
+
+/* ── Empty state ── */
+.chat-empty {
+  position: absolute;
+  left: 0; right: 0;
+  top: 56px;
+  bottom: 160px;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.4s ease;
+}
+.chat-empty span {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 15px; font-weight: 400;
+  color: #c4c4c4;
+  letter-spacing: 0.01em;
+}
+
+/* ── Message rows ── */
+.msg-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 2px 13px;
+}
+.msg-row.group-start { padding-top: 13px; }
+.msg-row.me { justify-content: flex-end; }
+.msg-av {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  object-fit: cover; object-position: top center;
+  flex-shrink: 0;
+}
+.msg-av-spacer { width: 20px; flex-shrink: 0; }
+.msg-group { display: flex; flex-direction: column; gap: 3px; max-width: 318px; }
+.msg-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.821px; font-weight: 400;
+  color: var(--charcoal); line-height: 1.54;
+}
+.msg-label.me { text-align: right; }
+.msg-bubble {
+  padding: 12px;
+  border-radius: 8px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 400; line-height: 20px;
+  background: #fcfcfc;
+  border: 0.832px solid var(--charcoal);
+  color: var(--charcoal);
+}
+.msg-bubble.me {
+  background: var(--charcoal);
+  border: none;
+  color: #F5F5F5;
+}
+
+/* Typing indicator — star animation */
+.msg-typing {
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.ms-star-arms { transform-origin: 29px 29px; animation: ms-star-rot 4s ease-in-out infinite; }
+.ms-arm-h { transform-origin: 29px 29px; animation: ms-arm-h 4s ease-in-out infinite; }
+.ms-arm-v { transform-origin: 29px 29px; animation: ms-arm-v 4s ease-in-out infinite; }
+.ms-arm-d { transform-origin: 29px 29px; animation: ms-arm-d 4s ease-in-out infinite; }
+@keyframes ms-star-rot { 0%,35%{transform:rotate(0deg)} 50%{transform:rotate(90deg)} 85%{transform:rotate(90deg)} 100%{transform:rotate(180deg)} }
+@keyframes ms-arm-h { 0%,100%{transform:scaleX(1)} 10%{transform:scaleX(.45)} 25%{transform:scaleX(1.15)} 35%,50%{transform:scaleX(1)} 60%{transform:scaleX(.45)} 75%{transform:scaleX(1.15)} 85%{transform:scaleX(1)} }
+@keyframes ms-arm-v { 0%,100%{transform:scaleY(1)} 10%{transform:scaleY(.45)} 25%{transform:scaleY(1.15)} 35%,50%{transform:scaleY(1)} 60%{transform:scaleY(.45)} 75%{transform:scaleY(1.15)} 85%{transform:scaleY(1)} }
+@keyframes ms-arm-d { 0%,100%{transform:scale(1)} 10%{transform:scale(.45)} 25%{transform:scale(1.15)} 35%,50%{transform:scale(1)} 60%{transform:scale(.45)} 75%{transform:scale(1.15)} 85%{transform:scale(1)} }
+
+/* Pause all demo animations when paused */
+.layout-shell.demo-paused .ms-star-arms,
+.layout-shell.demo-paused .ms-arm-h,
+.layout-shell.demo-paused .ms-arm-v,
+.layout-shell.demo-paused .ms-arm-d,
+.layout-shell.demo-paused .rp-draw-path,
+.layout-shell.demo-paused .rp-word { animation-play-state: paused; }
+
+/* ── Recording pill ── */
+.input-area {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px;
+  position: relative;
+  z-index: 200;
+}
+.input-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 5px 0 16px;
+  height: 50px;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+.pill-body-wrap { flex: 1; overflow: visible; line-height: 1; }
+.rp-placeholder, .rp-processing {
+  color: #848080;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 400; line-height: 1;
+}
+.rp-transcript {
+  color: #222222;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 400; line-height: 1;
+  white-space: nowrap; overflow: hidden; display: block;
+}
+@keyframes rp-word-in {
+  from { opacity: 0; transform: translateX(5px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.rp-word { display: inline; animation: rp-word-in 0.18s ease forwards; }
+@keyframes rp-draw { 0% { stroke-dashoffset: var(--rp-path-len); } 75%, 100% { stroke-dashoffset: 0; } }
+.rp-draw-path { animation: rp-draw 1.6s ease-in-out infinite; }
+.input-mic {
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Bottom action bar ── */
+.bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 8px 42px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 200;
+}
+.bottom-bar-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  padding: 5px;
+}
+.action-icon {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+.action-icon:hover { background: #f5f5f5; }
+.action-icon.pressed { background: #efefef; border-color: #c8c8c8; }
+.shell-col.notes-open .bottom-bar { padding-bottom: 12px; }
+.end-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 20px;
+  background: var(--cornell-red);
+  border: none;
+  border-radius: 100px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px; font-weight: 500;
+  color: #FCFCFC;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.end-icon:hover { background: #9A1717; }
+
+/* ── Pause scrim ── */
+.pause-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 150;
+}
+.pause-scrim.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── End Scenario Modal ── */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 24px 48px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+}
+.modal-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 24px; font-weight: 500;
+  color: var(--charcoal);
+  line-height: 1.3;
+}
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-btn-confirm {
+  height: 48px;
+  width: 100%;
+  padding: 0 16px;
+  background: var(--cornell-red);
+  color: #FCFCFC;
+  border: none;
+  border-radius: 100px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px; font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.modal-btn-confirm:hover { background: #9A1717; }
+.modal-btn-cancel {
+  height: 48px;
+  width: 100%;
+  padding: 0 16px;
+  background: #fff;
+  color: var(--charcoal);
+  border: 1.5px solid var(--charcoal);
+  border-radius: 100px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px; font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.modal-btn-cancel:hover { background: #f0f0f0; }
+
+/* ── Shell column (wraps all content, translates up when notes open) ── */
+.shell-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1; min-height: 0;
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.shell-col.notes-open { transform: translateY(-240px); }
+
+/* ── Notes panel (absolute at bottom, slides in) ── */
+.notes-panel {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 0;
+  overflow: hidden;
+  background: #fff;
+  transition: height 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.notes-panel.open { height: 240px; }
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 12px;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+}
+.sheet-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sheet-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: rgba(34,34,34,0.75);
+  line-height: 1;
+}
+.sheet-close {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 0; flex-shrink: 0;
+  transition: background 0.15s;
+}
+.sheet-close:hover { background: #f5f5f5; }
+.sheet-body {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 16px 0;
+  overflow-y: auto;
+}
+.sheet-note {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: #373737;
+  line-height: 1.5;
+  padding: 8px 0;
+}
+.sheet-divider {
+  height: 1px;
+  background: #eaeaea;
+  width: 100%;
+}
+
+/* ── iPhone chrome ── */
+.iph-bar {
+  position: relative; flex-shrink: 0; width: 100%;
+  height: 59px;
+  display: flex; align-items: flex-end;
+  padding: 0 22px 9px;
+  z-index: 9999; pointer-events: none;
+  transition: background 0.2s ease, backdrop-filter 0.2s ease;
+}
+.iph-time {
+  font-family: -apple-system, ui-sans-serif, sans-serif;
+  font-size: 15px; font-weight: 600;
+  letter-spacing: -0.3px; color: #111; line-height: 1;
+}
+.iph-di {
+  position: absolute; top: 11px; left: 50%;
+  transform: translateX(-50%);
+  width: 126px; height: 37px;
+  background: #000; border-radius: 20px;
+}
+.iph-icons { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.iph-home {
+  position: absolute; bottom: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 134px; height: 5px;
+  background: rgba(0,0,0,0.2); border-radius: 3px;
+  z-index: 9999; pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<div class="layout-shell">
+
+<div class="header-glass" id="header-glass"></div>
+
+<div class="iph-bar">
+  <span class="iph-time">9:41</span>
+  <div class="iph-di"></div>
+  <div class="iph-icons">
+    <svg width="17" height="12" viewBox="0 0 17 12" fill="#111"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="5" width="3" height="7" rx="1"/><rect x="9" y="3" width="3" height="9" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>
+    <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><circle cx="8" cy="11" r="1.5" fill="#111"/><path d="M4.5 7.5C5.5 6.5 6.7 6 8 6s2.5.5 3.5 1.5" stroke="#111" stroke-width="1.5" stroke-linecap="round"/><path d="M1.5 4.5C3 3 5.4 2 8 2s5 1 6.5 2.5" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#111" stroke-opacity="0.35"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#111"/><path d="M22 4.5v3a1.5 1.5 0 0 0 0-3z" fill="#111" fill-opacity="0.4"/></svg>
+  </div>
+</div>
+
+  <div class="shell-col" id="shell-col">
+
+  <!-- Topbar -->
+  <div class="topbar" style="opacity:0;transform:translateY(-12px);">
+    <div class="tb-user-pill">
+      <img class="tb-avatar" src="./assets/sc-avatar-alex.png" alt="Alex" />
+      <span class="tb-name">Alex</span>
+      <div class="tb-status">
+        <div class="tb-dot" id="tb-dot"></div>
+        <span class="tb-active" id="tb-active">Active</span>
+      </div>
+    </div>
+    <div class="tb-timer-pill">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 8.03-13.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" fill="#222"/>
+      </svg>
+      <span class="tb-timer-text" id="tb-timer-text">0:00</span>
+    </div>
+  </div>
+
+  <!-- Chat area (empty at start) -->
+  <div class="chat-area" id="chat-area" style="opacity:0;">
+    <div style="flex:1;"></div>
+  </div>
+
+  <!-- Empty state -->
+  <div class="chat-empty" id="chat-empty">
+    <span>Say hi to begin</span>
+  </div>
+
+  <!-- Recording pill -->
+  <div class="input-area" style="opacity:0;transform:translateY(8px);">
+    <div class="input-bar" id="pill-content">
+      <div class="input-mic" id="pill-icon" style="width:32px;flex-shrink:0;">
+        <svg viewBox="0 0 58 58" width="32" height="32" fill="none"><path d="M16 22.1176V39.3235C16 40.8017 17.1983 42 18.6765 42C20.1546 42 21.3529 40.8017 21.3529 39.3235V18.6765C21.3529 17.1983 22.5512 16 24.0294 16C25.5076 16 26.7059 17.1983 26.7059 18.6765V39.5147C26.7059 40.8873 27.8186 42 29.1912 42C30.5638 42 31.6765 40.8873 31.6765 39.5147V18.4853C31.6765 17.1127 32.7892 16 34.1618 16C35.5344 16 36.6471 17.1127 36.6471 18.4853V39.3235C36.6471 40.8017 37.8454 42 39.3235 42C40.8017 42 42 40.8064 42 39.3282C42 37.8247 42 35.4753 42 31.8039" stroke="#848080" stroke-width="2.8" stroke-linecap="round"/></svg>
+      </div>
+      <div class="pill-body-wrap" id="pill-body">
+        <span class="rp-placeholder">Start Speaking..</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom action bar -->
+  <div class="bottom-bar" style="opacity:0;transform:translateY(8px);">
+    <div class="bottom-bar-pill">
+
+      <!-- Notes -->
+      <button class="action-icon" id="btn-notes" aria-label="Notes">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+        </svg>
+      </button>
+
+      <!-- Mute -->
+      <button class="action-icon" id="btn-mute" aria-label="Mute">
+        <svg id="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </button>
+
+      <!-- Pause -->
+      <button class="action-icon" id="btn-pause" aria-label="Pause">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" id="pause-icon">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="#222"/>
+        </svg>
+      </button>
+
+      <!-- End Scenario -->
+      <button class="end-icon" id="btn-end">End</button>
+
+    </div>
+  </div>
+
+  </div><!-- /.shell-col -->
+
+  <!-- Notes panel (absolute at bottom, shell-col translates up) -->
+  <div class="notes-panel" id="notes-panel">
+    <div class="sheet-header">
+      <div class="sheet-header-left">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="sheet-label">Notes</span>
+      </div>
+      <button class="sheet-close" id="sheet-close" aria-label="Close notes">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M12 4L4 12M4 4l8 8" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="sheet-body">
+      <div class="sheet-note">Review the SBI structure before giving feedback.</div>
+      <div class="sheet-divider"></div>
+      <div class="sheet-note">Don't get defensive — stay task-focused.</div>
+      <div class="sheet-divider"></div>
+      <div class="sheet-note">End with a clear next step or agreement.</div>
+    </div>
+  </div>
+
+  <!-- Pause scrim -->
+  <div class="pause-scrim" id="pause-scrim"></div>
+
+  <!-- End Scenario Modal -->
+  <div class="modal-backdrop" id="end-modal">
+    <div class="modal-card">
+      <p class="modal-title">Are you sure you want to end the session?</p>
+      <div class="modal-actions">
+        <button class="modal-btn-confirm" id="modal-confirm">End Session</button>
+        <button class="modal-btn-cancel" id="modal-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+<div class="iph-home"></div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+// SVG assets
+// ─────────────────────────────────────────────────────────────
+var WIGGLE_PATH = 'M16 22.1176V39.3235C16 40.8017 17.1983 42 18.6765 42C20.1546 42 21.3529 40.8017 21.3529 39.3235V18.6765C21.3529 17.1983 22.5512 16 24.0294 16C25.5076 16 26.7059 17.1983 26.7059 18.6765V39.5147C26.7059 40.8873 27.8186 42 29.1912 42C30.5638 42 31.6765 40.8873 31.6765 39.5147V18.4853C31.6765 17.1127 32.7892 16 34.1618 16C35.5344 16 36.6471 17.1127 36.6471 18.4853V39.3235C36.6471 40.8017 37.8454 42 39.3235 42C40.8017 42 42 40.8064 42 39.3282C42 37.8247 42 35.4753 42 31.8039';
+// Idle wiggle: static, matches "Start Speaking.." text color (#848080)
+var wiggleIdleSVG   = '<svg viewBox="0 0 58 58" width="32" height="32" fill="none"><path d="' + WIGGLE_PATH + '" stroke="#848080" stroke-width="2.8" stroke-linecap="round"/></svg>';
+// Active wiggle: animated draw, dark — shown while words come in
+var wiggleActiveSVG = '<svg viewBox="0 0 58 58" width="32" height="32" fill="none"><path class="rp-draw-path" d="' + WIGGLE_PATH + '" stroke="#555" stroke-width="2.8" stroke-linecap="round"/></svg>';
+var typingSVG = '<svg viewBox="0 0 58 58" width="36" height="36" fill="none"><g class="ms-star-arms"><line class="ms-arm-h" x1="16" y1="29" x2="42" y2="29" stroke="#555" stroke-width="2" stroke-linecap="round"/><line class="ms-arm-v" x1="29" y1="16" x2="29" y2="42" stroke="#555" stroke-width="2" stroke-linecap="round"/><line class="ms-arm-d" x1="22.5" y1="22.5" x2="35.5" y2="35.5" stroke="#555" stroke-width="2" stroke-linecap="round"/><line class="ms-arm-d" x1="35.5" y1="22.5" x2="22.5" y2="35.5" stroke="#555" stroke-width="2" stroke-linecap="round"/></g></svg>';
+// Keep mic SVGs for mute button reference only
+var micOnSVG   = '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>';
+var micOffSVG  = '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/><line x1="1" y1="1" x2="23" y2="23"/>';
+
+// ─────────────────────────────────────────────────────────────
+// Refs
+// ─────────────────────────────────────────────────────────────
+var chatArea    = document.getElementById('chat-area');
+var chatEmpty   = document.getElementById('chat-empty');
+var pillContent = document.getElementById('pill-content');
+var pillIcon    = document.getElementById('pill-icon');
+var pillBody    = document.getElementById('pill-body');
+var timerEl     = document.getElementById('tb-timer-text');
+var dotEl       = document.getElementById('tb-dot');
+var activeEl    = document.getElementById('tb-active');
+var scrimEl     = document.getElementById('pause-scrim');
+
+// ─────────────────────────────────────────────────────────────
+// Initial pill state — replace static HTML icon with animated idle wiggle
+// ─────────────────────────────────────────────────────────────
+pillSetIdle();
+
+// ─────────────────────────────────────────────────────────────
+// Entrance
+// ─────────────────────────────────────────────────────────────
+(function() {
+  var topbar    = document.querySelector('.topbar');
+  var inputArea = document.querySelector('.input-area');
+  var bottomBar = document.querySelector('.bottom-bar');
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      topbar.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
+      topbar.style.opacity    = '1';
+      topbar.style.transform  = 'translateY(0)';
+      setTimeout(function() {
+        chatArea.style.transition = 'opacity 0.28s ease';
+        chatArea.style.opacity    = '1';
+      }, 60);
+      setTimeout(function() {
+        inputArea.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
+        inputArea.style.opacity    = '1';
+        inputArea.style.transform  = 'translateY(0)';
+        bottomBar.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
+        bottomBar.style.opacity    = '1';
+        bottomBar.style.transform  = 'translateY(0)';
+      }, 120);
+    });
+  });
+})();
+
+// ─────────────────────────────────────────────────────────────
+// Timer
+// ─────────────────────────────────────────────────────────────
+var totalSeconds = 0;
+var running = true;
+var isPaused = false;
+
+// ── Pauseable timeline ──────────────────────────────────────
+// Tracks all pending demo setTimeout calls so they can be
+// cancelled on pause and rescheduled with remaining time on resume.
+var pendingTimers = [];
+
+function at(ms, fn) {
+  var entry = { fn: fn, fireAt: performance.now() + ms, remaining: ms };
+  entry.id = setTimeout(function() {
+    pendingTimers = pendingTimers.filter(function(t) { return t !== entry; });
+    fn();
+  }, ms);
+  pendingTimers.push(entry);
+}
+
+function pauseTimeline() {
+  var now = performance.now();
+  pendingTimers.forEach(function(t) {
+    clearTimeout(t.id);
+    t.remaining = Math.max(0, t.fireAt - now);
+  });
+}
+
+function resumeTimeline() {
+  var now = performance.now();
+  pendingTimers.forEach(function(entry) {
+    entry.fireAt = now + entry.remaining;
+    entry.id = setTimeout(function() {
+      pendingTimers = pendingTimers.filter(function(t) { return t !== entry; });
+      entry.fn();
+    }, entry.remaining);
+  });
+}
+
+function formatTime(s) {
+  var m = Math.floor(s / 60);
+  var sec = s % 60;
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+setInterval(function() {
+  if (running) { totalSeconds++; timerEl.textContent = formatTime(totalSeconds); }
+}, 1000);
+
+// ─────────────────────────────────────────────────────────────
+// Pill helpers
+// ─────────────────────────────────────────────────────────────
+var pillTranscriptTimer = null;
+// Transcript state — module-level so pause/resume can access it
+var _trWords = null, _trShown = 0, _trLine = '', _trEl = null, _trGhost = null, _trPaused = false;
+
+// ── Pill state helpers ───────────────────────────────────────
+
+// Idle: static light gray wiggle + "Start Speaking.."
+function pillSetIdle() {
+  pillContent.style.gap = '8px';
+  pillIcon.style.width  = '32px';
+  pillIcon.style.opacity = '1';
+  pillBody.style.transition = 'none';
+  pillBody.style.transform  = 'translateY(0)';
+  pillBody.style.opacity    = '1';
+  pillIcon.innerHTML = wiggleIdleSVG;
+  pillBody.innerHTML = '<span class="rp-placeholder">Start Speaking..</span>';
+}
+
+// Active: animated dark wiggle — shown while transcript words come in
+function pillActivate() {
+  pillContent.style.gap = '8px';
+  pillIcon.style.width  = '32px';
+  pillIcon.innerHTML = wiggleActiveSVG;
+  var rpp = pillIcon.querySelector('.rp-draw-path');
+  if (rpp) {
+    var l = rpp.getTotalLength();
+    rpp.style.setProperty('--rp-path-len', l);
+    rpp.style.strokeDasharray  = l;
+    rpp.style.strokeDashoffset = l;
+  }
+}
+
+// Fade transcript text upward out of the pill; active wiggle keeps animating
+function pillClearText() {
+  pillBody.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+  pillBody.style.opacity    = '0';
+  pillBody.style.transform  = 'translateY(-5px)';
+}
+
+// Return to idle: static light wiggle, fade "Start Speaking.." back in from below
+function pillReturnToIdle() {
+  pillIcon.innerHTML = wiggleIdleSVG;
+  pillBody.style.transition = 'none';
+  pillBody.style.transform  = 'translateY(5px)';
+  pillBody.style.opacity    = '0';
+  pillBody.innerHTML = '<span class="rp-placeholder">Start Speaking..</span>';
+  void pillBody.offsetWidth;
+  pillBody.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+  pillBody.style.opacity    = '1';
+  pillBody.style.transform  = 'translateY(0)';
+}
+
+// ── Transcript ───────────────────────────────────────────────
+
+function _transcriptTick() {
+  if (!_trEl || _trShown >= _trWords.length) {
+    clearInterval(pillTranscriptTimer); pillTranscriptTimer = null;
+    if (_trGhost && _trGhost.parentNode) _trGhost.parentNode.removeChild(_trGhost);
+    _trGhost = null; _trWords = null;
+    return;
+  }
+  var word = _trWords[_trShown];
+  var isLast = (_trShown === _trWords.length - 1);
+  var suffix = isLast ? '' : ' ';
+  var proposed = _trLine + word + suffix;
+
+  _trGhost.textContent = proposed;
+  if (_trGhost.offsetWidth > pillBody.offsetWidth && _trLine !== '') {
+    _trEl.innerHTML = '';
+    _trLine = word + suffix;
+  } else {
+    _trLine = proposed;
+  }
+
+  var s = document.createElement('span');
+  s.className = 'rp-word';
+  s.textContent = word + suffix;
+  _trEl.appendChild(s);
+  _trShown++;
+}
+
+// Switch to active wiggle + start showing words one by one
+function pillTranscript(words) {
+  if (pillTranscriptTimer) { clearInterval(pillTranscriptTimer); pillTranscriptTimer = null; }
+  if (_trGhost && _trGhost.parentNode) _trGhost.parentNode.removeChild(_trGhost);
+
+  pillActivate();
+  pillBody.style.transition = 'none';
+  pillBody.style.transform  = 'translateY(0)';
+  pillBody.style.opacity    = '1';
+
+  var uid = 'tr' + Date.now();
+  pillBody.innerHTML = '<span class="rp-transcript" id="' + uid + '"></span>';
+
+  var ghost = document.createElement('span');
+  ghost.style.cssText = 'position:absolute;top:-9999px;left:-9999px;white-space:nowrap;' +
+    'font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:400;visibility:hidden;';
+  document.body.appendChild(ghost);
+
+  _trWords = words; _trShown = 0; _trLine = '';
+  _trEl = document.getElementById(uid);
+  _trGhost = ghost;
+  _trPaused = false;
+
+  pillTranscriptTimer = setInterval(_transcriptTick, 210);
+}
+
+// ─────────────────────────────────────────────────────────────
+// Chat helpers
+// ─────────────────────────────────────────────────────────────
+var lastSide = null;
+
+function dismissEmpty() {
+  if (!chatEmpty) return;
+  chatEmpty.style.opacity = '0';
+  setTimeout(function() { if (chatEmpty.parentNode) chatEmpty.parentNode.removeChild(chatEmpty); }, 400);
+}
+
+function scrollChat() {
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function addBubble(side, text, isFirst) {
+  if (isFirst) dismissEmpty();
+
+  var isGroupStart = (side !== lastSide);
+  lastSide = side;
+
+  var row = document.createElement('div');
+  row.className = 'msg-row' + (isGroupStart ? ' group-start' : '') + (side === 'me' ? ' me' : '');
+  row.style.cssText = 'opacity:0;transform:translateY(8px);';
+
+  // Left side
+  if (side === 'alex') {
+    if (isGroupStart) {
+      var av = document.createElement('img');
+      av.className = 'msg-av'; av.src = './assets/sc-avatar-alex.png'; av.alt = 'Alex';
+      row.appendChild(av);
+    } else {
+      var sp = document.createElement('div'); sp.className = 'msg-av-spacer'; row.appendChild(sp);
+    }
+  } else {
+    var sp2 = document.createElement('div'); sp2.className = 'msg-av-spacer'; row.appendChild(sp2);
+  }
+
+  // Group
+  var group = document.createElement('div');
+  group.className = 'msg-group';
+  if (side === 'me') group.style.alignItems = 'flex-end';
+
+  if (isGroupStart) {
+    var label = document.createElement('div');
+    label.className = 'msg-label' + (side === 'me' ? ' me' : '');
+    label.textContent = side === 'me' ? 'Me' : 'Alex';
+    group.appendChild(label);
+  }
+
+  var bubble = document.createElement('div');
+  bubble.className = 'msg-bubble' + (side === 'me' ? ' me' : '');
+  bubble.textContent = text;
+  group.appendChild(bubble);
+  row.appendChild(group);
+
+  // Right side
+  if (side === 'me') {
+    if (isGroupStart) {
+      var av2 = document.createElement('img');
+      av2.className = 'msg-av'; av2.src = './assets/sc-avatar-me.png'; av2.alt = 'Me';
+      row.appendChild(av2);
+    } else {
+      var sp3 = document.createElement('div'); sp3.className = 'msg-av-spacer'; row.appendChild(sp3);
+    }
+  } else {
+    var sp4 = document.createElement('div'); sp4.className = 'msg-av-spacer'; row.appendChild(sp4);
+  }
+
+  // Insert before typing row if present
+  var tr = document.getElementById('typing-row');
+  if (tr) { chatArea.insertBefore(row, tr); } else { chatArea.appendChild(row); }
+
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      row.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      row.style.opacity = '1';
+      row.style.transform = 'translateY(0)';
+    });
+  });
+  scrollChat();
+}
+
+function addTyping() {
+  removeTyping();
+  var row = document.createElement('div');
+  row.className = 'msg-row group-start';
+  row.id = 'typing-row';
+  row.style.cssText = 'opacity:0;transform:translateY(8px);';
+
+  var sp = document.createElement('div'); sp.className = 'msg-av-spacer'; row.appendChild(sp);
+
+  var group = document.createElement('div'); group.className = 'msg-group';
+  var typing = document.createElement('div'); typing.className = 'msg-typing';
+  typing.innerHTML = typingSVG;
+  group.appendChild(typing);
+  row.appendChild(group);
+
+  var sp2 = document.createElement('div'); sp2.className = 'msg-av-spacer'; row.appendChild(sp2);
+
+  chatArea.appendChild(row);
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      row.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      row.style.opacity = '1';
+      row.style.transform = 'translateY(0)';
+    });
+  });
+  scrollChat();
+}
+
+function removeTyping() {
+  var row = document.getElementById('typing-row');
+  if (row) row.parentNode.removeChild(row);
+}
+
+// ─────────────────────────────────────────────────────────────
+// Conversation timeline
+//
+// For each "me" turn:
+//   words_done  = pill_start + words.length × 210
+//   clear+bubble = words_done + 400  (0.4s delay — text flies into textbox)
+//   idle        = clear+bubble + 400
+//
+// CONV[0] Me "Hi"  (1 word)  — pill=1500, clear=2110, idle=2510
+// CONV[1] Alex                — typing=2710, bubble=4910
+// CONV[2] Me (9 words)        — pill=5710,  clear=8000, idle=8400
+// CONV[3] Alex                — typing=8600, bubble=10400
+// CONV[4] Me (12 words)       — pill=11200, clear=14120, idle=14520
+// CONV[5] Alex                — typing=14720, bubble=16920
+// CONV[6] Me (11 words)       — pill=17720, clear=20430, idle=20830
+// CONV[7] Alex (keepTyping)   — typing=21030, bubble=23630, stays
+// ─────────────────────────────────────────────────────────────
+
+// ── CONV[0]: Me "Hi" ──
+at(1500, function() { pillTranscript(['Hi']); });
+at(2110, function() { pillClearText(); addBubble('me', 'Hi', true); });
+at(2510, function() { pillReturnToIdle(); });
+
+// ── CONV[1]: Alex ──
+at(2710, function() { addTyping(); });
+at(4910, function() { removeTyping(); addBubble('alex', 'Hey, I know things have been busy. What did you want to talk about?'); });
+
+// ── CONV[2]: Me (9 words) ──
+at(5710, function() { pillTranscript(['I', 'wanted', 'to', 'check', 'in', 'about', 'the', 'project', 'deadlines.']); });
+at(8000, function() { pillClearText(); addBubble('me', 'I wanted to check in about the project deadlines.'); });
+at(8400, function() { pillReturnToIdle(); });
+
+// ── CONV[3]: Alex ──
+at(8600, function() { addTyping(); });
+at(10400, function() { removeTyping(); addBubble('alex', "Oh, is this about the project? I thought I was keeping up okay..."); });
+
+// ── CONV[4]: Me (12 words) ──
+at(11200, function() { pillTranscript(['The', 'simulation', 'was', 'due', 'Tuesday', '—', 'it', 'came', 'in', 'Thursday', 'two', 'configs', 'missing.']); });
+at(14120, function() { pillClearText(); addBubble('me', 'The simulation was due Tuesday — it came in Thursday with two configs missing.'); });
+at(14520, function() { pillReturnToIdle(); });
+
+// ── CONV[5]: Alex ──
+at(14720, function() { addTyping(); });
+at(16920, function() { removeTyping(); addBubble('alex', "I've been really slammed with other courses. I didn't realize it was that behind."); });
+
+// ── CONV[6]: Me (11 words) ──
+at(17720, function() { pillTranscript(['Can', 'we', 'agree', 'on', 'a', 'buffer', '—', 'send', 'work', 'by', 'Thursday?']); });
+at(20430, function() { pillClearText(); addBubble('me', "Can we agree on a buffer — send work by Thursday so we have time before Friday's submission?"); });
+at(20830, function() { pillReturnToIdle(); });
+
+// ── CONV[7]: Alex (typing stays) ──
+at(21030, function() { addTyping(); });
+at(23630, function() {
+  removeTyping();
+  addBubble('alex', "Yeah, that's fair. Thursday works. I'll flag it earlier if I'm running behind.");
+});
+at(26500, function() {
+  var shell = document.querySelector('.layout-shell');
+  shell.style.transition = 'opacity 0.6s ease';
+  shell.style.opacity = '0';
+  setTimeout(function() { location.reload(); }, 700);
+});
+
+// ─────────────────────────────────────────────────────────────
+// Pause / Resume
+// ─────────────────────────────────────────────────────────────
+var pauseBtn    = document.getElementById('btn-pause');
+var pauseIconEl = document.getElementById('pause-icon');
+var pathPause   = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
+var pathPlay    = 'M8 5v14l11-7L8 5z';
+
+pauseBtn.addEventListener('click', function() {
+  running = !running;
+  isPaused = !running;
+  var shell = document.querySelector('.layout-shell');
+
+  if (isPaused) {
+    pauseTimeline();
+    // Pause pill transcript interval
+    if (pillTranscriptTimer) { clearInterval(pillTranscriptTimer); pillTranscriptTimer = null; _trPaused = true; }
+    shell.classList.add('demo-paused');
+  } else {
+    resumeTimeline();
+    // Resume pill transcript if it was mid-word
+    if (_trPaused && _trWords && _trShown < _trWords.length) {
+      _trPaused = false;
+      pillTranscriptTimer = setInterval(_transcriptTick, 210);
+    }
+    shell.classList.remove('demo-paused');
+  }
+
+  pauseIconEl.querySelector('path').setAttribute('d', running ? pathPause : pathPlay);
+  dotEl.style.background = running ? '#22c55e' : '#a4a4a4';
+  activeEl.textContent   = running ? 'Active'  : 'Paused';
+  scrimEl.classList.toggle('visible', !running);
+});
+
+// ─────────────────────────────────────────────────────────────
+// Mute
+// ─────────────────────────────────────────────────────────────
+var muteBtn    = document.getElementById('btn-mute');
+var muteIconEl = document.getElementById('mute-icon');
+var muted = false;
+
+muteBtn.addEventListener('click', function() {
+  muted = !muted;
+  muteIconEl.innerHTML = muted ? micOffSVG : micOnSVG;
+  muteIconEl.setAttribute('stroke', muted ? '#B31B1B' : '#222');
+  muteBtn.style.borderColor = muted ? '#B31B1B' : '#e1e1e1';
+});
+
+// ─────────────────────────────────────────────────────────────
+// End Scenario Modal
+// ─────────────────────────────────────────────────────────────
+var endModal    = document.getElementById('end-modal');
+var modalCancel = document.getElementById('modal-cancel');
+var modalConfirm = document.getElementById('modal-confirm');
+
+document.getElementById('btn-end').addEventListener('click', function() {
+  endModal.classList.add('open');
+});
+modalCancel.addEventListener('click', function() {
+  endModal.classList.remove('open');
+});
+endModal.addEventListener('click', function(e) {
+  if (e.target === endModal) endModal.classList.remove('open');
+});
+modalConfirm.addEventListener('click', function() {
+  endModal.classList.remove('open');
+  var shell = document.querySelector('.layout-shell');
+  shell.style.transition = 'opacity 0.25s ease';
+  shell.style.opacity = '0';
+  setTimeout(function() { window.history.back(); }, 280);
+});
+
+// ─────────────────────────────────────────────────────────────
+// Notes panel
+// ─────────────────────────────────────────────────────────────
+var notesPanel  = document.getElementById('notes-panel');
+var shellCol    = document.getElementById('shell-col');
+
+var btnNotes = document.getElementById('btn-notes');
+
+function openSheet()  {
+  notesPanel.classList.add('open');
+  shellCol.classList.add('notes-open');
+  btnNotes.classList.add('pressed');
+}
+function closeSheet() {
+  notesPanel.classList.remove('open');
+  shellCol.classList.remove('notes-open');
+  btnNotes.classList.remove('pressed');
+}
+btnNotes.addEventListener('click', openSheet);
+document.getElementById('sheet-close').addEventListener('click', closeSheet);
+
+// ─────────────────────────────────────────────────────────────
+// Topbar glass on scroll
+// ─────────────────────────────────────────────────────────────
+var topbarEl = document.querySelector('.topbar');
+var headerGlass = document.getElementById('header-glass');
+chatArea.addEventListener('scroll', function() {
+  var scrolled = chatArea.scrollTop > 0;
+  topbarEl.classList.toggle('scrolled', scrolled);
+  headerGlass.classList.toggle('scrolled', scrolled);
+});
+
+// ─────────────────────────────────────────────────────────────
+// Drag-to-scroll chat area
+// ─────────────────────────────────────────────────────────────
+(function() {
+  var chat = document.getElementById('chat-area');
+  var isDragging = false, startY = 0, startScrollTop = 0;
+  var velY = 0, lastY = 0, lastT = 0, rafId = null;
+
+  chat.addEventListener('mousedown', function(e) {
+    if (e.button !== 0) return;
+    isDragging = true; startY = e.clientY; startScrollTop = chat.scrollTop;
+    velY = 0; lastY = e.clientY; lastT = Date.now();
+    chat.classList.add('dragging');
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    var now = Date.now(), dt = now - lastT || 1;
+    velY = (e.clientY - lastY) / dt; lastY = e.clientY; lastT = now;
+    chat.scrollTop = startScrollTop - (e.clientY - startY);
+  });
+  document.addEventListener('mouseup', function() {
+    if (!isDragging) return;
+    isDragging = false; chat.classList.remove('dragging');
+    var momentum = velY * 120;
+    var start = chat.scrollTop;
+    var end = Math.max(0, Math.min(chat.scrollHeight - chat.clientHeight, start - momentum));
+    var startTime = null;
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var p = Math.min(1, (ts - startTime) / 400);
+      var ease = 1 - Math.pow(1 - p, 3);
+      chat.scrollTop = start + (end - start) * ease;
+      if (p < 1) rafId = requestAnimationFrame(step);
+    }
+    rafId = requestAnimationFrame(step);
+  });
+})();
+</script>
+
+</body>
+</html>

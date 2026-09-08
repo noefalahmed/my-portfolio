@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home — Leadership Coach</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --red: #B31B1B; --border: #e1e1e1; --text: #222; --green: #00893f; }
+
+html, body {
+  width: 430px; height: 932px;
+  overflow: hidden;
+  font-family: 'IBM Plex Sans', sans-serif; color: var(--text);
+}
+
+.layout-shell {
+  width: 430px; height: 932px;
+  background: #fff;
+  background-image: url('./assets/sc-texture.png');
+  background-repeat: repeat;
+  background-size: auto;
+  position: relative; overflow: hidden;
+  border-radius: 54px;
+  clip-path: inset(0 round 54px);
+}
+
+/* ── Scrollable main ── */
+.hp-main {
+  flex: 1; min-height: 0;
+  overflow-y: auto; overflow-x: hidden;
+  background: transparent;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.hp-main::-webkit-scrollbar { display: none; }
+
+/* ── Header ── */
+.hp-header {
+  display: flex; align-items: center;
+  margin-bottom: 20px;
+}
+.hp-menu-btn {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+.hp-menu-btn:hover { background: #f5f5f5; }
+.hp-menu-btn.active { background: #222; border-color: #222; }
+.hp-menu-btn.active img { filter: invert(1); }
+.hp-menu-btn img { width: 16px; height: 16px; object-fit: contain; }
+
+.hp-content {
+  padding: 16px 16px 120px;
+  display: flex; flex-direction: column;
+  gap: 0;
+}
+
+/* ── Welcome ── */
+.hp-welcome {
+  display: flex; flex-direction: column;
+  gap: 4px;
+  animation: fadeInUp 0.38s ease both;
+  animation-delay: 0.08s;
+}
+.hp-welcome-name {
+  font-size: 28px; font-weight: 500;
+  color: var(--text); line-height: 1.05;
+}
+.hp-welcome-sub {
+  font-size: 17px; font-weight: 400;
+  color: var(--text); line-height: 1.5;
+}
+
+/* ── Stats ── */
+.hp-stats {
+  display: flex; flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  animation: fadeInUp 0.38s ease both;
+  animation-delay: 0.18s;
+}
+.hp-stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.hp-stat-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  min-height: 120px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.hp-stat-card:hover { border-color: #aaa; }
+.hp-stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: -0.03em;
+  opacity: 0.7; color: var(--text); line-height: 1.3;
+}
+.hp-stat-bottom { display: flex; align-items: flex-end; justify-content: space-between; }
+.hp-stat-number { font-size: 50px; font-weight: 400; color: var(--text); line-height: 1; }
+.hp-stat-number .denom { font-size: 14px; font-weight: 400; }
+.hp-stat-delta { font-size: 14px; font-weight: 500; color: var(--green); padding-bottom: 2px; }
+
+/* Skills card */
+.hp-skills-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.hp-skills-card:hover { border-color: #aaa; }
+.hp-skills-header { display: flex; align-items: center; justify-content: space-between; }
+.hp-skills-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: -0.03em;
+  opacity: 0.7; color: var(--text);
+}
+.hp-skills-pb { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 400; color: #656565; }
+.hp-pb-star { font-size: 11px; color: #888; }
+
+.hp-skill-row { display: flex; align-items: center; }
+.hp-skill-label { width: 79px; flex-shrink: 0; font-size: 12px; font-weight: 400; line-height: 1; color: var(--text); }
+.hp-skill-track-wrap { flex: 1; position: relative; height: 20px; display: flex; align-items: center; }
+.hp-skill-track { position: absolute; left: 0; right: 0; height: 1px; background: #d5d5d5; }
+.hp-skill-fill { position: absolute; left: 0; height: 2px; top: 50%; transform: translateY(-50%); border-radius: 1px; }
+.hp-skill-fill.green { background: var(--green); }
+.hp-skill-fill.red { background: #c0392b; }
+.hp-skill-val {
+  position: absolute; background: white; padding: 0 3px;
+  font-size: 13px; font-weight: 600; letter-spacing: -0.03em;
+  color: var(--text); transform: translateX(-50%);
+  line-height: 20px; text-transform: uppercase;
+}
+
+/* ── Scenarios ── */
+.hp-scenarios {
+  display: flex; flex-direction: column; gap: 16px;
+  margin-top: 16px;
+  animation: fadeInUp 0.38s ease both;
+  animation-delay: 0.28s;
+}
+.hp-scenarios-title {
+  font-size: 17px; font-weight: 500;
+  font-feature-settings: "dlig" 1;
+  color: var(--text);
+}
+
+/* Scenario cards — exact desktop styles */
+.hp-sc-list { display: flex; flex-direction: column; gap: 0; }
+
+.hp-sc-card {
+  background: none;
+  transition: background 0.15s;
+  border-radius: 8px;
+  display: flex; align-items: center;
+  padding: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.hp-sc-card:hover { background: #fafafa; }
+
+.hp-sc-thumb {
+  width: 92px; height: 92px;
+  border-radius: 8px; flex-shrink: 0;
+  position: relative; overflow: hidden;
+}
+.hp-sc-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+.hp-sc-body {
+  flex: 1 0 0; padding: 20px;
+  display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: center;
+  gap: 4px; height: 100%;
+  word-break: break-word;
+}
+.hp-sc-name {
+  font-size: 14px; font-weight: 500;
+  color: var(--text); line-height: 1.357;
+  font-feature-settings: "dlig" 1;
+}
+.hp-sc-title {
+  font-size: 14px; font-weight: 400;
+  color: var(--text); line-height: 1.21;
+  font-feature-settings: "dlig" 1;
+}
+
+.hp-sc-avatar-wrap {
+  position: absolute;
+  left: 21.66px; top: 50%;
+  transform: translateY(-50%);
+  width: 56px; height: 56px;
+  border-radius: 100px; overflow: hidden;
+  flex-shrink: 0; cursor: pointer; z-index: 1;
+}
+.hp-sc-avatar {
+  width: 56px; height: 56px;
+  border-radius: 100px; object-fit: cover; display: block;
+}
+.hp-sc-avatar-wrap::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.52);
+  opacity: 0; transition: opacity 0.18s; z-index: 1;
+}
+.hp-sc-avatar-wrap::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><polygon points='7,4 16,10 7,16' fill='white'/></svg>") center/22px no-repeat;
+  opacity: 0; transition: opacity 0.18s; z-index: 2;
+}
+.hp-sc-avatar-wrap:hover::after,
+.hp-sc-avatar-wrap:hover::before { opacity: 1; }
+
+@keyframes hp2AudioBar {
+  0%   { transform: scaleY(0.2); }
+  100% { transform: scaleY(1); }
+}
+.hp-sc-audio-bars {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center; gap: 3px;
+  opacity: 0; z-index: 3; pointer-events: none;
+}
+.hp-sc-avatar-wrap.playing .hp-sc-audio-bars { opacity: 1; }
+.hp-sc-audio-bar {
+  width: 3px; background: white; border-radius: 2px;
+  transform-origin: center;
+  animation: hp2AudioBar 0.6s ease-in-out infinite alternate;
+}
+.hp-sc-audio-bar:nth-child(1) { height: 10px; animation-delay: 0.00s; }
+.hp-sc-audio-bar:nth-child(2) { height: 16px; animation-delay: 0.15s; }
+.hp-sc-audio-bar:nth-child(3) { height: 10px; animation-delay: 0.30s; }
+
+/* ── FAB ── */
+.fab {
+  position: absolute;
+  bottom: 36px; right: 20px;
+  display: flex; align-items: center; gap: 6px;
+  height: 48px; padding: 0 20px 0 16px;
+  background: #222222;
+  border: none; border-radius: 100px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px; font-weight: 500;
+  color: #fff; cursor: pointer;
+  box-shadow: 0 4px 16px rgba(179,27,27,0.35);
+  transition: background 0.15s, box-shadow 0.15s;
+  z-index: 50;
+}
+.fab:hover { background: #333; box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Push sidebar ── */
+.shell-row {
+  display: flex; flex-direction: row;
+  width: 730px; height: 100%;
+  transform: translateX(-300px);
+  transition: transform 0.30s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.shell-row.open { transform: translateX(0); }
+
+.shell-main {
+  width: 430px; flex-shrink: 0;
+  display: flex; flex-direction: column;
+  height: 100%; position: relative;
+  padding-top: 59px;
+}
+
+.sidebar {
+  width: 300px; flex-shrink: 0; height: 100%;
+  background: #fff;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding-top: 59px;
+}
+
+.sidebar-header {
+  height: 48px; flex-shrink: 0;
+  display: flex; align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-title {
+  font-size: 14px; font-weight: 500;
+  color: #373737; white-space: nowrap;
+}
+
+.sidebar-list {
+  flex: 1; min-height: 0;
+  overflow-y: auto; overflow-x: hidden;
+  padding: 4px 0;
+}
+.sidebar-list::-webkit-scrollbar { display: none; }
+
+.sidebar-item {
+  display: flex; align-items: center;
+  padding: 0 12px 0 16px;
+  height: 48px;
+  cursor: pointer; text-decoration: none;
+  position: relative;
+}
+.sidebar-item::before {
+  content: '';
+  position: absolute; top: 4px; bottom: 4px; left: 4px; right: 4px;
+  border-radius: 6px; background: transparent;
+  transition: background 0.15s;
+}
+.sidebar-item:hover::before { background: #F5F5F5; }
+
+.sidebar-item-title {
+  flex: 1; min-width: 0;
+  font-size: 14px; font-weight: 400; color: #222;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  position: relative; z-index: 1;
+}
+
+.sidebar-score-badge {
+  position: relative; width: 32px; height: 32px;
+  flex-shrink: 0; z-index: 1;
+}
+.sidebar-score-badge svg { width: 32px; height: 32px; display: block; }
+.sidebar-score-num {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; color: #057a3c; line-height: 1;
+}
+.sidebar-score-num.amber { color: #a17600; }
+
+.sidebar-more-btn {
+  display: none; align-items: center; justify-content: center;
+  width: 32px; height: 32px; flex-shrink: 0;
+  border-radius: 6px; color: #373737;
+  position: relative; z-index: 1; cursor: pointer;
+  transition: background 0.12s;
+}
+.sidebar-more-btn:hover { background: #eaeaea; }
+.sidebar-item:hover .sidebar-score-badge { display: none; }
+.sidebar-item:hover .sidebar-more-btn { display: flex; }
+
+/* ── iPhone chrome ── */
+.iph-bar {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 59px;
+  display: flex; align-items: flex-end;
+  padding: 0 22px 9px;
+  z-index: 9999; pointer-events: none;
+  transition: background 0.2s ease, backdrop-filter 0.2s ease;
+}
+.iph-time {
+  font-family: -apple-system, ui-sans-serif, sans-serif;
+  font-size: 15px; font-weight: 600;
+  letter-spacing: -0.3px; color: #111; line-height: 1;
+}
+.iph-di {
+  position: absolute; top: 11px; left: 50%;
+  transform: translateX(-50%);
+  width: 126px; height: 37px;
+  background: #000; border-radius: 20px;
+}
+.iph-icons { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.iph-home {
+  position: absolute; bottom: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 134px; height: 5px;
+  background: rgba(0,0,0,0.2); border-radius: 3px;
+  z-index: 9999; pointer-events: none;
+}
+</style>
+</head>
+<body>
+<div class="layout-shell">
+
+<div class="iph-bar">
+  <span class="iph-time">9:41</span>
+  <div class="iph-di"></div>
+  <div class="iph-icons">
+    <svg width="17" height="12" viewBox="0 0 17 12" fill="#111"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="5" width="3" height="7" rx="1"/><rect x="9" y="3" width="3" height="9" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>
+    <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><circle cx="8" cy="11" r="1.5" fill="#111"/><path d="M4.5 7.5C5.5 6.5 6.7 6 8 6s2.5.5 3.5 1.5" stroke="#111" stroke-width="1.5" stroke-linecap="round"/><path d="M1.5 4.5C3 3 5.4 2 8 2s5 1 6.5 2.5" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3.5" stroke="#111" stroke-opacity="0.35"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#111"/><path d="M22 4.5v3a1.5 1.5 0 0 0 0-3z" fill="#111" fill-opacity="0.4"/></svg>
+  </div>
+</div>
+
+  <div class="shell-row" id="shellRow">
+
+  <!-- Slide-in sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">Recents</span>
+    </div>
+    <div class="sidebar-list">
+
+      <div class="sidebar-item">
+        <span class="sidebar-item-title">Classmate Group Project</span>
+        <div class="sidebar-score-badge"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="none" stroke="#e1e1e1" stroke-width="2"/><circle cx="16" cy="16" r="11" fill="none" stroke="#057a3c" stroke-width="2" stroke-dasharray="50.5 69.1" stroke-dashoffset="17.3" transform="rotate(-90 16 16)" stroke-linecap="round"/></svg><span class="sidebar-score-num">73</span></div>
+        <div class="sidebar-more-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.25"/><circle cx="8" cy="8" r="1.25"/><circle cx="8" cy="13" r="1.25"/></svg></div>
+      </div>
+
+      <div class="sidebar-item">
+        <span class="sidebar-item-title">Team Leader Communication</span>
+        <div class="sidebar-score-badge"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="none" stroke="#e1e1e1" stroke-width="2"/><circle cx="16" cy="16" r="11" fill="none" stroke="#057a3c" stroke-width="2" stroke-dasharray="50.5 69.1" stroke-dashoffset="17.3" transform="rotate(-90 16 16)" stroke-linecap="round"/></svg><span class="sidebar-score-num">73</span></div>
+        <div class="sidebar-more-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.25"/><circle cx="8" cy="8" r="1.25"/><circle cx="8" cy="13" r="1.25"/></svg></div>
+      </div>
+
+      <div class="sidebar-item">
+        <span class="sidebar-item-title">Friend's Article Feedback</span>
+        <div class="sidebar-score-badge"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="none" stroke="#e1e1e1" stroke-width="2"/><circle cx="16" cy="16" r="11" fill="none" stroke="#057a3c" stroke-width="2" stroke-dasharray="58.7 69.1" stroke-dashoffset="17.3" transform="rotate(-90 16 16)" stroke-linecap="round"/></svg><span class="sidebar-score-num">85</span></div>
+        <div class="sidebar-more-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.25"/><circle cx="8" cy="8" r="1.25"/><circle cx="8" cy="13" r="1.25"/></svg></div>
+      </div>
+
+      <div class="sidebar-item">
+        <span class="sidebar-item-title">Professor Feedback on Organization</span>
+        <div class="sidebar-score-badge"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="none" stroke="#e1e1e1" stroke-width="2"/><circle cx="16" cy="16" r="11" fill="none" stroke="#a17600" stroke-width="2" stroke-dasharray="34.6 69.1" stroke-dashoffset="17.3" transform="rotate(-90 16 16)" stroke-linecap="round"/></svg><span class="sidebar-score-num amber">50</span></div>
+        <div class="sidebar-more-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.25"/><circle cx="8" cy="8" r="1.25"/><circle cx="8" cy="13" r="1.25"/></svg></div>
+      </div>
+
+      <div class="sidebar-item">
+        <span class="sidebar-item-title">Classmate Group Project</span>
+        <div class="sidebar-score-badge"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="none" stroke="#e1e1e1" stroke-width="2"/><circle cx="16" cy="16" r="11" fill="none" stroke="#057a3c" stroke-width="2" stroke-dasharray="50.5 69.1" stroke-dashoffset="17.3" transform="rotate(-90 16 16)" stroke-linecap="round"/></svg><span class="sidebar-score-num">73</span></div>
+        <div class="sidebar-more-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.25"/><circle cx="8" cy="8" r="1.25"/><circle cx="8" cy="13" r="1.25"/></svg></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="shell-main">
+
+  <main class="hp-main">
+    <div class="hp-content">
+
+  <header class="hp-header">
+    <button class="hp-menu-btn" id="menuBtn" aria-label="Menu" onclick="toggleSidebar(); event.stopPropagation();">
+      <img src="./assets/icon-nav-coach.png" alt="" />
+    </button>
+  </header>
+
+      <!-- Welcome -->
+      <div class="hp-welcome">
+        <h1 class="hp-welcome-name">Welcome back.</h1>
+        <p class="hp-welcome-sub">Here's a quick overview of your progress:</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="hp-stats">
+        <div class="hp-stats-row">
+          <div class="hp-stat-card">
+            <div class="hp-stat-label">Avg Score</div>
+            <div class="hp-stat-bottom">
+              <div class="hp-stat-number">82<span class="denom">/100</span></div>
+              <div class="hp-stat-delta">+3pts</div>
+            </div>
+          </div>
+          <div class="hp-stat-card">
+            <div class="hp-stat-label">Sessions</div>
+            <div class="hp-stat-bottom">
+              <div class="hp-stat-number">24</div>
+              <div class="hp-stat-delta">+5</div>
+            </div>
+          </div>
+        </div>
+        <div class="hp-skills-card">
+          <div class="hp-skills-header">
+            <span class="hp-skills-title">Skills Assessment</span>
+            <span class="hp-skills-pb"><span class="hp-pb-star">★</span> Personal Best</span>
+          </div>
+          <div class="hp-skill-row">
+            <span class="hp-skill-label">Listening</span>
+            <div class="hp-skill-track-wrap">
+              <div class="hp-skill-track"></div>
+              <div class="hp-skill-fill green" style="width:75.8%"></div>
+              <div class="hp-skill-val" style="left:75.8%">7.0</div>
+            </div>
+          </div>
+          <div class="hp-skill-row">
+            <span class="hp-skill-label">Empathy</span>
+            <div class="hp-skill-track-wrap">
+              <div class="hp-skill-track"></div>
+              <div class="hp-skill-fill green" style="width:75.8%"></div>
+              <div class="hp-skill-val" style="left:75.8%">7.0</div>
+            </div>
+          </div>
+          <div class="hp-skill-row">
+            <span class="hp-skill-label">Conciseness</span>
+            <div class="hp-skill-track-wrap">
+              <div class="hp-skill-track"></div>
+              <div class="hp-skill-fill green" style="width:76.5%"></div>
+              <div class="hp-skill-val" style="left:76.5%">7.2</div>
+            </div>
+          </div>
+          <div class="hp-skill-row">
+            <span class="hp-skill-label">Clarity</span>
+            <div class="hp-skill-track-wrap">
+              <div class="hp-skill-track"></div>
+              <div class="hp-skill-fill red" style="width:48.6%"></div>
+              <div class="hp-skill-val" style="left:48.6%">5.0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenarios -->
+      <div class="hp-scenarios">
+        <p class="hp-scenarios-title">Practice Giving Feedback</p>
+
+        <div class="hp-sc-list">
+
+          <div class="hp-sc-card" onclick="goScenario('drew')">
+            <div class="hp-sc-thumb">
+              <img class="hp-sc-bg" src="./assets/sc-bg-alex.png" alt="" />
+            </div>
+            <div class="hp-sc-avatar-wrap">
+              <img class="hp-sc-avatar" src="./assets/sc-avatar-drew.png" alt="Drew" />
+              <div class="hp-sc-audio-bars">
+                <div class="hp-sc-audio-bar"></div>
+                <div class="hp-sc-audio-bar"></div>
+                <div class="hp-sc-audio-bar"></div>
+              </div>
+            </div>
+            <div class="hp-sc-body">
+              <p class="hp-sc-name">Drew</p>
+              <p class="hp-sc-title">Classmate Group Project</p>
+            </div>
+          </div>
+
+          <div class="hp-sc-card" onclick="goScenario('alex')">
+            <div class="hp-sc-thumb">
+              <img class="hp-sc-bg" src="./assets/sc-bg-jordan.png" alt="" />
+            </div>
+            <div class="hp-sc-avatar-wrap">
+              <img class="hp-sc-avatar" src="./assets/sc-avatar-alex.png" alt="Alex" />
+              <div class="hp-sc-audio-bars">
+                <div class="hp-sc-audio-bar"></div>
+                <div class="hp-sc-audio-bar"></div>
+                <div class="hp-sc-audio-bar"></div>
+              </div>
+            </div>
+            <div class="hp-sc-body">
+              <p class="hp-sc-name">Alex</p>
+              <p class="hp-sc-title">Team Leader Communication</p>
+            </div>
+          </div>
+
+          <div class="hp-sc-card" onclick="goScenario('bella')">
+            <div class="hp-sc-thumb">
+              <img class="hp-sc-bg" src="./assets/sc-bg-bella.png" alt="" />
+            </div>
+            <div class="hp-sc-avatar-wrap">
+              <img class="hp-sc-avatar" src="./assets/sc-avatar-bella.png" alt="Bella" />
+              <div class="hp-sc-audio-bars">
+                <div class="hp-sc-audio-bar"></div>
+                <div class="hp-sc-audio-bar"></div>
+                <div class="hp-sc-audio-bar"></div>
+              </div>
+            </div>
+            <div class="hp-sc-body">
+              <p class="hp-sc-name">Bella</p>
+              <p class="hp-sc-title">Friend's Article Feedback</p>
+            </div>
+          </div>
+
+          <div class="hp-sc-card" onclick="goScenario('arnold')">
+            <div class="hp-sc-thumb">
+              <img class="hp-sc-bg" src="./assets/sc-bg-arnold.png" alt="" />
+            </div>
+            <div class="hp-sc-avatar-wrap">
+              <img class="hp-sc-avatar" src="./assets/sc-avatar-arnold.png" alt="Arnold" />
+              <div class="hp-sc-audio-bars">
+                <div class="hp-sc-audio-bar"></div>
+                <div class="hp-sc-audio-bar"></div>
+                <div class="hp-sc-audio-bar"></div>
+              </div>
+            </div>
+            <div class="hp-sc-body">
+              <p class="hp-sc-name">Prof. Arnold</p>
+              <p class="hp-sc-title">Feedback on Organization</p>
+            </div>
+          </div>
+
+          <div class="hp-sc-card" onclick="goScenario('eli')">
+            <div class="hp-sc-thumb">
+              <img class="hp-sc-bg" src="./assets/sc-bg-eli.png" alt="" />
+            </div>
+            <div class="hp-sc-avatar-wrap">
+              <img class="hp-sc-avatar" src="./assets/sc-avatar-eli.png" alt="Eli" />
+              <div class="hp-sc-audio-bars">
+                <div class="hp-sc-audio-bar"></div>
+                <div class="hp-sc-audio-bar"></div>
+                <div class="hp-sc-audio-bar"></div>
+              </div>
+            </div>
+            <div class="hp-sc-body">
+              <p class="hp-sc-name">Eli</p>
+              <p class="hp-sc-title">Younger Student Lateness</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FAB -->
+  <button class="fab" onclick="goNew()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <line x1="5" y1="12" x2="19" y2="12"/>
+    </svg>
+    New
+  </button>
+
+  </div><!-- /.shell-main -->
+  </div><!-- /.shell-row -->
+
+<div class="iph-home"></div>
+</div>
+<script>
+function goNew() { window.location.href = 'mobile-setup-1.html'; }
+function goScenario(s) { window.location.href = 'mobile-setup-1.html?scenario=' + s; }
+
+function openSidebar() {
+  document.getElementById('shellRow').classList.add('open');
+  document.getElementById('menuBtn').classList.add('active');
+}
+function closeSidebar() {
+  document.getElementById('shellRow').classList.remove('open');
+  document.getElementById('menuBtn').classList.remove('active');
+}
+function toggleSidebar() {
+  if (document.getElementById('shellRow').classList.contains('open')) {
+    closeSidebar();
+  } else {
+    openSidebar();
+  }
+}
+
+// Clicking the pushed main content closes the sidebar
+document.querySelector('.shell-main').addEventListener('click', function(e) {
+  if (document.getElementById('shellRow').classList.contains('open')) {
+    e.stopPropagation();
+    closeSidebar();
+  }
+});
+</script>
+</body>
+</html>

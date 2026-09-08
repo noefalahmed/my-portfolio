@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Conversation V2 — Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cornell-red: #B31B1B;
+  --charcoal: #222222;
+  --light-border: #EAEAEA;
+  --surface: #FCFCFC;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* ── Shell ── */
+.layout-shell {
+  width: 100%; height: 100vh;
+  position: relative;
+  background: #fff;
+  background-image: url('./assets/sc-texture.png');
+  background-repeat: repeat;
+  background-size: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ── Topbar ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 200;
+}
+
+/* Left pill: avatar + name + status */
+.tb-user-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  padding: 4px 8px 4px 4px;
+}
+
+.tb-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.tb-name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: var(--charcoal);
+  line-height: 1;
+}
+
+.tb-status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tb-dot {
+  width: 6.66px; height: 6.66px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.tb-active {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: var(--charcoal);
+}
+
+/* Right pill: pause + timer + end */
+.tb-controls-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  padding: 5px;
+}
+
+.tb-timer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 6px;
+  height: 40px;
+}
+
+.tb-timer-icon {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.tb-timer-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: var(--charcoal);
+  white-space: nowrap;
+}
+
+.tb-pause {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.tb-pause:hover { background: #F5F5F5; }
+
+.tb-end {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 12px;
+  background: var(--cornell-red);
+  border: none;
+  border-radius: 100px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px; font-weight: 500;
+  color: #FCFCFC;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tb-end:hover { background: #9A1717; }
+
+/* ── Chat area ── */
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* ── Conversation frame ── */
+.conv-frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 868px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.conv-frame::-webkit-scrollbar { display: none; }
+
+/* ── Message rows ── */
+.msg-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 13px;
+}
+
+.msg-row.me {
+  justify-content: flex-end;
+}
+
+.msg-av {
+  width: 33px; height: 33px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.msg-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.msg-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.821px; font-weight: 400;
+  color: var(--charcoal);
+  line-height: 1.54;
+}
+
+.msg-label.me {
+  text-align: right;
+}
+
+.msg-bubble {
+  padding: 12px;
+  border-radius: 8px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 400;
+  line-height: 20px;
+  background: #fcfcfc;
+  border: 0.832px solid var(--charcoal);
+  color: var(--charcoal);
+  max-width: 454px;
+}
+
+.msg-bubble.me {
+  background: var(--charcoal);
+  border: none;
+  color: #F5F5F5;
+  max-width: 414px;
+}
+
+/* Suggestion bubble */
+.msg-bubble.suggestion {
+  background: linear-gradient(#fff, #fff) padding-box,
+              conic-gradient(from 90deg at 50% 50%, #ffb922 0%, #ff9500 50%, #ffb922 100%) border-box;
+  border: 1px solid transparent;
+  color: var(--charcoal);
+  max-width: 414px;
+  width: 414px;
+  padding: 13px;
+}
+
+.msg-av-suggestion {
+  width: 32px; height: 32px;
+  flex-shrink: 0;
+}
+
+.msg-bubbles {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.msg-typing {
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Typing indicator star animation */
+.ms-star-arms { transform-origin: 29px 29px; animation: ms-star-rot 4s ease-in-out infinite; }
+.ms-arm-h { transform-origin: 29px 29px; animation: ms-arm-h 4s ease-in-out infinite; }
+.ms-arm-v { transform-origin: 29px 29px; animation: ms-arm-v 4s ease-in-out infinite; }
+.ms-arm-d { transform-origin: 29px 29px; animation: ms-arm-d 4s ease-in-out infinite; }
+@keyframes ms-star-rot { 0%,35%{transform:rotate(0deg)} 50%{transform:rotate(90deg)} 85%{transform:rotate(90deg)} 100%{transform:rotate(180deg)} }
+@keyframes ms-arm-h { 0%,100%{transform:scaleX(1)} 10%{transform:scaleX(.45)} 25%{transform:scaleX(1.15)} 35%,50%{transform:scaleX(1)} 60%{transform:scaleX(.45)} 75%{transform:scaleX(1.15)} 85%{transform:scaleX(1)} }
+@keyframes ms-arm-v { 0%,100%{transform:scaleY(1)} 10%{transform:scaleY(.45)} 25%{transform:scaleY(1.15)} 35%,50%{transform:scaleY(1)} 60%{transform:scaleY(.45)} 75%{transform:scaleY(1.15)} 85%{transform:scaleY(1)} }
+@keyframes ms-arm-d { 0%,100%{transform:scale(1)} 10%{transform:scale(.45)} 25%{transform:scale(1.15)} 35%,50%{transform:scale(1)} 60%{transform:scale(.45)} 75%{transform:scale(1.15)} 85%{transform:scale(1)} }
+
+/* Pause all demo animations when paused */
+.layout-shell.demo-paused .ms-star-arms,
+.layout-shell.demo-paused .ms-arm-h,
+.layout-shell.demo-paused .ms-arm-v,
+.layout-shell.demo-paused .ms-arm-d,
+.layout-shell.demo-paused .rp-draw-path,
+.layout-shell.demo-paused .rp-word { animation-play-state: paused; }
+
+/* ── Input area ── */
+.input-area {
+  display: flex;
+  flex-direction: column;
+  width: 868px;
+  padding-bottom: 16px;
+}
+
+
+.input-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 4px 16px 20px;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Pill animation (ported from component library) ── */
+.pill-body-wrap { flex: 1; overflow: visible; line-height: 1; }
+.rp-placeholder, .rp-processing {
+  color: #848080;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 17px; font-weight: 400; line-height: 1;
+}
+.rp-transcript {
+  color: var(--charcoal);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 17px; font-weight: 400; line-height: 1;
+  white-space: nowrap; overflow: hidden; display: block;
+}
+@keyframes rp-word-in {
+  from { opacity: 0; transform: translateX(5px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.rp-word { display: inline; animation: rp-word-in 0.18s ease forwards; }
+@keyframes rp-draw { 0% { stroke-dashoffset: var(--rp-path-len); } 75%, 100% { stroke-dashoffset: 0; } }
+.rp-draw-path { animation: rp-draw 1.6s ease-in-out infinite; }
+
+.input-mic {
+  width: 24px; height: 24px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.input-placeholder {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 17px; font-weight: 400;
+  color: var(--charcoal);
+  line-height: 1;
+}
+
+/* ── Pause scrim ── */
+.pause-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 100;
+}
+.pause-scrim.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Sidebar toggle ── */
+.sidebar-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px; height: 40px;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.sidebar-toggle:hover { background: #F5F5F5; }
+
+/* ── End Scenario Modal ── */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-card {
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 20px;
+  padding: 28px 24px 24px;
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  transform: translateY(8px);
+  transition: transform 0.2s ease;
+}
+.modal-backdrop.open .modal-card {
+  transform: translateY(0);
+}
+.modal-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: var(--charcoal);
+  line-height: 1.4;
+  font-feature-settings: "dlig" 1;
+}
+.modal-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.modal-btn-confirm {
+  height: 40px;
+  padding: 0 16px;
+  background: var(--cornell-red);
+  color: #FCFCFC;
+  border: none;
+  border-radius: 100px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px; font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.modal-btn-confirm:hover { background: #9A1717; }
+.modal-btn-cancel {
+  height: 40px;
+  padding: 0 16px;
+  background: #fff;
+  color: var(--charcoal);
+  border: 1.5px solid var(--charcoal);
+  border-radius: 100px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px; font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.modal-btn-cancel:hover { background: #f0f0f0; }
+
+/* ── Notes panel ── */
+.notes-panel {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%) translateX(12px);
+  width: 260px;
+  background: #fff;
+  border: 1px solid var(--light-border);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 300;
+}
+.notes-panel.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(-50%) translateX(0);
+  cursor: grab;
+}
+.notes-panel.open:active { cursor: grabbing; }
+.notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.notes-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.notes-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: rgba(34,34,34,0.75);
+  line-height: 1;
+}
+.notes-close {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 0; flex-shrink: 0;
+  transition: background 0.15s;
+}
+.notes-close:hover { background: var(--neutral-300, #F5F5F5); }
+.notes-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 24px;
+}
+.notes-item {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: #373737;
+  line-height: 1.9;
+}
+.notes-divider {
+  height: 1px;
+  background: var(--light-border);
+  width: 100%;
+}
+
+/* ── Video panel ── */
+.video-panel {
+  position: absolute;
+  bottom: 24px;
+  right: 8px;
+  width: 268px; height: 136px;
+  border-radius: 16px;
+  border: 0.416px solid #a4a4a4;
+  overflow: hidden;
+  background: #fff;
+  cursor: pointer;
+}
+
+.video-panel img {
+  width: 100%; height: 106.33%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-panel:hover .video-scrim {
+  opacity: 1;
+}
+
+.video-ctrl-btn {
+  width: 40px; height: 40px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.video-ctrl-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.video-resize-handle {
+  position: absolute;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  display: flex; align-items: flex-start; justify-content: flex-start;
+  padding: 8px;
+  cursor: nwse-resize;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+.video-panel:hover .video-resize-handle {
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+  <div class="layout-shell">
+
+    <!-- Topbar -->
+    <div class="topbar" style="opacity:0;transform:translateY(-12px);">
+      <!-- Left pill: user info -->
+      <div class="tb-user-pill">
+        <img class="tb-avatar" src="./assets/sc-avatar-alex.png" alt="Alex" />
+        <span class="tb-name">Alex</span>
+        <div class="tb-status">
+          <div class="tb-dot"></div>
+          <span class="tb-active">Active</span>
+        </div>
+      </div>
+      <!-- Right pill: controls -->
+      <div class="tb-controls-pill">
+        <button class="tb-pause">
+          <svg id="tb-pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="#222"/>
+          </svg>
+        </button>
+        <div class="tb-timer">
+          <div class="tb-timer-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 8.03-13.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" fill="#222"/>
+            </svg>
+          </div>
+          <span class="tb-timer-text">00:05:23</span>
+        </div>
+        <button class="tb-end">End Scenario</button>
+      </div>
+    </div>
+
+    <!-- Chat area -->
+    <div class="chat-area" style="opacity:0;transform:translateY(12px);">
+      <div class="conv-frame" id="conv-frame">
+        <div style="flex:1;min-height:0;"></div>
+      </div>
+
+      <!-- Input area -->
+      <div class="input-area">
+        <div class="input-bar" id="v2-pill-content">
+          <div class="input-mic" id="v2-pill-icon">
+            <img src="./assets/sc-mic.svg" width="24" height="24" alt="" />
+          </div>
+          <div class="pill-body-wrap" id="v2-pill-body">
+            <span class="rp-placeholder">Start Speaking..</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Scenario Modal -->
+    <div class="modal-backdrop" id="end-modal">
+      <div class="modal-card">
+        <p class="modal-title">Are you sure you want to end the session?</p>
+        <div class="modal-actions">
+          <button class="modal-btn-cancel" id="modal-cancel">Cancel</button>
+          <button class="modal-btn-confirm" id="modal-confirm">End Session</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pause scrim -->
+    <div class="pause-scrim" id="pause-scrim"></div>
+
+    <!-- Notes panel -->
+    <div class="notes-panel" id="notes-panel">
+      <div class="notes-header">
+        <div class="notes-header-left">
+          <img src="./assets/sc-sidebar-icon.svg" alt="" width="24" height="24" />
+          <span class="notes-label">Notes</span>
+        </div>
+        <button class="notes-close" id="notes-close" aria-label="Close notes">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4L4 12M4 4l8 8" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="notes-body">
+        <p class="notes-item">Talk about how we're stuck without his work</p>
+        <div class="notes-divider"></div>
+        <p class="notes-item">acknowledge and then move ahead</p>
+        <div class="notes-divider"></div>
+        <p class="notes-item">solution ideas: delegate, or reduce scope early next time</p>
+      </div>
+    </div>
+
+    <!-- Sidebar toggle (floating) -->
+    <button class="sidebar-toggle" aria-label="Toggle sidebar">
+      <img src="./assets/sc-sidebar-icon.svg" alt="" width="24" height="24" />
+    </button>
+
+    <!-- Video panel (bottom-right) -->
+    <div class="video-panel" id="video-panel">
+      <img id="video-feed" src="./assets/sc-video-feed.png" alt="Video feed" />
+      <div class="video-scrim">
+        <button class="video-ctrl-btn" id="video-toggle-btn" aria-label="Toggle video">
+          <svg id="video-icon-on" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z" fill="#fff"/>
+          </svg>
+          <svg id="video-icon-off" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;">
+            <path d="M21 6.5l-4 4V7c0-.55-.45-1-1-1H9.82L21 17.18V6.5zM3.27 2L2 3.27 4.73 6H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.21 0 .39-.08.54-.18L19.73 21 21 19.73 3.27 2z" fill="#fff"/>
+          </svg>
+        </button>
+      </div>
+      <div class="video-resize-handle" id="video-resize-handle">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 13L13 1M1 8L8 1" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+<script>
+  // ─────────────────────────────────────────────────────────────
+  // SVG assets
+  // ─────────────────────────────────────────────────────────────
+  var WIGGLE_PATH = 'M16 22.1176V39.3235C16 40.8017 17.1983 42 18.6765 42C20.1546 42 21.3529 40.8017 21.3529 39.3235V18.6765C21.3529 17.1983 22.5512 16 24.0294 16C25.5076 16 26.7059 17.1983 26.7059 18.6765V39.5147C26.7059 40.8873 27.8186 42 29.1912 42C30.5638 42 31.6765 40.8873 31.6765 39.5147V18.4853C31.6765 17.1127 32.7892 16 34.1618 16C35.5344 16 36.6471 17.1127 36.6471 18.4853V39.3235C36.6471 40.8017 37.8454 42 39.3235 42C40.8017 42 42 40.8064 42 39.3282C42 37.8247 42 35.4753 42 31.8039';
+  var wiggleIdleSVG   = '<svg viewBox="0 0 58 58" width="32" height="32" fill="none"><path d="' + WIGGLE_PATH + '" stroke="#848080" stroke-width="2.8" stroke-linecap="round"/></svg>';
+  var wiggleActiveSVG = '<svg viewBox="0 0 58 58" width="32" height="32" fill="none"><path class="rp-draw-path" d="' + WIGGLE_PATH + '" stroke="#555" stroke-width="2.8" stroke-linecap="round"/></svg>';
+  var typingSVG = '<svg viewBox="0 0 58 58" width="36" height="36" fill="none"><g class="ms-star-arms"><line class="ms-arm-h" x1="16" y1="29" x2="42" y2="29" stroke="#555" stroke-width="2" stroke-linecap="round"/><line class="ms-arm-v" x1="29" y1="16" x2="29" y2="42" stroke="#555" stroke-width="2" stroke-linecap="round"/><line class="ms-arm-d" x1="22.5" y1="22.5" x2="35.5" y2="35.5" stroke="#555" stroke-width="2" stroke-linecap="round"/><line class="ms-arm-d" x1="35.5" y1="22.5" x2="22.5" y2="35.5" stroke="#555" stroke-width="2" stroke-linecap="round"/></g></svg>';
+
+  // ─────────────────────────────────────────────────────────────
+  // Refs
+  // ─────────────────────────────────────────────────────────────
+  var convFrame   = document.getElementById('conv-frame');
+  var chatArea    = document.querySelector('.chat-area');
+  var pillContent = document.getElementById('v2-pill-content');
+  var pillIcon    = document.getElementById('v2-pill-icon');
+  var pillBody    = document.getElementById('v2-pill-body');
+  var timerEl     = document.querySelector('.tb-timer-text');
+  var dotEl       = document.querySelector('.tb-dot');
+  var activeEl    = document.querySelector('.tb-active');
+  var scrimEl     = document.getElementById('pause-scrim');
+
+  // ─────────────────────────────────────────────────────────────
+  // Pill helpers
+  // ─────────────────────────────────────────────────────────────
+  var pillTranscriptTimer = null;
+  var _trWords = null, _trShown = 0, _trLine = '', _trEl = null, _trGhost = null, _trPaused = false;
+
+  function pillSetIdle() {
+    pillContent.style.gap = '8px';
+    pillIcon.style.width  = '32px';
+    pillIcon.style.opacity = '1';
+    pillBody.style.transition = 'none';
+    pillBody.style.transform  = 'translateY(0)';
+    pillBody.style.opacity    = '1';
+    pillIcon.innerHTML = wiggleIdleSVG;
+    pillBody.innerHTML = '<span class="rp-placeholder">Start Speaking..</span>';
+  }
+
+  function pillActivate() {
+    pillContent.style.gap = '8px';
+    pillIcon.style.width  = '32px';
+    pillIcon.innerHTML = wiggleActiveSVG;
+    var rpp = pillIcon.querySelector('.rp-draw-path');
+    if (rpp) {
+      var l = rpp.getTotalLength();
+      rpp.style.setProperty('--rp-path-len', l);
+      rpp.style.strokeDasharray  = l;
+      rpp.style.strokeDashoffset = l;
+    }
+  }
+
+  function pillClearText() {
+    pillBody.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+    pillBody.style.opacity    = '0';
+    pillBody.style.transform  = 'translateY(-5px)';
+  }
+
+  function pillReturnToIdle() {
+    pillIcon.innerHTML = wiggleIdleSVG;
+    pillBody.style.transition = 'none';
+    pillBody.style.transform  = 'translateY(5px)';
+    pillBody.style.opacity    = '0';
+    pillBody.innerHTML = '<span class="rp-placeholder">Start Speaking..</span>';
+    void pillBody.offsetWidth;
+    pillBody.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+    pillBody.style.opacity    = '1';
+    pillBody.style.transform  = 'translateY(0)';
+  }
+
+  function _transcriptTick() {
+    if (!_trEl || _trShown >= _trWords.length) {
+      clearInterval(pillTranscriptTimer); pillTranscriptTimer = null;
+      if (_trGhost && _trGhost.parentNode) _trGhost.parentNode.removeChild(_trGhost);
+      _trGhost = null; _trWords = null;
+      return;
+    }
+    var word = _trWords[_trShown];
+    var isLast = (_trShown === _trWords.length - 1);
+    var suffix = isLast ? '' : ' ';
+    var proposed = _trLine + word + suffix;
+    _trGhost.textContent = proposed;
+    if (_trGhost.offsetWidth > pillBody.offsetWidth && _trLine !== '') {
+      _trEl.innerHTML = '';
+      _trLine = word + suffix;
+    } else {
+      _trLine = proposed;
+    }
+    var s = document.createElement('span');
+    s.className = 'rp-word';
+    s.textContent = word + suffix;
+    _trEl.appendChild(s);
+    _trShown++;
+  }
+
+  function pillTranscript(words) {
+    if (pillTranscriptTimer) { clearInterval(pillTranscriptTimer); pillTranscriptTimer = null; }
+    if (_trGhost && _trGhost.parentNode) _trGhost.parentNode.removeChild(_trGhost);
+
+    pillActivate();
+    pillBody.style.transition = 'none';
+    pillBody.style.transform  = 'translateY(0)';
+    pillBody.style.opacity    = '1';
+
+    var uid = 'tr' + Date.now();
+    pillBody.innerHTML = '<span class="rp-transcript" id="' + uid + '"></span>';
+
+    var ghost = document.createElement('span');
+    ghost.style.cssText = 'position:absolute;top:-9999px;left:-9999px;white-space:nowrap;' +
+      'font-family:"IBM Plex Sans",sans-serif;font-size:17px;font-weight:400;visibility:hidden;';
+    document.body.appendChild(ghost);
+
+    _trWords = words; _trShown = 0; _trLine = '';
+    _trEl = document.getElementById(uid);
+    _trGhost = ghost;
+    _trPaused = false;
+
+    pillTranscriptTimer = setInterval(_transcriptTick, 210);
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Entrance
+  // ─────────────────────────────────────────────────────────────
+  pillSetIdle();
+
+  (function() {
+    var topbar   = document.querySelector('.topbar');
+    var chatArea = document.querySelector('.chat-area');
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        topbar.style.transition   = 'opacity 0.28s ease, transform 0.28s ease';
+        topbar.style.opacity      = '1';
+        topbar.style.transform    = 'translateY(0)';
+        setTimeout(function() {
+          chatArea.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
+          chatArea.style.opacity    = '1';
+          chatArea.style.transform  = 'translateY(0)';
+        }, 60);
+      });
+    });
+  })();
+
+  // ─────────────────────────────────────────────────────────────
+  // Timer
+  // ─────────────────────────────────────────────────────────────
+  var totalSeconds = 5 * 60 + 23;
+  var running = true;
+  var isPaused = false;
+
+  function formatTime(s) {
+    var h = Math.floor(s / 3600);
+    var m = Math.floor((s % 3600) / 60);
+    var sec = s % 60;
+    return (h > 0 ? String(h).padStart(2,'0') + ':' : '')
+      + String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+  }
+
+  setInterval(function() {
+    if (running) { totalSeconds++; timerEl.textContent = formatTime(totalSeconds); }
+  }, 1000);
+
+  // ─────────────────────────────────────────────────────────────
+  // Pauseable timeline
+  // ─────────────────────────────────────────────────────────────
+  var pendingTimers = [];
+
+  function at(ms, fn) {
+    var entry = { fn: fn, fireAt: performance.now() + ms, remaining: ms };
+    entry.id = setTimeout(function() {
+      pendingTimers = pendingTimers.filter(function(t) { return t !== entry; });
+      fn();
+    }, ms);
+    pendingTimers.push(entry);
+  }
+
+  function pauseTimeline() {
+    var now = performance.now();
+    pendingTimers.forEach(function(t) {
+      clearTimeout(t.id);
+      t.remaining = Math.max(0, t.fireAt - now);
+    });
+  }
+
+  function resumeTimeline() {
+    var now = performance.now();
+    pendingTimers.forEach(function(entry) {
+      entry.fireAt = now + entry.remaining;
+      entry.id = setTimeout(function() {
+        pendingTimers = pendingTimers.filter(function(t) { return t !== entry; });
+        entry.fn();
+      }, entry.remaining);
+    });
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Chat helpers
+  // ─────────────────────────────────────────────────────────────
+  var lastSide = null;
+
+  function scrollChat() {
+    convFrame.scrollTop = convFrame.scrollHeight;
+  }
+
+  function addBubble(side, text) {
+    var isGroupStart = (side !== lastSide);
+    lastSide = side;
+
+    var row = document.createElement('div');
+    row.className = 'msg-row' + (side === 'me' ? ' me' : '');
+    row.style.cssText = 'opacity:0;transform:translateY(8px);';
+
+    if (side === 'alex' && isGroupStart) {
+      var av = document.createElement('img');
+      av.className = 'msg-av'; av.src = './assets/sc-avatar-alex.png'; av.alt = 'Alex';
+      row.appendChild(av);
+    }
+
+    var group = document.createElement('div');
+    group.className = 'msg-group';
+    if (side === 'me') group.style.alignItems = 'flex-end';
+
+    if (isGroupStart) {
+      var label = document.createElement('div');
+      label.className = 'msg-label' + (side === 'me' ? ' me' : '');
+      label.textContent = side === 'me' ? 'Me' : 'Alex';
+      group.appendChild(label);
+    }
+
+    var bubble = document.createElement('div');
+    bubble.className = 'msg-bubble' + (side === 'me' ? ' me' : '');
+    bubble.textContent = text;
+    group.appendChild(bubble);
+    row.appendChild(group);
+
+    if (side === 'me' && isGroupStart) {
+      var av2 = document.createElement('img');
+      av2.className = 'msg-av'; av2.src = './assets/sc-avatar-me.png'; av2.alt = 'Me';
+      row.appendChild(av2);
+    }
+
+    var tr = document.getElementById('typing-row');
+    if (tr) { convFrame.insertBefore(row, tr); } else { convFrame.appendChild(row); }
+
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        row.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        row.style.opacity = '1';
+        row.style.transform = 'translateY(0)';
+      });
+    });
+    scrollChat();
+  }
+
+  function addTyping() {
+    removeTyping();
+    var row = document.createElement('div');
+    row.className = 'msg-row';
+    row.id = 'typing-row';
+    row.style.cssText = 'opacity:0;transform:translateY(8px);';
+
+    var group = document.createElement('div'); group.className = 'msg-group';
+    var typing = document.createElement('div'); typing.className = 'msg-typing';
+    typing.innerHTML = typingSVG;
+    group.appendChild(typing);
+    row.appendChild(group);
+
+    convFrame.appendChild(row);
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        row.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        row.style.opacity = '1';
+        row.style.transform = 'translateY(0)';
+      });
+    });
+    scrollChat();
+  }
+
+  function removeTyping() {
+    var row = document.getElementById('typing-row');
+    if (row) row.parentNode.removeChild(row);
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Conversation timeline
+  // ─────────────────────────────────────────────────────────────
+
+  function resetChat() {
+    removeTyping();
+    if (pillTranscriptTimer) { clearInterval(pillTranscriptTimer); pillTranscriptTimer = null; }
+    // fade out all bubble rows
+    var rows = convFrame.querySelectorAll('.msg-row');
+    rows.forEach(function(r) {
+      r.style.transition = 'opacity 0.4s ease';
+      r.style.opacity = '0';
+    });
+    setTimeout(function() {
+      // remove all rows, keep only the spacer
+      var allRows = convFrame.querySelectorAll('.msg-row');
+      allRows.forEach(function(r) { r.parentNode.removeChild(r); });
+      lastSide = null;
+      pillSetIdle();
+      runTimeline();
+    }, 500);
+  }
+
+  function runTimeline() {
+    // ── CONV[0]: Me "Hi" ──
+    at(1500, function() { pillTranscript(['Hi']); });
+    at(2110, function() { pillClearText(); addBubble('me', 'Hi'); });
+    at(2510, function() { pillReturnToIdle(); });
+
+    // ── CONV[1]: Alex ──
+    at(2710, function() { addTyping(); });
+    at(4910, function() { removeTyping(); addBubble('alex', 'Hey, I know things have been busy. What did you want to talk about?'); });
+
+    // ── CONV[2]: Me (9 words) ──
+    at(5710, function() { pillTranscript(['I', 'wanted', 'to', 'check', 'in', 'about', 'the', 'project', 'deadlines.']); });
+    at(8000, function() { pillClearText(); addBubble('me', 'I wanted to check in about the project deadlines.'); });
+    at(8400, function() { pillReturnToIdle(); });
+
+    // ── CONV[3]: Alex ──
+    at(8600, function() { addTyping(); });
+    at(10400, function() { removeTyping(); addBubble('alex', "Oh, is this about the project? I thought I was keeping up okay..."); });
+
+    // ── CONV[4]: Me (13 words) ──
+    at(11200, function() { pillTranscript(['The', 'simulation', 'was', 'due', 'Tuesday', '—', 'it', 'came', 'in', 'Thursday', 'two', 'configs', 'missing.']); });
+    at(14120, function() { pillClearText(); addBubble('me', 'The simulation was due Tuesday — it came in Thursday with two configs missing.'); });
+    at(14520, function() { pillReturnToIdle(); });
+
+    // ── CONV[5]: Alex ──
+    at(14720, function() { addTyping(); });
+    at(16920, function() { removeTyping(); addBubble('alex', "I've been really slammed with other courses. I didn't realize it was that behind."); });
+
+    // ── CONV[6]: Me (11 words) ──
+    at(17720, function() { pillTranscript(['Can', 'we', 'agree', 'on', 'a', 'buffer', '—', 'send', 'work', 'by', 'Thursday?']); });
+    at(20430, function() { pillClearText(); addBubble('me', "Can we agree on a buffer — send work by Thursday so we have time before Friday's submission?"); });
+    at(20830, function() { pillReturnToIdle(); });
+
+    // ── CONV[7]: Alex — last message, then loop ──
+    at(21030, function() { addTyping(); });
+    at(23630, function() {
+      removeTyping();
+      addBubble('alex', "Yeah, that's fair. Thursday works. I'll flag it earlier if I'm running behind.");
+      at(3500, resetChat);
+    });
+  }
+
+  runTimeline();
+
+  // ─────────────────────────────────────────────────────────────
+  // Pause / Resume
+  // ─────────────────────────────────────────────────────────────
+  var pauseBtn = document.querySelector('.tb-pause');
+  var iconPause = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="#222"/>';
+  var iconPlay  = '<path d="M8 5v14l11-7L8 5z" fill="#222"/>';
+
+  pauseBtn.addEventListener('click', function() {
+    running = !running;
+    isPaused = !running;
+    var shell = document.querySelector('.layout-shell');
+
+    if (isPaused) {
+      pauseTimeline();
+      if (pillTranscriptTimer) { clearInterval(pillTranscriptTimer); pillTranscriptTimer = null; _trPaused = true; }
+      shell.classList.add('demo-paused');
+    } else {
+      resumeTimeline();
+      if (_trPaused && _trWords && _trShown < _trWords.length) {
+        _trPaused = false;
+        pillTranscriptTimer = setInterval(_transcriptTick, 210);
+      }
+      shell.classList.remove('demo-paused');
+    }
+
+    document.getElementById('tb-pause-icon').innerHTML = running ? iconPause : iconPlay;
+    dotEl.style.background    = running ? '#22c55e' : '#a4a4a4';
+    activeEl.textContent      = running ? 'Active'  : 'Paused';
+    scrimEl.classList.toggle('visible', !running);
+  });
+
+  // ─────────────────────────────────────────────────────────────
+  // Video toggle
+  // ─────────────────────────────────────────────────────────────
+  var videoFeed      = document.getElementById('video-feed');
+  var videoToggleBtn = document.getElementById('video-toggle-btn');
+  var videoIconOn    = document.getElementById('video-icon-on');
+  var videoIconOff   = document.getElementById('video-icon-off');
+  var videoOn = true;
+
+  videoToggleBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    videoOn = !videoOn;
+    videoFeed.style.visibility  = videoOn ? 'visible' : 'hidden';
+    videoIconOn.style.display   = videoOn ? 'block'   : 'none';
+    videoIconOff.style.display  = videoOn ? 'none'    : 'block';
+  });
+
+  // ─────────────────────────────────────────────────────────────
+  // Video panel resize
+  // ─────────────────────────────────────────────────────────────
+  (function() {
+    var vPanel  = document.getElementById('video-panel');
+    var handle  = document.getElementById('video-resize-handle');
+    var ASPECT  = 268 / 136;
+    var MIN_W   = 268;
+    var resizing = false;
+    var startX = 0, startW = 0;
+
+    handle.addEventListener('mousedown', function(e) {
+      resizing = true;
+      startX = e.clientX;
+      startW = vPanel.offsetWidth;
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!resizing) return;
+      var delta = startX - e.clientX;
+      var newW  = Math.max(MIN_W, startW + delta);
+      var frame = document.querySelector('.conv-frame');
+      if (frame) {
+        var maxW = (window.innerWidth - 8) - (frame.getBoundingClientRect().right + 8);
+        newW = Math.min(newW, Math.max(MIN_W, maxW));
+      }
+      vPanel.style.width  = newW + 'px';
+      vPanel.style.height = Math.round(newW / ASPECT) + 'px';
+    });
+
+    document.addEventListener('mouseup', function() { resizing = false; });
+  })();
+
+  // ─────────────────────────────────────────────────────────────
+  // End Scenario Modal
+  // ─────────────────────────────────────────────────────────────
+  var endModal     = document.getElementById('end-modal');
+  var modalConfirm = document.getElementById('modal-confirm');
+  var modalCancel  = document.getElementById('modal-cancel');
+  var endBtn       = document.querySelector('.tb-end');
+
+  endBtn.addEventListener('click', function() { endModal.classList.add('open'); });
+  modalCancel.addEventListener('click', function() { endModal.classList.remove('open'); });
+  endModal.addEventListener('click', function(e) {
+    if (e.target === endModal) endModal.classList.remove('open');
+  });
+  modalConfirm.addEventListener('click', function() {
+    endModal.classList.remove('open');
+    var shell = document.querySelector('.layout-shell');
+    shell.style.transition = 'opacity 0.25s ease';
+    shell.style.opacity = '0';
+    setTimeout(function() {
+      window.location.href = 'loading-preview.html?to=report-v2-preview.html';
+    }, 280);
+  });
+
+  // ─────────────────────────────────────────────────────────────
+  // Notes panel
+  // ─────────────────────────────────────────────────────────────
+  var notesPanel = document.getElementById('notes-panel');
+  var notesClose = document.getElementById('notes-close');
+  var sidebarBtn = document.querySelector('.sidebar-toggle');
+
+  sidebarBtn.addEventListener('click', function() {
+    notesPanel.classList.add('open');
+    sidebarBtn.style.display = 'none';
+  });
+  notesClose.addEventListener('click', function() {
+    notesPanel.classList.remove('open');
+    sidebarBtn.style.display = 'flex';
+  });
+
+  (function() {
+    var dragging = false, startY = 0, startTop = 0;
+    function getComputedTop() { return notesPanel.getBoundingClientRect().top; }
+    notesPanel.addEventListener('mousedown', function(e) {
+      if (e.target.closest('.notes-close')) return;
+      dragging = true; startY = e.clientY;
+      var currentTop = getComputedTop();
+      notesPanel.style.top = currentTop + 'px';
+      notesPanel.style.transform = 'translateX(0)';
+      notesPanel.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+      startTop = currentTop;
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', function(e) {
+      if (!dragging) return;
+      var newTop = startTop + (e.clientY - startY);
+      var maxTop = window.innerHeight - notesPanel.offsetHeight - 8;
+      newTop = Math.max(8, Math.min(newTop, maxTop));
+      notesPanel.style.top = newTop + 'px';
+      notesPanel.style.transform = 'translateX(0)';
+    });
+    document.addEventListener('mouseup', function() { dragging = false; });
+  })();
+</script>
+</body>
+</html>
