@@ -21,7 +21,7 @@ const DS_PROCESS_BOXES = [
   { left: '67.3%',  top: '89.6%', width: '32.6%',  height: '10.4%' },
 ]
 
-const DSProcessSlide = () => {
+const _DSProcessSlide = () => {
   const ref = useRef<HTMLDivElement>(null)
   const [revealed, setRevealed] = useState(false)
 
@@ -75,7 +75,7 @@ const ObjectivesSlide = () => {
   }, [])
 
   const col6padding = 'calc(80px + (100vw - 240px) / 8)'
-  const col4padding = 'calc(96px + (100vw - 240px) / 4)'
+  const _col4padding = 'calc(96px + (100vw - 240px) / 4)'
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%', alignItems: 'flex-start' }}>
@@ -150,7 +150,7 @@ const BENTO_CELLS_3X3 = [
   { img: '/esr/styles.png'  }, { img: '/esr/buttons.png'   }, { img: '/esr/inputs.png' },
 ]
 
-const BentoGrid2x2 = ({ label, images, fit = 'cover', positions, fits, backgrounds }: { label?: string; images?: (string | null)[]; fit?: 'cover' | 'contain'; positions?: string[]; fits?: string[]; backgrounds?: (string | undefined)[] }) => {
+const BentoGrid2x2 = ({ label: _label, images, fit = 'cover', positions, fits, backgrounds }: { label?: string; images?: (string | null)[]; fit?: 'cover' | 'contain'; positions?: string[]; fits?: string[]; backgrounds?: (string | undefined)[] }) => {
   const [hovered, setHovered] = useState<number | null>(null)
 
   const hoveredCol = hovered !== null ? hovered % 2 : null
@@ -233,7 +233,7 @@ const LARGE_TEXT = "How do you design an experience that surfaces the right rest
 
 type CharDef = { char: string; color: string }
 
-const QUOTE_CHARS: CharDef[] = [
+const _QUOTE_CHARS: CharDef[] = [
     ...Array.from('Built in ').map(c => ({ char: c, color: '#d8d8d8' })),
     ...Array.from('Figma').map(c => ({ char: c, color: '#A259FF' })),
     { char: '.', color: '#d8d8d8' },
@@ -245,7 +245,7 @@ const QUOTE_CHARS: CharDef[] = [
     { char: '.', color: '#d8d8d8' },
 ]
 // indices of characters after which to pause (the two sentence-ending periods)
-const PAUSE_AFTER = new Set([14, 32])
+const _PAUSE_AFTER = new Set([14, 32])
 
 // Offsets from slide center — centroid is exactly (0,0)
 const DOT_OFFSETS = [
@@ -307,7 +307,7 @@ const ReviewCard = ({ data }: { data: CardData }) => (
     </div>
 )
 
-const FloatingDots = () => {
+const _FloatingDots = () => {
     const [hovered, setHovered] = useState<number | null>(null)
     const [visible, setVisible] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
@@ -390,7 +390,7 @@ const HOW_CARDS = [
     { label: 'Multi-platform translation', src: '/esr/future-scale.png' },
 ]
 
-const HowIWouldCards = () => {
+const _HowIWouldCards = () => {
     const [hovered, setHovered] = useState<number | null>(null)
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%' }}>
@@ -422,7 +422,7 @@ export interface RewardsAppHandle { getSlideEl: (index: number) => HTMLElement |
 
 const RewardsApp = forwardRef<RewardsAppHandle, { slideIndex: number; onNavigate?: (globalSlide: number) => void; slideStart?: number }>(({ slideIndex, onNavigate, slideStart = 0 }, ref) => {
     const [typedText, setTypedText] = useState("")
-    const [isTyping, setIsTyping] = useState(false)
+    const [_isTyping, setIsTyping] = useState(false)
     const pageRef = useRef<HTMLDivElement>(null)
     useImperativeHandle(ref, () => ({ getSlideEl: (i: number) => (pageRef.current?.children[i] as HTMLElement) ?? null }), [])
     const [diagramVisible, setDiagramVisible] = useState(false)

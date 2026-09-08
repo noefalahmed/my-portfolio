@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import { createPortal } from 'react-dom'
 import styles from './EitherOr.module.css'
-import GridOverlay from '../components/GridOverlay'
 import AnimatedHeroTitle from '../components/AnimatedHeroTitle'
 import RewardsApp, { REWARDS_SLIDE_COUNT, RewardsAppHandle } from './Projects/RewardsApp'
 import VoiceUX, { VOICEUX_SLIDE_COUNT, VoiceUXHandle } from './Projects/VoiceUX'

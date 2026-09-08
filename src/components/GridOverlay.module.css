@@ -1,0 +1,58 @@
+/* ── Overlay container ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ── 8px spatial grid ── */
+.spatialGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right,  rgba(99, 155, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99, 155, 255, 0.07) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+/* ── 8-column column grid ── */
+.columnGrid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 16px;
+  padding: 64px;
+  box-sizing: border-box;
+}
+
+.column {
+  background: rgba(99, 155, 255, 0.06);
+  border-left:  1px solid rgba(99, 155, 255, 0.18);
+  border-right: 1px solid rgba(99, 155, 255, 0.18);
+}
+
+/* ── Toggle button ── */
+.toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.toggle:hover {
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.35);
+}

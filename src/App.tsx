@@ -17,10 +17,14 @@ import SpeechCoach from './Views/Projects/SpeechCoach.tsx';
 import VoiceUX from './Views/Projects/VoiceUX.tsx';
 import RewardsApp from './Views/Projects/RewardsApp.tsx';
 import EitherOr from './Views/EitherOr.tsx';
-import RewardsExperiments from './Views/Projects/RewardsExperiments.tsx';
+import RewardsExperiments from './Views/Projects/RewardsExperiments.tsx'
+import UplandProject from './Views/Projects/UplandProject.tsx';
+import CimplLibrary from './Views/Projects/CimplLibrary.tsx';
+import CimplAccountsDashboardV2 from './Views/Projects/CimplAccountsDashboardV2.tsx';
+import CimplAccountsDashboardV3 from './Views/Projects/CimplAccountsDashboardV3.tsx';
+import CimplAccountsDashboardV4 from './Views/Projects/CimplAccountsDashboardV4.tsx';
 
-
-const HIDDEN_NAV_ROUTES = ['/slides', '/voiceux', '/rewardsapp', '/rewardsexperiments']
+const HIDDEN_NAV_ROUTES = ['/slides', '/voiceux', '/rewardsapp', '/rewardsexperiments', '/upland', '/upland-library', '/upland-v2', '/upland-v3', '/upland-v4']
 
 function AppContent() {
   const location = useLocation()
@@ -40,10 +44,15 @@ function AppContent() {
         <Route path="/Precisely" element={<Precisely />} />
         <Route path="/accessibility" element={<Accessibility />} />
         <Route path="/speech-coach" element={<SpeechCoach />} />
-        <Route path="/voiceux" element={<VoiceUX />} />
-        <Route path="/rewardsapp" element={<RewardsApp />} />
+        <Route path="/voiceux" element={<VoiceUX slideIndex={0} />} />
+        <Route path="/rewardsapp" element={<RewardsApp slideIndex={0} />} />
         <Route path="/slides" element={<EitherOr />} />
         <Route path="/rewardsexperiments" element={<RewardsExperiments />} />
+        <Route path="/upland" element={<UplandProject />} />
+        <Route path="/upland-library" element={<div style={{ position: 'fixed', inset: 0 }}><CimplLibrary /></div>} />
+        <Route path="/upland-v2" element={<div style={{ position: 'fixed', inset: 0 }}><CimplAccountsDashboardV2 /></div>} />
+        <Route path="/upland-v3" element={<div style={{ position: 'fixed', inset: 0 }}><CimplAccountsDashboardV3 /></div>} />
+        <Route path="/upland-v4" element={<div style={{ position: 'fixed', inset: 0 }}><CimplAccountsDashboardV4 /></div>} />
       </Routes>
     </div>
   )

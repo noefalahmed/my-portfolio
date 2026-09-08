@@ -2,7 +2,6 @@ import { useRef, useEffect, useLayoutEffect, useState, forwardRef, useImperative
 import { createPortal } from 'react-dom'
 import styles from './VoiceUX.module.css'
 import Header from '../../components/Header'
-import ConversationSnippet from '../../components/ConversationSnippet'
 import ConversationShowcase from '../../components/ConversationShowcase'
 import ArchitectureDiagram from '../../components/ArchitectureDiagram'
 import AsteriskDiagram from '../../components/AsteriskDiagram'
@@ -10,7 +9,7 @@ import AsteriskDiagram from '../../components/AsteriskDiagram'
 
 const PROBLEM_TEXT = "How do we design a realistic experience for students to practice and get better at giving and receiving feedback?"
 
-const IpadVideoPlayer: React.FC<{ src: string; isActive?: boolean; style?: React.CSSProperties }> = ({ src, isActive, style }) => {
+const _IpadVideoPlayer: React.FC<{ src: string; isActive?: boolean; style?: React.CSSProperties }> = ({ src, isActive, style }) => {
     const videoRef = useRef<HTMLVideoElement>(null)
 
     useEffect(() => {
@@ -103,7 +102,7 @@ const MobilePreview: React.FC<{ src: string; style?: React.CSSProperties }> = ({
     )
 }
 
-const MicroanimSlide: React.FC = () => {
+const _MicroanimSlide: React.FC = () => {
     const [view, setView] = useState<'v1'|'figma'|'prompt'|'v2'>('v1')
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const videoRef = useRef<HTMLVideoElement>(null)

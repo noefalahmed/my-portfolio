@@ -1,0 +1,38 @@
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.heroTitle {
+  color: #ffffff;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 68px;
+  font-weight: 200;
+  line-height: 1.1;
+  letter-spacing: -0.09em;
+  margin: 0;
+  text-transform: lowercase;
+  width: 100%;
+}
+
+.typingText {
+  display: inline-block;
+  min-width: 0ch;
+  width: auto;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  background-color: #fff;
+  vertical-align: -0.1em;
+  margin-left: 4px;
+  animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50%       { opacity: 0; }
+}
