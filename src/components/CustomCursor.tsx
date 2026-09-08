@@ -26,13 +26,15 @@ export default function CustomCursor() {
     let visible = false;
     cursor.style.opacity = '0';
 
+    function isOverNoCursor(e: MouseEvent) {
+      return !!(e.target as Element)?.closest('[data-nocursor]');
+    }
+
     function onMouseMove(e: MouseEvent) {
       cursor!.style.left = `${e.clientX}px`;
       cursor!.style.top = `${e.clientY}px`;
-      if (!visible) {
-        visible = true;
-        cursor!.style.opacity = '1';
-      }
+      cursor!.style.opacity = isOverNoCursor(e) ? '0' : '1';
+      if (!visible) { visible = true; }
     }
 
     function onTouchStart() {
@@ -41,6 +43,7 @@ export default function CustomCursor() {
     }
 
     function onOver(e: MouseEvent) {
+      if (!!(e.target as Element)?.closest('[data-nocursor]')) return;
       if (isOverText(e.target as Element)) {
         cursor!.classList.add(styles.text);
       } else {

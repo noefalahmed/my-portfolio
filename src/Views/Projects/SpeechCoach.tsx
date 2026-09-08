@@ -3,6 +3,7 @@ import styles from './Projects.module.css'
 import Header from '../../components/Header'
 import Accordion from '../../components/Accordion'
 import ConversationSnippet from '../../components/ConversationSnippet'
+import ConversationShowcase from '../../components/ConversationShowcase'
 import ArchitectureDiagram from '../../components/ArchitectureDiagram'
 import AsteriskDiagram from '../../components/AsteriskDiagram'
 import Footer from '../../components/Footer'
@@ -210,12 +211,7 @@ const SpeechCoach: React.FC = () => {
             {/* Slide 2: Images */}
             <div className={styles.projectSlideScroll}>
                 <div className={styles.conversationRow}>
-                    <img
-                        data-zoom
-                        src="./assets/sc-conversation-ui.png"
-                        alt="Speech coach conversation UI"
-                        className={styles.conversationSideImage}
-                    />
+                    <ConversationShowcase />
                     <div className={styles.conversationSnippetRow}>
                         <ConversationSnippet />
                         <img

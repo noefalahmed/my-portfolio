@@ -3,9 +3,9 @@ import styles from './ArchitectureDiagram.module.css';
 
 const SVG_W = 214;
 const SVG_H = 134;
-const GAP = 77;
+const GAP = 117;
 const LAYERS_COUNT = 5;
-const CONTAINER_H = (LAYERS_COUNT - 1) * GAP + SVG_H; // 442
+const CONTAINER_H = (LAYERS_COUNT - 1) * GAP + SVG_H; // 602
 
 interface LayerDef {
     src: string;

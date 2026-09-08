@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './AsteriskDiagram.module.css';
 
-const CONTAINER_H = 620;
-const ORBIT_R = 206;
+const CONTAINER_H = 602;
+const ORBIT_R = 200;
 
 const TITLE_H = 24;
 const TICK_HALF = 6;
@@ -13,7 +13,7 @@ const HY = IBEAM_H / 2;
 const VX = TICK_HALF + 0.5;
 const TITLE_OFFSET = HY - TITLE_H / 2;
 
-const LABEL_TOPS = [110, 288, 466];
+const LABEL_TOPS = [107, 280, 453];
 const CENTER_Y = CONTAINER_H / 2; // 310
 
 // Angle from label attachment point to orbit center (in degrees)

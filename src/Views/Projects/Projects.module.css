@@ -1,4 +1,54 @@
 
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes blinkFade {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.typedSuffix {
+  display: inline;
+  position: relative;
+}
+
+.typedSuffix::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  background-color: currentColor;
+  margin-left: 3px;
+  vertical-align: -0.1em;
+  animation: blink 1.2s step-end infinite;
+}
+
+.typedSuffixDone::after {
+  animation: blinkFade 1.2s step-end 2 forwards;
+}
+
+.splitSlide {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  align-items: center;
+  width: 100%;
+}
+
+.splitLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.splitRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .page {
     position: fixed;
     inset: 0;
